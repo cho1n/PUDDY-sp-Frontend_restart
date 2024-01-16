@@ -10,6 +10,7 @@ import map_click from "../../../assets/NavIcon/click/map_click.svg";
 import community_click from "../../../assets/NavIcon/click/community_click.svg";
 
 import useNavStore from "../../../store/useNavstore";
+import { NAV_MODE } from "../../../constants/footerNav";
 
 export const FooterNav = () => {
   const [navMode, selectMode] = useNavStore((state) => [
@@ -18,66 +19,70 @@ export const FooterNav = () => {
   ]);
 
   return (
-    <div className="h-auto min-h-full pb-10">
-      <ul className="flex justify-between items-center bg-white">
-        <li className="pr-3.75">
-          <a href="" onClick={() => selectMode("0")}>
-            {navMode == "0" ? (
-              <img src={home_click} className="w-10 h-10" alt="Home_click" />
+    <>
+      <ul className="flex justify-between items-center bg-white px-4">
+        <li className="pr-3.5">
+          <a href="" onClick={() => selectMode(NAV_MODE.HOME)}>
+            {navMode == NAV_MODE.HOME ? (
+              <img src={home_click} className="w-10 h-10" alt={NAV_MODE.HOME} />
             ) : (
-              <img src={home} className="w-10 h-10" alt="Home" />
+              <img src={home} className="w-10 h-10" alt={NAV_MODE.HOME} />
             )}
           </a>
         </li>
-        <li className="pr-3.75">
-          <a href="" onClick={() => selectMode("1")}>
-            {navMode == "1" ? (
+        <li className="pr-3.5">
+          <a href="" onClick={() => selectMode(NAV_MODE.MESSAGE)}>
+            {navMode == NAV_MODE.MESSAGE ? (
               <img
                 src={message_click}
                 className="w-10 h-10"
-                alt="message_click"
+                alt={NAV_MODE.MESSAGE}
               />
             ) : (
-              <img src={message} className="w-10 h-10" alt="message" />
+              <img src={message} className="w-10 h-10" alt={NAV_MODE.MESSAGE} />
             )}
           </a>
         </li>
-        <li className="pr-3.75">
-          <a href="" onClick={() => selectMode("2")}>
-            {navMode == "2" ? (
+        <li className="pr-3.5">
+          <a href="" onClick={() => selectMode(NAV_MODE.COMMUNITY)}>
+            {navMode == NAV_MODE.COMMUNITY ? (
               <img
                 src={community_click}
                 className="w-10 h-10"
-                alt="community_click"
+                alt={NAV_MODE.COMMUNITY}
               />
             ) : (
-              <img src={community} className="w-10 h-10" alt="community" />
+              <img
+                src={community}
+                className="w-10 h-10"
+                alt={NAV_MODE.COMMUNITY}
+              />
             )}
           </a>
         </li>
-        <li className="pr-3.75">
-          <a href="" onClick={() => selectMode("3")}>
-            {navMode == "3" ? (
-              <img src={map_click} className="w-10 h-10" alt="map_click" />
+        <li className="pr-3.5">
+          <a href="" onClick={() => selectMode(NAV_MODE.MAP)}>
+            {navMode == NAV_MODE.MAP ? (
+              <img src={map_click} className="w-10 h-10" alt={NAV_MODE.MAP} />
             ) : (
-              <img src={map} className="w-10 h-10" alt="map" />
+              <img src={map} className="w-10 h-10" alt={NAV_MODE.MAP} />
             )}
           </a>
         </li>
-        <li className="pr-3.75">
-          <a href="" onClick={() => selectMode("4")}>
-            {navMode == "4" ? (
+        <li>
+          <a href="" onClick={() => selectMode(NAV_MODE.MY_PAGE)}>
+            {navMode == NAV_MODE.MY_PAGE ? (
               <img
                 src={myPage_click}
                 className="w-10 h-10"
-                alt="myPage_click"
+                alt={NAV_MODE.MY_PAGE}
               />
             ) : (
-              <img src={myPage} className="w-10 h-10" alt="myPage_click" />
+              <img src={myPage} className="w-10 h-10" alt={NAV_MODE.MY_PAGE} />
             )}
           </a>
         </li>
       </ul>
-    </div>
+    </>
   );
 };
