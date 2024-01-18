@@ -29,7 +29,7 @@ export const SelectDogType = (props: SelectDogTypeProps) => {
   return React.createElement(
     "select",
     {
-      className: "rounded-lg pl-1 h-9 w-64",
+      className: "rounded-lg pl-1 h-9 w-64 bg-bgGray",
       name: "type",
       value: props.content,
       onChange: props.onChange,

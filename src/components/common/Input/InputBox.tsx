@@ -9,7 +9,8 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const InputBox = (props: InputProps) => {
-  const style = "rounded-lg pl-1.5 w-64 h-9 text-default " + props.style;
+  const style =
+    "rounded-lg pl-1.5 w-64 h-9 bg-bgGray text-default " + props.style;
   return React.createElement("input", {
     className: style,
     placeholder: props.placeholder,

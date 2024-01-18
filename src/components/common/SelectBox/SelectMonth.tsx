@@ -12,7 +12,7 @@ export const SelectMonth = (props: SelectMonthProps) => {
   return React.createElement(
     "select",
     {
-      className: "rounded-lg pl-1 h-9 basis-1/4 mr-2.5",
+      className: "rounded-lg pl-1 h-9 basis-1/4 mr-2.5 bg-bgGray",
       name: "month",
       value: props.month,
       onChange: props.onChange,
