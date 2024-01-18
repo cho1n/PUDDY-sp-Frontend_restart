@@ -9,25 +9,41 @@ export default {
         fontGray: "#6F6D6D",
         fontBlack: "#000000",
         fontWhite: "#FFFFFF",
+        fontYellow: "#FFDD2E",
       },
       backgroundColor: {
         bgYellow: "#FFDD2E",
         bgRed: "#FF3131",
         bgGray: "#E6E0E9",
         bgBlack: "#000000",
+        bgWhite: "#FFFFFF",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
       },
       fontSize: {
         bigTitle: "22px",
-        middleTitle: "28px",
+        middleTitle: "18px",
         defalut: "14px",
         buttonFont: "20px",
-        smallTitle: "14px",
+        smallFont: "12px",
       },
-      
+      height: {
+        full: "777px",
+        haveHeader: "713px",
+        haveHeaderAndFooter: "673px",
+      },
+      maxHeight: {
+        full: "777px",
+        haveHeader: "713px",
+        haveHeaderAndFooter: "673px",
+      },
+      minHeight: {
+        full: "777px",
+        haveHeader: "713px",
+        haveHeaderAndFooter: "673px",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
