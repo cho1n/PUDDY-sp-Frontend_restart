@@ -11,7 +11,7 @@ export const SelectYear = (props: SelectYearProps) => {
   return React.createElement(
     "select",
     {
-      className: "rounded-lg pl-1 h-9 basis-1/2 mr-2.5",
+      className: "rounded-lg pl-1 h-9 basis-1/2 mr-2.5 bg-bgGray",
       name: "year",
       value: props.year,
       onChange: props.onChange,

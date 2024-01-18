@@ -12,7 +12,7 @@ export const SelectDay = (props: SelectDayProps) => {
   return React.createElement(
     "select",
     {
-      className: "rounded-lg pl-1 h-9 basis-1/4",
+      className: "rounded-lg pl-1 h-9 basis-1/4 bg-bgGray",
       name: "day",
       value: props.day,
       onChange: props.onChange,
