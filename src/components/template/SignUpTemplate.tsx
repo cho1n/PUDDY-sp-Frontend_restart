@@ -1,13 +1,10 @@
 import { DateType } from "../../types/date";
 import { SignUpInputType } from "../../types/sign";
 import { Button } from "../common/Button/Button";
-import { InputBox } from "../common/Input/InputBox";
-import { GenderRadio } from "../common/Radio/GenderRadio";
-import { SelectDay } from "../common/SelectBox/SelectDay";
-import { SelectMonth } from "../common/SelectBox/SelectMonth";
-import { SelectYear } from "../common/SelectBox/SelectYear";
-import { SignUpCheckText } from "../common/Text/SignUpCheckText";
-import { SignUpMiddleTitle } from "../common/Text/SignUpMiddleTitle";
+import { InputBox } from "../common/Input";
+import { GenderRadio } from "../common/Radio";
+import { SelectDay, SelectMonth, SelectYear } from "../common/SelectBox";
+import { SignUpCheckText, SignUpMiddleTitle } from "../common/Text";
 
 interface SignUpProps {
   signUpValue: SignUpInputType;

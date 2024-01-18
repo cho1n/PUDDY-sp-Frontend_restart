@@ -1,5 +1,5 @@
-import { PostDogTemplate } from "../components/template/PostDogTemplate";
-import { usePostDogWithSignUp } from "../hooks/usePostDogWithSignUp";
+import { usePostDogWithSignUp } from "../hooks";
+import { PostDogTemplate } from "../components/template";
 
 export const PostDogPage = () => {
   const {

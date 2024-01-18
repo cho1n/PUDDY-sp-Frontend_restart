@@ -1,5 +1,5 @@
-import { useSignIn } from "../hooks/useSignIn";
-import { SignInTemplate } from "../components/template/SignInTemplate";
+import { useSignIn } from "../hooks";
+import { SignInTemplate } from "../components/template";
 
 export const SignInPage = () => {
   const { signInValue, handleSignInChange, handleSignIn, handleSignUp } =

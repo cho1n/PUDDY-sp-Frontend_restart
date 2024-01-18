@@ -1,2 +1,3 @@
-import { SignInPage } from "./SignInPage";
-import { SignUpPage } from "./SignUpPage";
+export { SignUpPage } from "./SignUpPage";
+export { SignInPage } from "./SignInPage";
+export { PostDogPage } from "./PostDogPage";

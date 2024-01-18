@@ -1,5 +1,5 @@
-import { Button } from "../common/Button/Button";
-import { InputBox } from "../common/Input/InputBox";
+import { Button } from "../common/Button";
+import { InputBox } from "../common/Input";
 import { SignInInputType } from "../../types/sign";
 interface SignInTemplateProps {
   signInValue: SignInInputType;

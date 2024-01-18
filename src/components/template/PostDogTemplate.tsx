@@ -1,16 +1,16 @@
 import { DateType } from "../../types/date";
 import { PostDogInputType } from "../../types/sign";
-import { Button } from "../common/Button/Button";
-import { InputBox } from "../common/Input/InputBox";
-import { GenderRadio } from "../common/Radio/GenderRadio";
-import { NeuterRadio } from "../common/Radio/NeuterRadio";
-import { SelectDay } from "../common/SelectBox/SelectDay";
-import { SelectDogType } from "../common/SelectBox/SelectDogType";
-import { SelectMonth } from "../common/SelectBox/SelectMonth";
-import { SelectYear } from "../common/SelectBox/SelectYear";
-import { SignUpMiddleTitle } from "../common/Text/SignUpMiddleTitle";
+import { Button, TagButtonList } from "../common/Button";
+import { InputBox } from "../common/Input";
+import { GenderRadio, NeuterRadio } from "../common/Radio";
+import {
+  SelectDay,
+  SelectDogType,
+  SelectMonth,
+  SelectYear,
+} from "../common/SelectBox";
+import { SignUpMiddleTitle } from "../common/Text";
 import inputImage from "../../assets/PostDog/inputImage.svg";
-import { TagButtonList } from "../common/Button/TagButtonList";
 
 interface PostDogProps {
   postDogValue: PostDogInputType;

@@ -1,5 +1,5 @@
-import { SignUpTemplate } from "../components/template/SignUpTemplate";
-import { useSignUp } from "../hooks/useSignUp";
+import { SignUpTemplate } from "../components/template";
+import { useSignUp } from "../hooks";
 
 export const SignUpPage = () => {
   const {
