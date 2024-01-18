@@ -11,6 +11,7 @@ import community_click from "../../../assets/NavIcon/click/community_click.svg";
 
 import useNavStore from "../../../store/useNavstore";
 import { NAV_MODE } from "../../../constants/footerNav";
+import { PATH_NAME } from "../../../constants/routes.ts";
 
 export const FooterNav = () => {
   const [navMode, selectMode] = useNavStore((state) => [
@@ -22,7 +23,7 @@ export const FooterNav = () => {
     <>
       <ul className="flex justify-between items-center bg-white px-4">
         <li className="pr-3.5">
-          <a href="" onClick={() => selectMode(NAV_MODE.HOME)}>
+          <a href={PATH_NAME.HOME} onClick={() => selectMode(NAV_MODE.HOME)}>
             {navMode == NAV_MODE.HOME ? (
               <img src={home_click} className="w-10 h-10" alt={NAV_MODE.HOME} />
             ) : (
