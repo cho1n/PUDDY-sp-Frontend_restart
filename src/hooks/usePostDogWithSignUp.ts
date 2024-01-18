@@ -2,7 +2,6 @@ import { useState } from "react";
 import { PostDogInputType } from "../types/sign";
 import { CheckRegisterNum, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
-import { useNavigate } from "react-router-dom";
 import AWS from "aws-sdk";
 window.AWS = AWS;
 export const usePostDogWithSignUp = () => {
@@ -18,7 +17,6 @@ export const usePostDogWithSignUp = () => {
     secretAccessKey: config.secretAccessKey,
   });
   const s3 = new AWS.S3();
-  const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [postDogValue, setPostDogValue] = useState<PostDogInputType>({
     image: "",
