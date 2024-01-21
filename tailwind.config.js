@@ -27,6 +27,7 @@ export default {
         defalut: "14px",
         buttonFont: "20px",
         smallFont: "12px",
+        middleFont: "16px",
       },
       width: {
         359: "359px",
@@ -35,6 +36,7 @@ export default {
         full: "777px",
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
+        110: "110px",
         340: "340px",
       },
       maxHeight: {

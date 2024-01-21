@@ -20,3 +20,11 @@ export const postmatch = (personId: number) => {
     }
   );
 };
+export const getMatch = () => {
+  return apiClient.get(`/api/match`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
