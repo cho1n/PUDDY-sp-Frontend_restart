@@ -2,23 +2,10 @@ import { useState } from "react";
 import { PostDogInputType } from "../types/sign";
 import { CheckRegisterNum, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
-import AWS from "aws-sdk";
 import { useNavigate } from "react-router-dom";
-window.AWS = AWS;
+import { upLoadS3 } from "./useS3";
 export const usePostDogWithSignUp = () => {
   const navigate = useNavigate();
-  const config = {
-    bucketName: import.meta.env.VITE_BUCKET_NAME,
-    region: import.meta.env.VITE_REGION,
-    accessKeyId: import.meta.env.VITE_ACCESS,
-    secretAccessKey: import.meta.env.VITE_SECRET,
-  };
-  AWS.config.update({
-    region: config.region,
-    accessKeyId: config.accessKeyId,
-    secretAccessKey: config.secretAccessKey,
-  });
-  const s3 = new AWS.S3();
   const [file, setFile] = useState<File | null>(null);
   const [postDogValue, setPostDogValue] = useState<PostDogInputType>({
     image: "",
@@ -75,24 +62,6 @@ export const usePostDogWithSignUp = () => {
       reader.readAsDataURL(file);
     }
   };
-  const upLoadS3 = async () => {
-    const uploadPromise = () => {
-      const params = {
-        Bucket: config.bucketName,
-        Key: postDogValue.name + "_" + postDogValue.registerNum,
-        Body: file,
-      };
-      return s3.upload(params).promise();
-    };
-    try {
-      const result = await Promise.resolve(uploadPromise());
-      return result.Location;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  };
-
   const handleDateSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDateValue({
       ...dateValue,
@@ -123,7 +92,11 @@ export const usePostDogWithSignUp = () => {
     }
     const id = localStorage.getItem("id");
     if (id) {
-      postDogValue.image = await upLoadS3();
+      postDogValue.image = await upLoadS3(
+        postDogValue.name,
+        postDogValue.registerNum,
+        file
+      );
       let month = `${dateValue.month}`;
       let day = `${dateValue.day}`;
       if (dateValue.month < 10) {
@@ -158,7 +131,11 @@ export const usePostDogWithSignUp = () => {
     }
     const id = localStorage.getItem("id");
     if (id) {
-      postDogValue.image = await upLoadS3();
+      postDogValue.image = await upLoadS3(
+        postDogValue.name,
+        postDogValue.registerNum,
+        file
+      );
       let month = `${dateValue.month}`;
       let day = `${dateValue.day}`;
       if (dateValue.month < 10) {
