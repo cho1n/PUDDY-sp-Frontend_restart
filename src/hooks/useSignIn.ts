@@ -25,7 +25,7 @@ export const useSignIn = () => {
         localStorage.setItem("refreshToken", refreshToken);
         axios.defaults.headers.common["Authorization"] = accessToken;
         axios.defaults.headers.common["Reauthorization"] = refreshToken;
-        navigate("/");
+        navigate("/match");
       })
       .catch((err) => {
         if (err.response.status === 404) {

@@ -1,6 +1,6 @@
 import { Layout } from "../components/common/layout/Layout";
-import { MatchTemplate } from "../components/template/MatchTemplate";
-import { useMatch } from "../hooks/useMatch";
+import { MatchTemplate } from "../components/template";
+import { useMatch } from "../hooks";
 
 export const MatchPage = () => {
   const { matchListValue, handleMatchCancle, handlepostMatch } = useMatch();

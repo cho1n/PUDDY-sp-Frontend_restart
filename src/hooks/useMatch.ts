@@ -24,7 +24,7 @@ export const useMatch = () => {
       .catch((err) => {
         if (err.response.status === 403) {
           alert("로그인이 필요합니다.");
-          navigate("/signin");
+          navigate("/");
         }
       });
   }, [pageNum]);
