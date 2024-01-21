@@ -4,7 +4,7 @@ export type MatchListType = {
 };
 
 export type MatchType = {
-  personId: number;
+  id: number;
   login: string;
   gender: boolean;
   age: number;

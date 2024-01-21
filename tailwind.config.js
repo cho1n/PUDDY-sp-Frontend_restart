@@ -28,6 +28,9 @@ export default {
         buttonFont: "20px",
         smallFont: "12px",
       },
+      width: {
+        359: "359px",
+      },
       height: {
         full: "777px",
         haveHeader: "713px",

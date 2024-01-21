@@ -3,7 +3,11 @@ import { TagList } from "../list/tag/TagList";
 import { male, female, address, cancle, heart } from "../../../assets/Match";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-export const ShowMatch = (props: MatchType) => {
+interface ShowMatchProps extends MatchType {
+  handleMatchCancle: () => void;
+  handlepostMatch: (personId: number) => void;
+}
+export const ShowMatch = (props: ShowMatchProps) => {
   return (
     <div
       className="grid content-end w-full h-haveHeaderAndFooter rounded-lg"
@@ -42,8 +46,16 @@ export const ShowMatch = (props: MatchType) => {
           <p className="text-fontWhite text-middleTitle">{props.mainAddress}</p>
         </div>
         <div className="flex flex-row justify-center w-full mt-7">
-          <img className="w-10 h-10 mr-5" src={cancle} />
-          <img className="w-10 h-10" src={heart} />
+          <img
+            className="w-10 h-10 mr-5"
+            src={cancle}
+            onClick={props.handleMatchCancle}
+          />
+          <img
+            className="w-10 h-10"
+            src={heart}
+            onClick={() => props.handlepostMatch(props.id)}
+          />
         </div>
       </div>
     </div>
