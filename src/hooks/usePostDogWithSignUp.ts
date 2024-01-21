@@ -3,8 +3,10 @@ import { PostDogInputType } from "../types/sign";
 import { CheckRegisterNum, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
 import AWS from "aws-sdk";
+import { useNavigate } from "react-router-dom";
 window.AWS = AWS;
 export const usePostDogWithSignUp = () => {
+  const navigate = useNavigate();
   const config = {
     bucketName: import.meta.env.VITE_BUCKET_NAME,
     region: import.meta.env.VITE_REGION,
@@ -170,6 +172,7 @@ export const usePostDogWithSignUp = () => {
       PostDogWithSignUp(id, postDogValue)
         .then((res) => {
           alert("강아지 등록이 완료되었습니다.");
+          navigate("/signin");
           console.log(res);
         })
         .catch((err) => {

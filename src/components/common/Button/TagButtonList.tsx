@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { TagButton } from "./TagButton";
 import { GetDogTags } from "../../../apis/DogApi";
+import { DogTag } from "../../../types/sign";
 
 interface TagButtonListProps {
   onChange: (content: string) => void;
 }
-interface TagProps {
-  content: string;
-}
 interface Tags {
-  dogTags: TagProps[];
+  dogTags: DogTag[];
 }
 export const TagButtonList = (props: TagButtonListProps) => {
   const [tagList, setTagList] = useState<string[]>([]);
@@ -25,7 +23,7 @@ export const TagButtonList = (props: TagButtonListProps) => {
       });
   }, []);
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="w-full grid grid-cols-4 gap-4">
       {tagList.map((tag) => (
         <TagButton key={tag} content={tag} onChange={props.onChange} />
       ))}

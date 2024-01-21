@@ -21,7 +21,7 @@ export const FooterNav = () => {
 
   return (
     <>
-      <ul className="flex justify-between items-center bg-white px-4">
+      <ul className="flex justify-between items-center bg-white px-4 h-20">
         <li className="pr-3.5">
           <a href={PATH_NAME.HOME} onClick={() => selectMode(NAV_MODE.HOME)}>
             {navMode == NAV_MODE.HOME ? (
