@@ -1,8 +1,6 @@
 import { MatchType } from "../../../types/match";
 import { TagList } from "../list/tag/TagList";
 import { male, female, address, cancle, heart } from "../../../assets/Match";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 interface ShowMatchProps extends MatchType {
   handleMatchCancle: () => void;
   handlepostMatch: (personId: number) => void;
