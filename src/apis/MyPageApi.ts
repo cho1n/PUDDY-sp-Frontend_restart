@@ -27,3 +27,12 @@ export const getUserInfo = () => {
     },
   });
 };
+
+export const patchMainDog = (dogId: number) => {
+  return apiClient.patch(`/api/dog/${dogId}/change-main`, null, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};

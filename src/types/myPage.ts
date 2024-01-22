@@ -4,6 +4,7 @@ export type MyPageType = {
 };
 
 export type Dogs = {
+  id: number;
   image: string;
   name: string;
   age: number;

@@ -76,7 +76,7 @@ export const MyPageTemplate = () => {
                   <Button
                     style={"w-22 h-8 bg-bgYellow text-fontBlack text-defalut"}
                     text={"대표 강아지 변경"}
-                    onClick={() => {}}
+                    onClick={() => myPageData.updateMainDog(dog.id)}
                   />
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyPage } from "../apis/MyPageApi";
+import { getMyPage, patchMainDog } from "../apis/MyPageApi";
 import { MyPageType } from "../types/myPage";
 import { useNavigate } from "react-router-dom";
 
@@ -31,6 +31,17 @@ export const useMyPage = () => {
     navigate(props);
   };
 
+  const updateMainDog = (id: number) => {
+    patchMainDog(id)
+      .then((res) => {
+        alert("메인 강아지가 변경되었습니다.");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     if (!accessToken) {
       alert("로그인이 필요합니다.");
@@ -40,5 +51,5 @@ export const useMyPage = () => {
     }
   }, []);
 
-  return { myPageValue, logout, buttonNavigate };
+  return { myPageValue, logout, buttonNavigate, updateMainDog };
 };
