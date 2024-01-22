@@ -23,7 +23,7 @@ export const TagButtonList = (props: TagButtonListProps) => {
       });
   }, []);
   return (
-    <div className="w-full grid grid-cols-4 gap-4">
+    <div className="w-full flex flex-wrap">
       {tagList.map((tag) => (
         <TagButton key={tag} content={tag} onChange={props.onChange} />
       ))}
