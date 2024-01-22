@@ -33,19 +33,19 @@ export default {
         359: "359px",
       },
       height: {
-        full: "777px",
+        donHave: "777px",
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
         110: "110px",
         340: "340px",
       },
       maxHeight: {
-        full: "777px",
+        donHave: "777px",
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
       },
       minHeight: {
-        full: "777px",
+        donHave: "777px",
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
       },
