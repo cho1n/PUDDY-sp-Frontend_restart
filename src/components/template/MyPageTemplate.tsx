@@ -72,6 +72,15 @@ export const MyPageTemplate = () => {
                     {dog.age}세, {dog.type}
                   </p>
                 </div>
+                <div className="w-32 h-22 flex flex-col items-end justify-end">
+                  <Button
+                    style={
+                      "w-full h-8 bg-bgMyPageButton text-fontBlack text-defalut mb-2"
+                    }
+                    text={"프로필 수정"}
+                    onClick={() => myPageData.buttonNavigate("/mypage/profile")}
+                  />
+                </div>
               </div>
             ))}
         {myPageData.myPageValue &&
