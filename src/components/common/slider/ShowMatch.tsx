@@ -1,9 +1,10 @@
 import { MatchType } from "../../../types/match";
 import { TagList } from "../list/tag/TagList";
-import { male, female, address, cancle, heart } from "../../../assets/Match";
+import { male, female, address, cancel, heart } from "../../../assets/Match";
 interface ShowMatchProps extends MatchType {
-  handleMatchCancle: () => void;
-  handlepostMatch: (personId: number) => void;
+  handleMatchCancel: (index: number) => void;
+  handlepostMatch: (index: number, personId: number) => void;
+  index: number;
 }
 export const ShowMatch = (props: ShowMatchProps) => {
   return (
@@ -46,13 +47,17 @@ export const ShowMatch = (props: ShowMatchProps) => {
         <div className="flex flex-row justify-center w-full mt-7">
           <img
             className="w-10 h-10 mr-5"
-            src={cancle}
-            onClick={props.handleMatchCancle}
+            src={cancel}
+            onClick={() => {
+              props.handleMatchCancel(props.index);
+            }}
           />
           <img
             className="w-10 h-10"
             src={heart}
-            onClick={() => props.handlepostMatch(props.id)}
+            onClick={() => {
+              props.handlepostMatch(props.index, props.id);
+            }}
           />
         </div>
       </div>

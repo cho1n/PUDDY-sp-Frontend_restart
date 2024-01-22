@@ -33,12 +33,3 @@ export const upLoadS3 = async (
     throw err;
   }
 };
-
-export const getImage = async (key: string) => {
-  const params = {
-    Bucket: config.bucketName,
-    Key: key,
-  };
-  const url = await s3.getSignedUrlPromise("getObject", params);
-  return url;
-};

@@ -1,7 +1,7 @@
 import { apiClient } from "./ApiClient";
 
-export const getRandomMatch = (pageNum: number) => {
-  return apiClient.get(`/api/random?pageNum=${pageNum}`, {
+export const getRandomMatch = () => {
+  return apiClient.get(`/api/random`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("accessToken"),
