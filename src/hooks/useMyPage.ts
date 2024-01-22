@@ -21,6 +21,12 @@ export const useMyPage = () => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    alert("로그아웃 되었습니다.");
+    navigate("/signin");
+  };
+
   useEffect(() => {
     if (!accessToken) {
       alert("로그인이 필요합니다.");
@@ -30,5 +36,5 @@ export const useMyPage = () => {
     }
   }, []);
 
-  return { myPageValue };
+  return { myPageValue, logout };
 };

@@ -55,7 +55,7 @@ export const MyPageTemplate = () => {
           <p className="text-fontGray text-defalut"> 프로필 수정 </p>
         </div>
       </div>
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto scrollbar-hide">
         {myPageData.myPageValue &&
           myPageData.myPageValue.dogs &&
           myPageData.myPageValue.dogs
@@ -93,6 +93,15 @@ export const MyPageTemplate = () => {
           <p className="ml-6 text-fontGray font-bold text-middleTitle">
             새 가족 추가하기
           </p>
+        </div>
+        <div className="flex justify-end mt-2">
+          <Button
+            style={
+              " w-full h-12 bg-bgBlack text-fontWhite text-fontBlack text-buttonFont font-bold"
+            }
+            text={"로그아웃"}
+            onClick={myPageData.logout}
+          ></Button>
         </div>
       </div>
     </div>
