@@ -10,7 +10,7 @@ interface SignInTemplateProps {
 
 export const SignInTemplate = (props: SignInTemplateProps) => {
   return (
-    <div className="flex flex-col items-center w-f h-full bg-bgYellow">
+    <div className="flex flex-col items-center w-f h-donHave bg-bgYellow">
       <p className="mt-64 text-fontBlack text-4xl h-32">LOGO</p>
       <InputBox
         style={"bg-bgWhite text-fontBlack text-font14 mt-36"}
