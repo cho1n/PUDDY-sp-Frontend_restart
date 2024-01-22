@@ -38,7 +38,7 @@ export const MyPageTemplate = () => {
           <div className="w-12 h-12 rounded-full bg-bgMyPageButton2 opacity-60 flex items-center justify-center mb-2">
             <img className="w-8 h-8" src={mainIcon} alt="mainIcon" />
           </div>
-          <p className="text-fontGray text-defalut"> 반려동물 수정 </p>
+          <p className="text-fontGray text-defalut">새 가족 추가하기</p>
         </div>
         <div className="flex flex-col items-center w-18 h-22 cursor-pointer">
           <div
@@ -50,11 +50,11 @@ export const MyPageTemplate = () => {
           <p className="text-fontGray text-defalut"> 프로필 수정 </p>
         </div>
       </div>
-      <div className="w-full overflow-auto scrollbar-hide">
+      <div className="w-full h-80 overflow-auto scrollbar-hide">
         {myPageData.myPageValue &&
           myPageData.myPageValue.dogs &&
           myPageData.myPageValue.dogs
-            .filter((dogs) => !dogs.main)
+            .filter((dog) => dog.main)
             .map((dog) => (
               <div className="flex flex-row items-center w-full h-22 border-b-2 border-solid py-4">
                 <div className="flex items-center justify-center w-20 h-20 rounded-full">
@@ -72,7 +72,37 @@ export const MyPageTemplate = () => {
                     {dog.age}세, {dog.type}
                   </p>
                 </div>
-                <div className="h-22 mt-10 flex items-end justify-end">
+              </div>
+            ))}
+        {myPageData.myPageValue &&
+          myPageData.myPageValue.dogs &&
+          myPageData.myPageValue.dogs
+            .filter((dog) => !dog.main)
+            .map((dog) => (
+              <div className="flex flex-row items-center w-full h-22 border-b-2 border-solid py-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-full">
+                  <img
+                    className="w-20 h-20 rounded-full"
+                    src={dog.image}
+                    alt="dog"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col items-start justify-start">
+                  <p className="ml-6 text-fontBlack font-bold text-middleTitle">
+                    {dog.name}
+                  </p>
+                  <p className="ml-6 mt-2 text-fontBlack text-defalut">
+                    {dog.age}세, {dog.type}
+                  </p>
+                </div>
+                <div className="h-22 flex flex-col items-end justify-end">
+                  <Button
+                    style={
+                      "w-full h-8 bg-bgMyPageButton text-fontBlack text-defalut mb-2"
+                    }
+                    text={"프로필 수정"}
+                    onClick={() => myPageData.buttonNavigate("/mypage/profile")}
+                  />
                   <Button
                     style={"w-22 h-8 bg-bgYellow text-fontBlack text-defalut"}
                     text={"대표 강아지 변경"}
@@ -81,23 +111,15 @@ export const MyPageTemplate = () => {
                 </div>
               </div>
             ))}
-        <div className="flex flex-row items-center justify-start w-full h-22 border-b-2 border-solid py-4">
-          <div className="flex items-center justify-center w-20 h-20 bg-bgGray rounded-full">
-            <img className="w-8 h-8" src={plusIcon} alt="plusIcon" />
-          </div>
-          <p className="ml-6 text-fontGray font-bold text-middleTitle">
-            새 가족 추가하기
-          </p>
-        </div>
-        <div className="flex justify-end mt-2">
-          <Button
-            style={
-              " w-full h-12 bg-bgBlack text-fontWhite text-fontBlack text-buttonFont font-bold"
-            }
-            text={"로그아웃"}
-            onClick={myPageData.logout}
-          ></Button>
-        </div>
+      </div>
+      <div className="flex w-full justify-end mt-4">
+        <Button
+          style={
+            " w-full h-12 bg-bgBlack text-fontWhite text-fontBlack text-buttonFont font-bold"
+          }
+          text={"로그아웃"}
+          onClick={myPageData.logout}
+        ></Button>
       </div>
     </div>
   );
