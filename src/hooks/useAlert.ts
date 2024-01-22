@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { AlertListType } from "../types/alert";
 import { getMatch } from "../apis/MatchApi";
-import { getImage } from "./useS3";
 import { useNavigate } from "react-router-dom";
 
 export const useAlert = () => {
@@ -14,11 +13,6 @@ export const useAlert = () => {
       .then((res) => {
         console.log(res.data);
         setAlertValue(res.data);
-        alertValue.matches.map((match) => {
-          getImage(match.dog.image).then((res) => {
-            match.dog.image = res;
-          });
-        });
       })
       .catch((err) => {
         if (err.response.status === 403) {

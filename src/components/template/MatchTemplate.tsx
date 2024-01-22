@@ -2,7 +2,7 @@ import { MatchListType } from "../../types/match";
 import { MatchSlider } from "../common/slider/MatchSlider";
 interface MatchTemplateProps {
   matchListValue: MatchListType;
-  handleMatchCancle: () => void;
+  handleMatchCancel: () => void;
   handlepostMatch: (personId: number) => void;
 }
 export const MatchTemplate = (props: MatchTemplateProps) => {
@@ -10,7 +10,7 @@ export const MatchTemplate = (props: MatchTemplateProps) => {
     <div className="w-full h-haveHeaderAndFooter px-4">
       <MatchSlider
         pets={props.matchListValue.pets}
-        handleMatchCancle={props.handleMatchCancle}
+        handleMatchCancel={props.handleMatchCancel}
         handlepostMatch={props.handlepostMatch}
       />
     </div>
