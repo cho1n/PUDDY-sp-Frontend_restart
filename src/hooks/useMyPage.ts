@@ -5,26 +5,30 @@ import { useNavigate } from "react-router-dom";
 
 export const useMyPage = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
   const [myPageValue, setMyPageValue] = useState<MyPageType>({
-    gender: true,
     dogs: [],
+    gender: true,
   });
 
+  const getMyPageInfo = async () => {
+    try {
+      const res = await getMyPage();
+      const datas = res.data;
+      setMyPageValue(datas);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    let accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       alert("로그인이 필요합니다.");
       navigate("/signin");
     } else {
-      getMyPage()
-        .then((res) => {
-          setMyPageValue(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getMyPageInfo();
     }
   }, []);
 
-  return { myPageValue, setMyPageValue };
+  return { myPageValue };
 };
