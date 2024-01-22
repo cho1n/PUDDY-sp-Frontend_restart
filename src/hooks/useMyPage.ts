@@ -27,6 +27,10 @@ export const useMyPage = () => {
     navigate("/signin");
   };
 
+  const buttonNavigate = (props: string) => {
+    navigate(props);
+  };
+
   useEffect(() => {
     if (!accessToken) {
       alert("로그인이 필요합니다.");
@@ -36,5 +40,5 @@ export const useMyPage = () => {
     }
   }, []);
 
-  return { myPageValue, logout };
+  return { myPageValue, logout, buttonNavigate };
 };

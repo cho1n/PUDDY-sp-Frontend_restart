@@ -5,6 +5,7 @@ import {
   PostDogPage,
   MatchPage,
   MyPage,
+  UserProfileUpdatePage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -15,6 +16,7 @@ export const AppRouter = () => {
         <Route path="/postdog" element={<PostDogPage />} />
         <Route path="/" element={<MatchPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/profile" element={<UserProfileUpdatePage />} />
       </Routes>
     </BrowserRouter>
   );
