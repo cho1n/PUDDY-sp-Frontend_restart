@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PostDogInputType } from "../types/sign";
-import { CheckRegisterNum, PostDogWithSignUp } from "../apis/DogApi";
+import { CheckRegisterNum, PostDog, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
 import { useNavigate } from "react-router-dom";
 import { upLoadS3 } from "./useS3";
@@ -84,8 +84,7 @@ export const usePostDogWithSignUp = () => {
       postDogValue.image === "" ||
       postDogValue.name === "" ||
       postDogValue.tags.length === 0 ||
-      postDogValue.type === "" ||
-      postDogValue.tags.length === 0
+      postDogValue.type === ""
     ) {
       alert("모든 정보를 입력해주세요.");
       return;
@@ -117,6 +116,41 @@ export const usePostDogWithSignUp = () => {
         });
     }
   };
+  const handlePostDogWithOutSignUp = async () => {
+    if (
+      isCorrectRegisterNum !== 1 ||
+      postDogValue.image === "" ||
+      postDogValue.name === "" ||
+      postDogValue.tags.length === 0 ||
+      postDogValue.type === ""
+    ) {
+      alert("모든 정보를 입력해주세요.");
+      return;
+    }
+    postDogValue.image = await upLoadS3(
+      postDogValue.name,
+      postDogValue.registerNum,
+      file
+    );
+    let month = `${dateValue.month}`;
+    let day = `${dateValue.day}`;
+    if (dateValue.month < 10) {
+      month = `0${dateValue.month}`;
+    }
+    if (dateValue.day < 10) {
+      day = `0${dateValue.day}`;
+    }
+    postDogValue.birth = `${dateValue.year}-${month}-${day}`;
+    PostDog(postDogValue)
+      .then((res) => {
+        alert("강아지 등록이 완료되었습니다.");
+        navigate("/mypage");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handlePostDogFinish = async () => {
     if (
       isCorrectRegisterNum !== 1 ||
@@ -145,12 +179,15 @@ export const usePostDogWithSignUp = () => {
         day = `0${dateValue.day}`;
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
-      console.log(postDogValue);
       PostDogWithSignUp(id, postDogValue)
         .then((res) => {
           alert("강아지 등록이 완료되었습니다.");
+          if (window.location.pathname === "/postdog") {
+            navigate("/");
+          } else {
+            navigate("/mypage");
+          }
           localStorage.removeItem("id");
-          navigate("/");
           console.log(res);
         })
         .catch((err) => {
@@ -187,5 +224,6 @@ export const usePostDogWithSignUp = () => {
     handleCheckRegisterNum,
     handlePostDog,
     handlePostDogFinish,
+    handlePostDogWithOutSignUp,
   };
 };

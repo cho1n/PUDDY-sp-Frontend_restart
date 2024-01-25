@@ -71,7 +71,7 @@ export const FooterNav = () => {
           </a>
         </li>
         <li>
-          <a href="" onClick={() => selectMode(NAV_MODE.MY_PAGE)}>
+          <a href="/mypage" onClick={() => selectMode(NAV_MODE.MY_PAGE)}>
             {navMode == NAV_MODE.MY_PAGE ? (
               <img
                 src={myPage_click}

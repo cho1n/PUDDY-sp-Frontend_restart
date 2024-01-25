@@ -1,5 +1,9 @@
 export { SignUpPage } from "./SignUpPage";
 export { SignInPage } from "./SignInPage";
-export { PostDogPage } from "./PostDogPage";
+export { PostDogPageWithSignUp } from "./PostDogPageWithSignUp";
 export { MatchPage } from "./MatchPage";
+export { MyPage } from "./MyPage";
+export { UserProfileUpdatePage } from "./UserProfileUpdatePage";
+export { DogProfileUpdatePage } from "./DogProfileUpdatePage";
+export {PostDogPage} from "./PostDogPage";
 export { AlertPage } from "./AlertPage";

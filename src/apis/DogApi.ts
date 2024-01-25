@@ -19,6 +19,14 @@ export const PostDogWithSignUp = (
     }
   );
 };
+export const PostDog = (postDogInputType: PostDogInputType) => {
+  return apiClient.post(`/api/dog`, JSON.stringify(postDogInputType), {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
 export const CheckRegisterNum = (registerNum: string) => {
   return apiClient.get(`/api/dog/check?registerNum=${registerNum}`);
 };
