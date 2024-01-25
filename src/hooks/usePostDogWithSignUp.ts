@@ -84,8 +84,7 @@ export const usePostDogWithSignUp = () => {
       postDogValue.image === "" ||
       postDogValue.name === "" ||
       postDogValue.tags.length === 0 ||
-      postDogValue.type === "" ||
-      postDogValue.tags.length === 0
+      postDogValue.type === ""
     ) {
       alert("모든 정보를 입력해주세요.");
       return;
@@ -145,7 +144,6 @@ export const usePostDogWithSignUp = () => {
         day = `0${dateValue.day}`;
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
-      console.log(postDogValue);
       PostDogWithSignUp(id, postDogValue)
         .then((res) => {
           alert("강아지 등록이 완료되었습니다.");

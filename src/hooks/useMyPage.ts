@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { getMyPage, patchMainDog } from "../apis/MyPageApi";
 import { MyPageType } from "../types/myPage";
 import { useNavigate } from "react-router-dom";
+import useDogIdStore from "../store/useDogIdStore";
 
 export const useMyPage = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  const { setDogId } = useDogIdStore();
   const [myPageValue, setMyPageValue] = useState<MyPageType>({
     dogs: [],
     gender: true,
@@ -31,6 +33,11 @@ export const useMyPage = () => {
     navigate(props);
   };
 
+  const buttonDogNavigate = (props: string, dogId: number) => {
+    navigate(props);
+    setDogId(dogId);
+  };
+
   const updateMainDog = (id: number) => {
     patchMainDog(id)
       .then((res) => {
@@ -51,5 +58,11 @@ export const useMyPage = () => {
     }
   }, []);
 
-  return { myPageValue, logout, buttonNavigate, updateMainDog };
+  return {
+    myPageValue,
+    logout,
+    buttonNavigate,
+    updateMainDog,
+    buttonDogNavigate,
+  };
 };

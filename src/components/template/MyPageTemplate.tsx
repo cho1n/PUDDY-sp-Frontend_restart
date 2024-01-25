@@ -2,7 +2,6 @@ import { useMyPage } from "../../hooks/useMyPage";
 import mainIcon from "../../assets/MyPage/Veterinarian.svg";
 import pencilIcon from "../../assets/MyPage/pencil.svg";
 import settingIcon from "../../assets/MyPage/Vector.svg";
-import plusIcon from "../../assets/MyPage/Plus.svg";
 import { Button } from "../common/Button/Button";
 
 export const MyPageTemplate = () => {
@@ -78,7 +77,9 @@ export const MyPageTemplate = () => {
                       "w-full h-8 bg-bgMyPageButton text-fontBlack text-defalut mb-2"
                     }
                     text={"프로필 수정"}
-                    onClick={() => myPageData.buttonNavigate("/mypage/profile")}
+                    onClick={() =>
+                      myPageData.buttonDogNavigate("/mypage/profile", dog.id)
+                    }
                   />
                 </div>
               </div>
@@ -110,7 +111,9 @@ export const MyPageTemplate = () => {
                       "w-full h-8 bg-bgMyPageButton text-fontBlack text-defalut mb-2"
                     }
                     text={"프로필 수정"}
-                    onClick={() => myPageData.buttonNavigate("/mypage/profile")}
+                    onClick={() =>
+                      myPageData.buttonDogNavigate("/mypage/profile", dog.id)
+                    }
                   />
                   <Button
                     style={"w-22 h-8 bg-bgYellow text-fontBlack text-defalut"}

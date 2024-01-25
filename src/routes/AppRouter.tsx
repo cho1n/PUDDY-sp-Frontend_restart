@@ -6,6 +6,7 @@ import {
   MatchPage,
   MyPage,
   UserProfileUpdatePage,
+  DogProfileUpdatePage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -17,6 +18,10 @@ export const AppRouter = () => {
         <Route path="/" element={<MatchPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/profile" element={<UserProfileUpdatePage />} />
+        <Route
+          path="/mypage/dogprofile:dogid"
+          element={<DogProfileUpdatePage />}
+        />
       </Routes>
     </BrowserRouter>
   );
