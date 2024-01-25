@@ -18,7 +18,10 @@ export const AppRouter = () => {
         <Route path="/" element={<MatchPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/profile" element={<UserProfileUpdatePage />} />
-        <Route path="/mypage/dogprofile" element={<DogProfileUpdatePage />} />
+        <Route
+          path="/mypage/dogprofile/:dogId"
+          element={<DogProfileUpdatePage />}
+        />
       </Routes>
     </BrowserRouter>
   );

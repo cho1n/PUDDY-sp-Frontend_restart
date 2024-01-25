@@ -78,7 +78,9 @@ export const MyPageTemplate = () => {
                     }
                     text={"프로필 수정"}
                     onClick={() =>
-                      myPageData.buttonDogNavigate(`/mypage/dogprofile`, dog.id)
+                      myPageData.buttonDogNavigate(
+                        `/mypage/dogprofile/${dog.id}`
+                      )
                     }
                   />
                 </div>
@@ -112,7 +114,9 @@ export const MyPageTemplate = () => {
                     }
                     text={"프로필 수정"}
                     onClick={() =>
-                      myPageData.buttonDogNavigate(`/mypage/dogprofile`, dog.id)
+                      myPageData.buttonDogNavigate(
+                        `/mypage/dogprofile/${dog.id}`
+                      )
                     }
                   />
                   <Button

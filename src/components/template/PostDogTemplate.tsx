@@ -133,7 +133,7 @@ export const PostDogTemplate = (props: PostDogProps) => {
         onChange={props.onRadioCheck}
       />
       <SignUpMiddleTitle text={"반려동물을 소개해주세요."} />
-      <TagButtonList onChange={props.onChangeTag} />
+      <TagButtonList onChange={props.onChangeTag} tags={props.postDogValue.tags} />
       <Button
         style="bg-bgBlack text-fontWhite text-buttonFont mt-12 h-12 w-full"
         text={"다른 반려동물 추가"}

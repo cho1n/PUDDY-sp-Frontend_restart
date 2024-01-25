@@ -33,9 +33,8 @@ export const useMyPage = () => {
     navigate(props);
   };
 
-  const buttonDogNavigate = (props: string, dogId: number) => {
+  const buttonDogNavigate = (props: string) => {
     navigate(props);
-    setDogId(dogId);
   };
 
   const updateMainDog = (id: number) => {

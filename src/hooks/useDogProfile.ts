@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UpdateDogProfileInputType } from "../types/update";
 import { patchDog, getDogInfo, deleteDog } from "../apis/MyPageApi";
 import { useNavigate } from "react-router-dom";
-import useDogIdStore from "../store/useDogIdStore";
 import { deleteS3, upLoadS3 } from "./useS3";
 
 export const useDogProfile = () => {
-  const { dogId } = useDogIdStore();
+  const { dogId } = useParams();
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [updateDogValue, setUpdateDogValue] =
@@ -97,7 +97,7 @@ export const useDogProfile = () => {
       deleteS3("엉큰남", `1111111111`);
       updateDogValue.image = await upLoadS3("엉큰남", "1111111111", file);
     }
-    patchDog(dogId, updateDogValue)
+    patchDog(Number(dogId), updateDogValue)
       .then((res) => {
         alert("강아지 정보가 변경되었습니다.");
         navigate("/mypage");
@@ -108,10 +108,9 @@ export const useDogProfile = () => {
   };
 
   const getUpdateDogInfo = () => {
-    getDogInfo(dogId)
+    getDogInfo(Number(dogId))
       .then((res) => {
         const datas = res.data;
-        console.log(datas);
         setUpdateDogValue(datas);
       })
       .catch((err) => {
