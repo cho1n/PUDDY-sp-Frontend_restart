@@ -183,10 +183,11 @@ export const usePostDogWithSignUp = () => {
         .then((res) => {
           alert("강아지 등록이 완료되었습니다.");
           if (window.location.pathname === "/postdog") {
-            navigate("/signin");
+            navigate("/");
           } else {
             navigate("/mypage");
           }
+          localStorage.removeItem("id");
           console.log(res);
         })
         .catch((err) => {

@@ -1,4 +1,4 @@
 export const PATH_NAME = {
-  HOME: "/",
+  HOME: "/match",
   MY_PAGE: "/mypage",
 } as const;

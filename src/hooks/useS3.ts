@@ -45,12 +45,3 @@ export const deleteS3 = async (name: string, registerNum: string) => {
     throw err;
   }
 };
-
-export const getImage = async (key: string) => {
-  const params = {
-    Bucket: config.bucketName,
-    Key: key,
-  };
-  const url = await s3.getSignedUrlPromise("getObject", params);
-  return url;
-};

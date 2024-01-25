@@ -6,3 +6,4 @@ export { MyPage } from "./MyPage";
 export { UserProfileUpdatePage } from "./UserProfileUpdatePage";
 export { DogProfileUpdatePage } from "./DogProfileUpdatePage";
 export {PostDogPage} from "./PostDogPage";
+export { AlertPage } from "./AlertPage";

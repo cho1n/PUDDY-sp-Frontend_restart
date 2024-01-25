@@ -1,39 +1,45 @@
 import { useEffect, useState } from "react";
-import { MatchListType } from "../../../types/match";
+import { MatchListType, MatchType } from "../../../types/match";
 import { ShowMatch } from "./ShowMatch";
 import TinderCard from "react-tinder-card";
 
 interface MatchSliderProps extends MatchListType {
-  handleMatchCancle: () => void;
+  handleMatchCancel: () => void;
   handlepostMatch: (personId: number) => void;
 }
 
 export const MatchSlider = (props: MatchSliderProps) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [visiblePets, setVisiblePets] = useState<MatchType[]>([]);
   useEffect(() => {
-    console.log(currentIndex, props.pets.length);
-    if (currentIndex !== 0 && currentIndex === props.pets.length) {
-      setTimeout(() => window.location.reload(), 1000);
-    }
-  }, [currentIndex]);
-
+    setVisiblePets(props.pets);
+  }, [props.pets]);
+  const handleMatchCancel = (index: number) => {
+    props.handleMatchCancel();
+    const updatedPets = [...visiblePets];
+    updatedPets.splice(index, 1);
+    setVisiblePets(updatedPets);
+  };
+  const handlepostMatch = (index: number, id: number) => {
+    props.handlepostMatch(id);
+    const updatedPets = [...visiblePets];
+    updatedPets.splice(index, 1);
+    setVisiblePets(updatedPets);
+  };
   return (
     <>
-      {props.pets.length === 0 ? (
+      {visiblePets.length === 0 ? (
         <div className="flex justify-center items-center w-full h-haveHeaderAndFooter text-bigTitle bg-bgYellow font-bold text-fontblack">
           내역이 없습니다.
         </div>
       ) : (
-        props.pets?.map((match, index) => (
+        visiblePets?.map((match, index) => (
           <TinderCard
             preventSwipe={["up", "down"]}
             onSwipe={(direction) => {
               if (direction === "right") {
-                props.handlepostMatch(props.pets[index].id);
-                setCurrentIndex(currentIndex + 1);
+                handlepostMatch(index, match.id);
               } else if (direction === "left") {
-                props.handleMatchCancle();
-                setCurrentIndex(currentIndex + 1);
+                handleMatchCancel(index);
               }
             }}
             key={index}
@@ -41,8 +47,9 @@ export const MatchSlider = (props: MatchSliderProps) => {
           >
             <ShowMatch
               {...match}
-              handleMatchCancle={props.handleMatchCancle}
-              handlepostMatch={props.handlepostMatch}
+              index={index}
+              handleMatchCancel={handleMatchCancel}
+              handlepostMatch={handlepostMatch}
             />
           </TinderCard>
         ))

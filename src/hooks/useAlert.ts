@@ -1,18 +1,19 @@
-import { useCallback, useEffect, useState } from "react";
-import { MatchListType } from "../types/match";
-import { getRandomMatch, postmatch } from "../apis/MatchApi";
+import { useEffect, useState } from "react";
+import { AlertListType } from "../types/alert";
+import { getMatch } from "../apis/MatchApi";
 import { useNavigate } from "react-router-dom";
 import { ReissueToken } from "../apis/SignApi";
 
-export const useMatch = () => {
+export const useAlert = () => {
   const navigate = useNavigate();
-  const [matchListValue, setMatchListValue] = useState<MatchListType>({
-    pets: [],
+  const [alertValue, setAlertValue] = useState<AlertListType>({
+    matches: [],
   });
   useEffect(() => {
-    getRandomMatch()
+    getMatch()
       .then((res) => {
-        setMatchListValue(res.data);
+        console.log(res.data);
+        setAlertValue(res.data);
       })
       .catch((err) => {
         if (err.response.status === 403) {
@@ -22,7 +23,7 @@ export const useMatch = () => {
               const refreshToken = res.headers["reauthorization"] as string;
               localStorage.setItem("accessToken", accessToken);
               localStorage.setItem("refreshToken", refreshToken);
-              navigate("/match");
+              navigate("/alert");
             })
             .catch((err) => {
               if (err.response.status === 400) {
@@ -33,24 +34,9 @@ export const useMatch = () => {
         }
       });
   }, []);
-  const handleMatchCancel = () => {
-    alert("ok");
-  };
-  const handlepostMatch = useCallback((personId: number) => {
+  const goToProfile = (personId: number) => {
     console.log(personId);
-    postmatch(personId)
-      .then((res) => {
-        alert("매칭신청을 전송하였습니다.");
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  return {
-    matchListValue,
-    handleMatchCancel,
-    handlepostMatch,
   };
+
+  return { alertValue, goToProfile };
 };
