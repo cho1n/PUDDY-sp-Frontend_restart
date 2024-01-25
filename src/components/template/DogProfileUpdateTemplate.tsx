@@ -22,13 +22,12 @@ export const DogProfileUpdateTemplate = (props: DogProfileUpdateProps) => {
       <SignUpMiddleTitle text={"프로필 이미지"} />
       <div className="flex justify-center w-f mb-2">
         {props.UpdateDogValue.image === "" ? (
-          <div className="bg-cover w-36 h-45" style={{}}>
+          <div className="bg-cover w-36 h-45">
             <input
               type="file"
               name="image"
               accept="image/png, image/jpg, image/jpeg"
               onChange={props.onChangeImage}
-              className="opacity-0 w-36 h-36"
             ></input>
           </div>
         ) : (
@@ -39,9 +38,9 @@ export const DogProfileUpdateTemplate = (props: DogProfileUpdateProps) => {
               backgroundPosition: "center",
             }}
           >
-            <div className="w-full mt-56 flex items-center justify-end ml-5">
+            <div className="w-full mt-56 flex items-center justify-end ml-5 ">
               <div
-                className="w-10 h-10 rounded-full text-fontBlack text-default "
+                className="w-10 h-10 rounded-full text-fontBlack text-default cursor-pointer"
                 style={{
                   backgroundImage: `url(${dogPencil})`,
                   backgroundRepeat: "no-repeat",
@@ -53,7 +52,7 @@ export const DogProfileUpdateTemplate = (props: DogProfileUpdateProps) => {
                   name="image"
                   accept="image/png, image/jpg, image/jpeg"
                   onChange={props.onChangeImage}
-                  className="opacity-0 w-10 h-10"
+                  className="opacity-0 w-10 h-10 cursor-pointer"
                 />
               </div>
             </div>

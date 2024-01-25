@@ -13,7 +13,6 @@ export const TagButton = (props: TagButtonProps) => {
   useEffect(() => {
     if (props.check) {
       setClicked(props.check);
-      console.log(props.check);
     }
   }, [props.check]);
   return (

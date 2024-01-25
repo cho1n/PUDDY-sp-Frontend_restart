@@ -11,6 +11,8 @@ export const useDogProfile = () => {
   const [file, setFile] = useState<File | null>(null);
   const [updateDogValue, setUpdateDogValue] =
     useState<UpdateDogProfileInputType>({
+      name: "",
+      registerNum: "",
       image: "",
       type: "",
       gender: true,
@@ -94,8 +96,15 @@ export const useDogProfile = () => {
 
   const updateDog = async () => {
     if (file) {
-      deleteS3("엉큰남", `1111111111`);
-      updateDogValue.image = await upLoadS3("엉큰남", "1111111111", file);
+      await deleteS3(updateDogValue.name, updateDogValue.registerNum);
+      updateDogValue.image =
+        (await upLoadS3(
+          updateDogValue.name,
+          updateDogValue.registerNum,
+          file
+        )) +
+        "?t=" +
+        Date.now();
     }
     patchDog(Number(dogId), updateDogValue)
       .then((res) => {
@@ -107,11 +116,11 @@ export const useDogProfile = () => {
       });
   };
 
-  const getUpdateDogInfo = () => {
-    getDogInfo(Number(dogId))
+  const getUpdateDogInfo = async () => {
+    await getDogInfo(Number(dogId))
       .then((res) => {
-        const datas = res.data;
-        setUpdateDogValue(datas);
+        console.log(res.data);
+        setUpdateDogValue(res.data);
       })
       .catch((err) => {
         console.log(err);

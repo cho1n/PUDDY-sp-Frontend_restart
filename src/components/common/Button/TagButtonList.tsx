@@ -18,8 +18,6 @@ export const TagButtonList = (props: TagButtonListProps) => {
       .then((res) => {
         const tags: Tags = res.data;
         const tagContents = tags.dogTags.map((tag) => tag.content);
-        console.log(props.tags);
-        console.log(tags.dogTags);
         if (props.tags.length !== 0) {
           setCheck(
             tags.dogTags.map((tag) =>

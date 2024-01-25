@@ -10,6 +10,8 @@ export type UpdateProfileInputType = {
 };
 
 export type UpdateDogProfileInputType = {
+  name: string;
+  registerNum: string;
   image: string;
   type: string;
   gender: boolean;

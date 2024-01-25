@@ -144,7 +144,7 @@ export const usePostDogWithSignUp = () => {
     PostDog(postDogValue)
       .then((res) => {
         alert("강아지 등록이 완료되었습니다.");
-        window.location.reload();
+        navigate("/mypage");
         console.log(res);
       })
       .catch((err) => {

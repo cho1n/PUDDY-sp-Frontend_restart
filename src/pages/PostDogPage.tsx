@@ -14,7 +14,6 @@ export const PostDogPage = () => {
     handleDateSelect,
     handlePostDogSelect,
     handleCheckRegisterNum,
-    handlePostDogFinish,
     handlePostDogWithOutSignUp,
   } = usePostDogWithSignUp();
 
@@ -32,7 +31,7 @@ export const PostDogPage = () => {
         onSelectDate={handleDateSelect}
         onCheckRegisterNum={handleCheckRegisterNum}
         onClickNext={handlePostDogWithOutSignUp}
-        onClick={handlePostDogFinish}
+        onClick={handlePostDogWithOutSignUp}
       />
     </Layout>
   );
