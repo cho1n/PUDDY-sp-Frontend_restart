@@ -48,6 +48,10 @@ export const useMyPage = () => {
       });
   };
 
+  const goToPostDog = () => {
+    navigate("/mypage/postdog");
+  };
+
   useEffect(() => {
     if (!accessToken) {
       alert("로그인이 필요합니다.");
@@ -63,5 +67,6 @@ export const useMyPage = () => {
     buttonNavigate,
     updateMainDog,
     buttonDogNavigate,
+    goToPostDog,
   };
 };

@@ -33,7 +33,10 @@ export const MyPageTemplate = () => {
           </div>
           <p className="text-fontGray text-defalut"> 설정</p>
         </div>
-        <div className="flex flex-col items-center w-18 h-22 cursor-pointer">
+        <div
+          className="flex flex-col items-center w-18 h-22 cursor-pointer"
+          onClick={myPageData.goToPostDog}
+        >
           <div className="w-12 h-12 rounded-full bg-bgMyPageButton2 opacity-60 flex items-center justify-center mb-2">
             <img className="w-8 h-8" src={mainIcon} alt="mainIcon" />
           </div>

@@ -134,11 +134,11 @@ export const PostDogTemplate = (props: PostDogProps) => {
       />
       <SignUpMiddleTitle text={"반려동물을 소개해주세요."} />
       <TagButtonList onChange={props.onChangeTag} tags={props.postDogValue.tags} />
-      <Button
+      {window.location.pathname === "/postdog" && (<Button
         style="bg-bgBlack text-fontWhite text-buttonFont mt-12 h-12 w-full"
         text={"다른 반려동물 추가"}
         onClick={props.onClickNext}
-      />
+      />)}
       <Button
         style="bg-bgYellow text-fontBlack text-buttonFont mt-2.5 mb-8 h-12 w-full"
         text={"완료"}
