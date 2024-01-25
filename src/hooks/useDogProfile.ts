@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { UpdateDogProfileInputType } from "../types/update";
-import { patchDog, getDogInfo } from "../apis/MyPageApi";
+import { patchDog, getDogInfo, deleteDog } from "../apis/MyPageApi";
 import { useNavigate } from "react-router-dom";
 import useDogIdStore from "../store/useDogIdStore";
+import { deleteS3, upLoadS3 } from "./useS3";
 
 export const useDogProfile = () => {
   const { dogId } = useDogIdStore();
@@ -66,6 +67,19 @@ export const useDogProfile = () => {
     });
   };
 
+  const handleDeleteDog = async () => {
+    if (window.confirm("정말로 강아지를 삭제하시겠습니까?")) {
+      deleteDog(dogId)
+        .then((res) => {
+          alert("강아지가 삭제되었습니다.");
+          navigate("/mypage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   const handleUpdateDog = async () => {
     if (
       updateDogValue.image === "" ||
@@ -78,7 +92,11 @@ export const useDogProfile = () => {
     updateDog();
   };
 
-  const updateDog = () => {
+  const updateDog = async () => {
+    if (file) {
+      deleteS3("엉큰남", `1111111111`);
+      updateDogValue.image = await upLoadS3("엉큰남", "1111111111", file);
+    }
     patchDog(dogId, updateDogValue)
       .then((res) => {
         alert("강아지 정보가 변경되었습니다.");
@@ -93,6 +111,7 @@ export const useDogProfile = () => {
     getDogInfo(dogId)
       .then((res) => {
         const datas = res.data;
+        console.log(datas);
         setUpdateDogValue(datas);
       })
       .catch((err) => {
@@ -102,7 +121,7 @@ export const useDogProfile = () => {
 
   useEffect(() => {
     getUpdateDogInfo();
-  });
+  }, []);
 
   return {
     updateDogValue,
@@ -111,5 +130,6 @@ export const useDogProfile = () => {
     handlePostDogImage,
     handlePostDogTag,
     handleUpdateDog,
+    handleDeleteDog,
   };
 };

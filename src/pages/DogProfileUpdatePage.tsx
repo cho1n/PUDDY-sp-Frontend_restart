@@ -10,15 +10,18 @@ export const DogProfileUpdatePage = () => {
     handlePostDogImage,
     handlePostDogTag,
     handleUpdateDog,
+    handleDeleteDog,
   } = useDogProfile();
   return (
     <Layout title={"프로필 수정"} showHeader={true} showFooter={false}>
       <DogProfileUpdateTemplate
         UpdateDogValue={updateDogValue}
+        onChangeImage={handlePostDogImage}
         onSelect={handleDogValueSelect}
-        onRadioCheck={handleRadioCheck}
-        onPostDogImage={handlePostDogImage}
-        onPostDogTag={handlePostDogTag}
+        onGenderCheck={handleRadioCheck}
+        onNeuterCheck={handleRadioCheck}
+        onChangeTag={handlePostDogTag}
+        onDelete={handleDeleteDog}
         onClick={handleUpdateDog}
       />
     </Layout>

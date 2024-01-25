@@ -57,3 +57,12 @@ export const patchDog = (dogId: number, dog: UpdateDogProfileInputType) => {
     },
   });
 };
+
+export const deleteDog = (dogId: number) => {
+  return apiClient.delete(`/api/dog/${dogId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
