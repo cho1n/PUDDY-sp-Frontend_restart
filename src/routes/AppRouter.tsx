@@ -9,6 +9,7 @@ import {
   UserProfileUpdatePage,
   DogProfileUpdatePage,
   AlertPage,
+  ChatListPage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -26,6 +27,7 @@ export const AppRouter = () => {
           element={<DogProfileUpdatePage />}
         />
         <Route path="/mypage/postdog" element={<PostDogPage />} />
+        <Route path="/chatlist" element={<ChatListPage />} />
       </Routes>
     </BrowserRouter>
   );
