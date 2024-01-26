@@ -5,9 +5,9 @@ interface ChatTemplateProps {
   chatValue: ChatListType;
   goToProfile: (personId: number) => void;
 }
-export const AlertTemplate = (props: ChatTemplateProps) => {
+export const ChatListTemplate = (props: ChatTemplateProps) => {
   return (
-    <div className=" flex-col px-4 w-full max-h-haveHeader overflow-auto scrollbar-hide">
+    <div className=" flex-col px-4 w-full h-haveHeaderAndFooter max-h-haveHeaderAndFooter overflow-auto scrollbar-hide">
       <ChatList {...props.chatValue} goToProfile={props.goToProfile} />
     </div>
   );
