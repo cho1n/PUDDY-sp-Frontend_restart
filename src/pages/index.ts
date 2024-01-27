@@ -8,3 +8,4 @@ export { DogProfileUpdatePage } from "./DogProfileUpdatePage";
 export { PostDogPage } from "./PostDogPage";
 export { AlertPage } from "./AlertPage";
 export { ChatListPage } from "./ChatListPage";
+export { WhoLikeDetailPage } from "./WhoLikeDetailPage";

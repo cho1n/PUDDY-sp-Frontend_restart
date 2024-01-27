@@ -3,3 +3,4 @@ export { useSignUp } from "./useSignUp";
 export { useSignIn } from "./useSignIn";
 export { useMatch } from "./useMatch";
 export { useAlert } from "./useAlert";
+export { usePersonDetail } from "./usePersonDetail";

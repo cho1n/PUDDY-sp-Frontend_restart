@@ -3,9 +3,11 @@ import { AlertListType } from "../types/alert";
 import { getMatch } from "../apis/MatchApi";
 import { useNavigate } from "react-router-dom";
 import { ReissueToken } from "../apis/SignApi";
+import usePersonIdStore from "../store/usePersonIdStore";
 
 export const useAlert = () => {
   const navigate = useNavigate();
+  const { setPersonId } = usePersonIdStore();
   const [alertValue, setAlertValue] = useState<AlertListType>({
     matches: [],
   });
@@ -35,6 +37,8 @@ export const useAlert = () => {
       });
   }, []);
   const goToProfile = (personId: number) => {
+    setPersonId(personId);
+    navigate("/wholike");
     console.log(personId);
   };
 
