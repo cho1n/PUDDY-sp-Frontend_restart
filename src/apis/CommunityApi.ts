@@ -23,8 +23,11 @@ export const postLikePost = (postId: number) => {
   );
 };
 
-export const getPostList = () => {
+export const getPostList = (pageNum: number) => {
   return apiClient.get("api/post", {
+    params: {
+      pageNum: pageNum,
+    },
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("accessToken"),

@@ -2,7 +2,7 @@ import { AlertDogType } from "./alert";
 
 export type PostInputType = {
   title: string;
-  contetn: string;
+  content: string;
 };
 
 export type PostListType = {

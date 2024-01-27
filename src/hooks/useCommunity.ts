@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { PostInputType, PostListType } from "../types/community";
+import { PostListType } from "../types/community";
 import { getPostList } from "../apis/CommunityApi";
 import { ReissueToken } from "../apis/SignApi";
 
 export const useCommunity = () => {
   const navigate = useNavigate();
-  const [postList, setPostList] = useState<PostListType>();
+  const [postList, setPostList] = useState<PostListType>({
+    count: 0,
+    posts: [],
+  });
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
-    getPostList()
+    getPostList(page)
       .then((res) => {
         setPostList(res.data);
       })
@@ -31,5 +35,29 @@ export const useCommunity = () => {
             });
         }
       });
-  }, []);
+  }, [page]);
+
+  const handlePostClick = (postId: number) => {
+    navigate(`/post/${postId}`);
+  };
+
+  const handleWritePostClick = () => {
+    navigate("/post");
+  };
+
+  const handlePageChange = (direction: "prev" | "next") => {
+    if (direction === "prev" && page > 1) {
+      setPage(page - 1);
+    } else if (direction === "next") {
+      setPage(page + 1);
+    }
+  };
+
+  return {
+    postList,
+    currentPage: page,
+    handlePostClick,
+    handleWritePostClick,
+    handlePageChange,
+  };
 };
