@@ -2,7 +2,7 @@ import { usePostDogWithSignUp } from "../hooks";
 import { PostDogTemplate } from "../components/template";
 import { Layout } from "../components/common/layout/Layout";
 
-export const PostDogPage = () => {
+export const PostDogPageWithSignUp = () => {
   const {
     postDogValue,
     dateValue,
@@ -14,11 +14,11 @@ export const PostDogPage = () => {
     handleDateSelect,
     handlePostDogSelect,
     handleCheckRegisterNum,
-    handlePostDogWithOutSignUp,
+    handlePostDog,
+    handlePostDogFinish,
   } = usePostDogWithSignUp();
-
   return (
-    <Layout title={"새 가족 추가하기"} showHeader={true} showFooter={false}>
+    <Layout title={"회원가입"} showHeader={true} showFooter={false}>
       <PostDogTemplate
         postDogValue={postDogValue}
         dateValue={dateValue}
@@ -30,8 +30,8 @@ export const PostDogPage = () => {
         onSelect={handlePostDogSelect}
         onSelectDate={handleDateSelect}
         onCheckRegisterNum={handleCheckRegisterNum}
-        onClickNext={handlePostDogWithOutSignUp}
-        onClick={handlePostDogWithOutSignUp}
+        onClickNext={handlePostDog}
+        onClick={handlePostDogFinish}
       />
     </Layout>
   );

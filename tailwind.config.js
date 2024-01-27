@@ -6,7 +6,7 @@ export default {
       colors: {
         fontGreen: "#0F940D",
         fontRed: "#FF0000",
-        fontGray: "#6F6D6D",
+        fontGray: "#CECECE",
         fontBlack: "#000000",
         fontWhite: "#FFFFFF",
         fontYellow: "#FFDD2E",
@@ -17,6 +17,8 @@ export default {
         bgGray: "#E6E0E9",
         bgBlack: "#000000",
         bgWhite: "#FFFFFF",
+        bgMyPageButton: "#CECECE",
+        bgMyPageButton2: "#FFDD2E",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],

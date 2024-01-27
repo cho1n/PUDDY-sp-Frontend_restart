@@ -33,3 +33,15 @@ export const upLoadS3 = async (
     throw err;
   }
 };
+export const deleteS3 = async (name: string, registerNum: string) => {
+  const params = {
+    Bucket: config.bucketName,
+    Key: name + "_" + registerNum,
+  };
+  try {
+    await s3.deleteObject(params).promise();
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

@@ -20,7 +20,6 @@ export const SelectDogType = (props: SelectDogTypeProps) => {
         const dogTypes: DogTypes = res.data;
         const types = dogTypes.dogTypes.map((dogType) => dogType.content);
         setDogTypeList(types);
-        console.log(dogTypeList);
       })
       .catch((err) => {
         console.log(err);

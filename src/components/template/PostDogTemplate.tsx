@@ -45,7 +45,7 @@ export const PostDogTemplate = (props: PostDogProps) => {
               name="image"
               accept="image/png, image/jpg, image/jpeg"
               onChange={props.onChangeImage}
-              className="opacity-0 w-36 h-36"
+              className="opacity-0 w-36 h-36 cursor-pointer"
             ></input>
           </div>
         ) : (
@@ -58,7 +58,7 @@ export const PostDogTemplate = (props: PostDogProps) => {
               name="image"
               accept="image/png, image/jpg, image/jpeg"
               onChange={props.onChangeImage}
-              className="opacity-0 w-36 h-36"
+              className="opacity-0 w-36 h-36 cursor-pointer"
             ></input>
           </div>
         )}
@@ -133,12 +133,17 @@ export const PostDogTemplate = (props: PostDogProps) => {
         onChange={props.onRadioCheck}
       />
       <SignUpMiddleTitle text={"반려동물을 소개해주세요."} />
-      <TagButtonList onChange={props.onChangeTag} />
-      <Button
-        style="bg-bgBlack text-fontWhite text-buttonFont mt-12 h-12 w-full"
-        text={"다른 반려동물 추가"}
-        onClick={props.onClickNext}
+      <TagButtonList
+        onChange={props.onChangeTag}
+        tags={props.postDogValue.tags}
       />
+      {window.location.pathname === "/postdog" && (
+        <Button
+          style="bg-bgBlack text-fontWhite text-buttonFont mt-12 h-12 w-full"
+          text={"다른 반려동물 추가"}
+          onClick={props.onClickNext}
+        />
+      )}
       <Button
         style="bg-bgYellow text-fontBlack text-buttonFont mt-2.5 mb-8 h-12 w-full"
         text={"완료"}
