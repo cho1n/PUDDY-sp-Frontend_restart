@@ -10,6 +10,7 @@ import {
   DogProfileUpdatePage,
   AlertPage,
   CommunityPage,
+  PostPage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ export const AppRouter = () => {
         />
         <Route path="/mypage/postdog" element={<PostDogPage />} />
         <Route path="/post" element={<CommunityPage />} />
+        <Route path="/post/:postId" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );
