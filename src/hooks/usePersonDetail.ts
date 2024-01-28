@@ -1,21 +1,42 @@
 import { useCallback, useEffect, useState } from "react";
-import { MatchListType } from "../types/match";
-import { getRandomMatch, postmatch } from "../apis/MatchApi";
-import { useNavigate } from "react-router-dom";
+import { getPersonDetail, postmatch } from "../apis/MatchApi";
+import { MatchType } from "../types/match";
 import { ReissueToken } from "../apis/SignApi";
+import { useNavigate } from "react-router-dom";
+import usePersonIdStore from "../store/usePersonIdStore";
 
-
-export const useMatch = () => {
-  const navigate = useNavigate();
-  const [matchListValue, setMatchListValue] = useState<MatchListType>({
-    pets: [],
+export const usePersonDetail = () => {
+  const [personDetailValue, setPersonDetailValue] = useState<MatchType>({
+    id: 0,
+    login: "",
+    gender: true,
+    age: 0,
+    mainAddress: "",
+    dog: {
+      name: "",
+      gender: true,
+      image: "",
+      type: "",
+      age: 0,
+      tags: [],
+    },
   });
+  const { PersonId } = usePersonIdStore();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getRandomMatch()
+    handleGetPersonDetail(PersonId);
+    console.log(PersonId);
+  }, []);
+
+  const handleGetPersonDetail = (Id: number) => {
+    getPersonDetail(Id)
       .then((res) => {
-        setMatchListValue(res.data);
+        console.log(res.data);
+        setPersonDetailValue(res.data);
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 403) {
           ReissueToken()
             .then((res) => {
@@ -23,7 +44,7 @@ export const useMatch = () => {
               const refreshToken = res.headers["reauthorization"] as string;
               localStorage.setItem("accessToken", accessToken);
               localStorage.setItem("refreshToken", refreshToken);
-              navigate("/match");
+              navigate("/alert");
             })
             .catch((err) => {
               if (err.response.status === 400) {
@@ -33,13 +54,13 @@ export const useMatch = () => {
             });
         }
       });
-  }, []);
+  };
+
   const handleMatchCancel = () => {
     alert("ok");
   };
-  const handlepostMatch = useCallback((personId: number) => {
-    console.log(personId);
-    postmatch(personId)
+  const handlepostMatch = useCallback((Id: number) => {
+    postmatch(Id)
       .then((res) => {
         alert("매칭신청을 전송하였습니다.");
         console.log(res);
@@ -49,9 +70,5 @@ export const useMatch = () => {
       });
   }, []);
 
-  return {
-    matchListValue,
-    handleMatchCancel,
-    handlepostMatch,
-  };
+  return { personDetailValue, handleMatchCancel, handlepostMatch };
 };

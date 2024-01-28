@@ -28,3 +28,11 @@ export const getMatch = () => {
     },
   });
 };
+export const getPersonDetail = (personId: number) => {
+  return apiClient.get(`/api/random/${personId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
