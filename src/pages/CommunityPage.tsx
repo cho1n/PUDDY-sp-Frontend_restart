@@ -1,6 +1,4 @@
-import { useSignIn } from "../hooks";
 import { useCommunity } from "../hooks/useCommunity";
-import { SignInTemplate } from "../components/template";
 import { CommunityTemplate } from "../components/template/CommunityTemplate";
 import { Layout } from "../components/common/layout/Layout";
 
