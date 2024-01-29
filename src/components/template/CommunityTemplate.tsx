@@ -12,7 +12,7 @@ interface CommunityProps {
 export const CommunityTemplate = (props: CommunityProps) => {
   return (
     <div className="flex flex-col w-full h-haveHeaderAndFooter px-4">
-      <div className=" flex-col px-4 w-full max-h-haveHeader overflow-auto scrollbar-hide">
+      <div className="flex-col px-4 w-full">
         <PostList onClick={props.onClick} {...props.postValue} />
       </div>
     </div>

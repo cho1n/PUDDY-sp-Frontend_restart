@@ -1,6 +1,7 @@
 import { PostDetailType } from "../../types/community";
 import thumbUp from "../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../assets/Community/ChatBubble.svg";
+import { CommentTemplate } from "./CommentTemplate";
 
 interface PostProps {
   post: PostDetailType;
@@ -11,9 +12,9 @@ export const PostTemplate = (props: PostProps) => {
   const gender = props.post.person.gender ? "아빠" : "엄마";
 
   return (
-    <div className="h-haveHeaderAndFooter px-4 border-blue-500 border-2 overflow-auto scrollbar-hide">
-      <div className="flex flex-col border-green-500 border-2">
-        <div className="flex flex-row border-red-500 border-2">
+    <div className="h-haveHeaderAndFooter px-4 w-full">
+      <div className="border-t px-1 h-550 overflow-auto scrollbar-hide w-full">
+        <div className="flex flex-row">
           <img
             src={props.post.person.dog.image}
             className="w-9 h-9 mr-1 mt-1 rounded-full"
@@ -42,9 +43,13 @@ export const PostTemplate = (props: PostProps) => {
           <img className="w-5 h-5 ml-4" src={chatBubble} />
           <p className="ml-1">{props.post.comments.length}</p>
         </div>
+        <div className="flex w-full mt-2 mb-4">
+          <CommentTemplate PostDetailValue={props.post} />
+        </div>
       </div>
-      <div className="flex flex-col border-green-500 border-2 h-52"></div>
-      <div className="flex flex-col border-green-500 border-2 h-52"></div>
+      <div className="h-20 py-2 bg-bgGray rounded-xl">
+        <p>댓글작성</p>
+      </div>
     </div>
   );
 };

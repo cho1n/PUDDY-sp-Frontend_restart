@@ -1,4 +1,5 @@
 import { AlertDogType } from "./alert";
+import { CommentType } from "./comment";
 
 export type PostInputType = {
   title: string;
@@ -36,11 +37,4 @@ export type PostType = {
 export type ProfileType = {
   gender: boolean;
   dog: AlertDogType;
-};
-
-export type CommentType = {
-  person: ProfileType;
-  content: string;
-  createdAt: string;
-  isMine: boolean;
 };
