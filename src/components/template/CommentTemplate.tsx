@@ -1,5 +1,5 @@
 import { PostDetailType } from "../../types/community";
-import { CommentList } from "../common/list/comment/commentlist";
+import { CommentList } from "../common/list/comment/CommentList";
 
 interface CommunityProps {
   PostDetailValue: PostDetailType;

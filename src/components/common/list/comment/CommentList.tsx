@@ -1,5 +1,5 @@
 import { PostDetailType } from "../../../../types/community";
-import { Comment } from "./comment";
+import { Comment } from "./Comment";
 
 interface PostListProps extends PostDetailType {}
 
