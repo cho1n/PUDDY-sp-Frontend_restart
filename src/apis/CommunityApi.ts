@@ -12,7 +12,7 @@ export const postCreatePost = (postInputType: PostInputType) => {
 
 export const postLikePost = (postId: number) => {
   return apiClient.post(
-    `/api/match/${postId}`,
+    `/api/post/${postId}`,
     {},
     {
       headers: {
@@ -36,7 +36,7 @@ export const getPostList = (pageNum: number) => {
 };
 
 export const getPostDetail = (postId: number) => {
-  return apiClient.get(`/api/match/${postId}`, {
+  return apiClient.get(`/api/post/${postId}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("accessToken"),

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ReissueToken } from "../apis/SignApi";
 import { PostDetailType } from "../types/community";
-import { getPostDetail } from "../apis/CommunityApi";
+import { getPostDetail, postLikePost } from "../apis/CommunityApi";
 import { useParams } from "react-router";
 
 export const usePost = () => {
@@ -35,7 +35,7 @@ export const usePost = () => {
               const refreshToken = res.headers["reauthorization"] as string;
               localStorage.setItem("accessToken", accessToken);
               localStorage.setItem("refreshToken", refreshToken);
-              navigate("/match");
+              navigate("/post");
             })
             .catch((err) => {
               if (err.response.status === 400) {
@@ -47,7 +47,13 @@ export const usePost = () => {
       });
   }, []);
 
+  const handleLikeClick = () => {
+    postLikePost(post.id);
+    window.location.reload();
+  };
+
   return {
     post,
+    handleLikeClick,
   };
 };

@@ -25,7 +25,7 @@ export const useCommunity = () => {
               const refreshToken = res.headers["reauthorization"] as string;
               localStorage.setItem("accessToken", accessToken);
               localStorage.setItem("refreshToken", refreshToken);
-              navigate("/match");
+              navigate("/post");
             })
             .catch((err) => {
               if (err.response.status === 400) {
