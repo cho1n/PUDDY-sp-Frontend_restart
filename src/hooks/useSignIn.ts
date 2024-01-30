@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SignInInputType } from "../types/sign";
 import { SignIn } from "../apis/SignApi";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const useSignIn = () => {
@@ -28,6 +27,8 @@ export const useSignIn = () => {
       .catch((err) => {
         if (err.response.status === 404) {
           alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+        } else if (err.response.status === 400) {
+          alert("이미 로그인 중입니다.");
         }
         console.log(err);
       });
