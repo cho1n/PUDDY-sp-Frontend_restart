@@ -1,7 +1,12 @@
 import create from "zustand";
 import { MatchListType } from "../types/match";
 
-const useMatchListStore = create((set) => ({
+interface MatchListStore {
+  matchListValue: MatchListType;
+  setMatchListValue: (matchList: MatchListType) => void;
+}
+
+const useMatchListStore = create<MatchListStore>((set) => ({
   matchListValue: { pets: [] } as MatchListType,
   setMatchListValue: (matchList: MatchListType) =>
     set({ matchListValue: matchList }),
