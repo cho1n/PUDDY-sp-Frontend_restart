@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { arrow, alert, filter } from "../../../assets/Header";
+import { arrow, alert, filters } from "../../../assets/Header";
 import { useHeader } from "../../../hooks/useHeader";
 import { Button } from "../Button/Button";
 import { SignUpMiddleTitle } from "../Text";
@@ -7,6 +7,8 @@ import { FilterInputType } from "../../../types/filter";
 import { SelectDogType } from "../SelectBox";
 import { NeuterRadio } from "../Radio";
 import { TagButtonList } from "../Button";
+import { useMatch } from "../../../hooks";
+
 interface Title {
   title: string;
   filter: FilterInputType;
@@ -19,6 +21,13 @@ export const Header = (titleObject: Title) => {
   const { handleAlert, handleBack } = useHeader();
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
+  const {
+    filter,
+    handleDogTypeSelect,
+    handleRadioCheck,
+    handlePostDogTag,
+    setFilterValue,
+  } = useMatch();
 
   return (
     <div className="flex px-4 w-full h-16 px-1 py-2 items-center gap-1 shrink-0">
@@ -32,34 +41,47 @@ export const Header = (titleObject: Title) => {
             }
           }}
         >
-          <div className="w-80 h-340 bg-bgWhite flex flex-col items-center justify-center rounded-xl">
-            <SignUpMiddleTitle text={"견종"} />
-            <div className="flex w-full">
+          <div className="w-80 h-340 bg-bgWhite flex flex-col items-start justify-center rounded-xl">
+            <div className="flex w-full flex-col px-4">
+              <SignUpMiddleTitle text={"견종"} />
               <SelectDogType
-                content={titleObject.filter.type}
-                onChange={titleObject.onSelect}
+                content={filter.type}
+                onChange={handleDogTypeSelect}
               />
             </div>
-            <SignUpMiddleTitle text={"중성화 유무"} />
-            <NeuterRadio
-              neuter={titleObject.filter.neuter}
-              onChange={titleObject.onNeuterCheck}
-            />
-            <SignUpMiddleTitle text={"태그"} />
-            <TagButtonList
-              onChange={titleObject.onChangeTag}
-              tags={titleObject.filter.tags}
-            />
-            <div className="flex flex-row">
+            <div className="flex w-full flex-col px-4">
+              <SignUpMiddleTitle text={"중성화 유무"} />
+              <NeuterRadio neuter={filter.neuter} onChange={handleRadioCheck} />
+            </div>
+            <div className="flex w-full flex-col px-4">
+              <SignUpMiddleTitle text={"태그"} />
+              <TagButtonList onChange={handlePostDogTag} tags={filter?.tags} />
+            </div>
+
+            <div className="flex flex-row w-full justify-center mt-4">
               <Button
                 style={"bg-bgBlack text-fontWhite text-ButtonFont mr-2.5"}
                 text={"취소하기"}
-                onClick={() => setModalOpen(false)}
+                onClick={() => {
+                  setFilterValue({
+                    type: "",
+                    neuter: null,
+                    tags: [],
+                  });
+                  setModalOpen(false);
+                }}
               />
               <Button
                 style={"bg-bgYellow text-fontBlack text-ButtonFont"}
                 text={"적용하기"}
-                onClick={() => setModalOpen(false)}
+                onClick={() => {
+                  setFilterValue({
+                    type: filter?.type,
+                    neuter: filter?.neuter,
+                    tags: filter?.tags,
+                  });
+                  setModalOpen(false);
+                }}
               />
             </div>
           </div>
@@ -82,7 +104,7 @@ export const Header = (titleObject: Title) => {
         <>
           <div className="flex justify-center items-center px-2 gap-2.5">
             <img
-              src={filter}
+              src={filters}
               className="w-6 h-6"
               alt="filter"
               onClick={() => setModalOpen(true)}
