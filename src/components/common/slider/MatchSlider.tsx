@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { MatchListType, MatchType } from "../../../types/match";
+import { MatchType } from "../../../types/match";
 import { ShowMatch } from "./ShowMatch";
 import TinderCard from "react-tinder-card";
+import useMatchListStore from "../../../store/useMatchListStore";
 
-interface MatchSliderProps extends MatchListType {
+interface MatchSliderProps {
   handleMatchCancel: () => void;
   handlepostMatch: (personId: number) => void;
 }
 
 export const MatchSlider = (props: MatchSliderProps) => {
   const [visiblePets, setVisiblePets] = useState<MatchType[]>([]);
+  const { matchListValue } = useMatchListStore();
   useEffect(() => {
-    setVisiblePets(props.pets);
-  }, [props.pets]);
+    setVisiblePets(matchListValue.pets);
+  }, [matchListValue]);
   const handleMatchCancel = (index: number) => {
     props.handleMatchCancel();
     const updatedPets = [...visiblePets];

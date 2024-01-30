@@ -20,3 +20,9 @@ export type MatchDogType = {
   age: number;
   tags: DogTag[];
 };
+
+export type FilterDogType = {
+  type: string;
+  neuter: boolean | null;
+  tags: DogTag[];
+};
