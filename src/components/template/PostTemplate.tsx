@@ -2,10 +2,14 @@ import { PostDetailType } from "../../types/community";
 import thumbUp from "../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../assets/Community/ChatBubble.svg";
 import { CommentTemplate } from "./CommentTemplate";
+import { InputBox } from "../common/Input";
 
 interface PostProps {
   post: PostDetailType;
+  comment: string;
   onClickLike: () => void;
+  onCheckComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCreateComment: (postId: number, content: string) => void;
 }
 
 export const PostTemplate = (props: PostProps) => {
@@ -47,8 +51,21 @@ export const PostTemplate = (props: PostProps) => {
           <CommentTemplate PostDetailValue={props.post} />
         </div>
       </div>
-      <div className="h-20 py-2 bg-bgGray rounded-xl">
-        <p>댓글작성</p>
+      <div className="flex flex-row h-20 py-2 bg-bgGray rounded-xl">
+        <InputBox
+          style={"bg-bGray text-fontBlack text-default ml-2"}
+          placeholder={"댓글을 입력해주세요."}
+          type={"comment"}
+          value={props.comment}
+          name={"comment"}
+          onChange={props.onCheckComment}
+        />
+        <button
+          className="ml-2 bg-bgYellow"
+          onClick={() => props.onCreateComment(props.post.id, props.comment)}
+        >
+          전송
+        </button>
       </div>
     </div>
   );

@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ReissueToken } from "../apis/SignApi";
 import { PostDetailType } from "../types/community";
-import { getPostDetail, postLikePost } from "../apis/CommunityApi";
+import { getPostDetail, postComment, postLikePost } from "../apis/CommunityApi";
 import { useParams } from "react-router";
+import { CommentType } from "../types/comment";
 
 export const usePost = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
   const postIdNumber = Number(postId);
+  const [comment, setComment] = useState<string>("");
 
   const [post, setPost] = useState<PostDetailType>({
     id: postIdNumber,
@@ -52,8 +54,20 @@ export const usePost = () => {
     window.location.reload();
   };
 
+  const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleCreateComment = (postId: number, content: string) => {
+    postComment(postId, content);
+    window.location.reload();
+  };
+
   return {
     post,
+    comment,
     handleLikeClick,
+    handleComment,
+    handleCreateComment,
   };
 };
