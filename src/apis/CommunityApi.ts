@@ -45,10 +45,14 @@ export const getPostDetail = (postId: number) => {
 };
 
 export const postComment = (postId: number, content: string) => {
-  return apiClient.post(`/api/${postId}/comment`, JSON.stringify(content), {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
-    },
-  });
+  return apiClient.post(
+    `/api/${postId}/comment`,
+    { content },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    }
+  );
 };

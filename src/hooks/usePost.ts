@@ -4,7 +4,6 @@ import { ReissueToken } from "../apis/SignApi";
 import { PostDetailType } from "../types/community";
 import { getPostDetail, postComment, postLikePost } from "../apis/CommunityApi";
 import { useParams } from "react-router";
-import { CommentType } from "../types/comment";
 
 export const usePost = () => {
   const navigate = useNavigate();
