@@ -22,7 +22,7 @@ export const PostTemplate = (props: PostProps) => {
   return (
     <div className="h-haveHeaderAndFooter px-4 w-full">
       <div className="border-t px-1 h-550 overflow-auto scrollbar-hide w-full">
-        <div className="flex flex-row">
+        <div className="flex flex-row mt-2">
           <img
             src={props.post.person.dog.image}
             className="w-9 h-9 mr-1 mt-1 rounded-full"

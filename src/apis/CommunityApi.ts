@@ -10,6 +10,24 @@ export const postCreatePost = (postInputType: PostInputType) => {
   });
 };
 
+export const patchPost = (postId: number, postInputType: PostInputType) => {
+  return apiClient.patch(`/api/post/${postId}`, JSON.stringify(postInputType), {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
+
+export const deletePost = (postId: number) => {
+  return apiClient.delete(`/api/post/${postId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
+
 export const postLikePost = (postId: number) => {
   return apiClient.post(
     `/api/post/${postId}`,

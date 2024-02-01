@@ -9,3 +9,4 @@ export { PostDogPage } from "./PostDogPage";
 export { AlertPage } from "./AlertPage";
 export { CommunityPage } from "./CommunityPage";
 export { PostPage } from "./PostPage";
+export { PostWritePage } from "./PostWritePage";

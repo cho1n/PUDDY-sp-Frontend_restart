@@ -1,4 +1,4 @@
-import { PostListType } from "../../types/community";
+import { PostInputType, PostListType } from "../../types/community";
 import { Button } from "../common/Button";
 import { PostList } from "../common/list/post/PostList";
 
@@ -6,7 +6,7 @@ interface CommunityProps {
   postValue: PostListType;
   pageNum: number;
   onClick: (postId: number) => void;
-  onCreatePost: () => void;
+  onCreatePost: (postInputType: PostInputType) => void;
   onChangePage: (direction: "prev" | "next") => void;
 }
 

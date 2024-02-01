@@ -7,7 +7,7 @@ export const CommunityPage = () => {
     postList,
     currentPage,
     handlePostClick,
-    handleWritePostClick,
+    handleWritePost,
     handlePageChange,
   } = useCommunity();
   return (
@@ -16,7 +16,7 @@ export const CommunityPage = () => {
         postValue={postList}
         pageNum={currentPage}
         onClick={handlePostClick}
-        onCreatePost={handleWritePostClick}
+        onCreatePost={handleWritePost}
         onChangePage={handlePageChange}
       />
     </Layout>

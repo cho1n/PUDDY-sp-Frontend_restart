@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { PostListType } from "../types/community";
-import { getPostList } from "../apis/CommunityApi";
+import { PostInputType, PostListType } from "../types/community";
+import {
+  deletePost,
+  getPostList,
+  patchPost,
+  postCreatePost,
+} from "../apis/CommunityApi";
 import { ReissueToken } from "../apis/SignApi";
 
 export const useCommunity = () => {
@@ -11,6 +16,8 @@ export const useCommunity = () => {
     posts: [],
   });
   const [page, setPage] = useState<number>(1);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   useEffect(() => {
     getPostList(page)
@@ -41,7 +48,18 @@ export const useCommunity = () => {
     navigate(`/post/${postId}`);
   };
 
-  const handleWritePostClick = () => {
+  const handleWritePost = (postInputType: PostInputType) => {
+    postCreatePost(postInputType);
+    navigate("/post");
+  };
+
+  const handlePatchPost = (postId: number, postInputType: PostInputType) => {
+    patchPost(postId, postInputType);
+    navigate("/post");
+  };
+
+  const handleDeletePost = (postId: number) => {
+    deletePost(postId);
     navigate("/post");
   };
 
@@ -53,11 +71,25 @@ export const useCommunity = () => {
     }
   };
 
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
+
   return {
     postList,
     currentPage: page,
+    title,
+    content,
     handlePostClick,
-    handleWritePostClick,
+    handleWritePost,
+    handlePatchPost,
+    handleDeletePost,
     handlePageChange,
+    handleTitle,
+    handleContent,
   };
 };
