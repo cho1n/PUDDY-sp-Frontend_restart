@@ -18,7 +18,7 @@ export const CheckAddress = (mainAddress: string) => {
   return apiClient.get(`/api/kakao/address?mainAddress=${mainAddress}`);
 };
 export const ReissueToken = () => {
-  return apiClient.get("/api/auth/reissue", {
+  return apiClient.post("/api/auth/reissue", {
     headers: {
       Authorization: localStorage.getItem("accessToken"),
       Reauthorization: localStorage.getItem("refreshToken"),

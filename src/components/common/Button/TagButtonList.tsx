@@ -25,6 +25,7 @@ export const TagButtonList = (props: TagButtonListProps) => {
             )
           );
         }
+        console.log(check);
         setTagList(tagContents);
       })
       .catch((err) => {

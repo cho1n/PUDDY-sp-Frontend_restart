@@ -5,8 +5,10 @@ import { DateType } from "../types/date";
 import { patchProfile } from "../apis/MyPageApi";
 import { getUserInfo } from "../apis/MyPageApi";
 import { CheckAddress } from "../apis/SignApi";
+import { useReissueToken } from "./useCommon";
 
 export const useProfile = () => {
+  const { getReissueToken } = useReissueToken();
   const navigate = useNavigate();
   const [UpdateValue, setUpdateValue] = useState<UpdateProfileInputType>({
     login: "",
@@ -76,12 +78,17 @@ export const useProfile = () => {
         return;
       }
       patchProfile(UpdateValue)
-        .then((res) => {
+        .then(() => {
           alert("수정이 완료되었습니다.");
           navigate("/mypage");
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 403) {
+            getReissueToken("/mypage");
+          } else if (err.response.status === 404) {
+            alert("존재하지 않는 회원입니다.");
+            navigate("/");
+          }
         });
     } else {
       alert("입력값을 확인해주세요.");
@@ -106,8 +113,7 @@ export const useProfile = () => {
       })
       .catch((err) => {
         if (err.response.status === 403) {
-          alert("로그인이 필요합니다.");
-          navigate("/signin");
+          getReissueToken("/mypage");
         }
       });
   }, []);

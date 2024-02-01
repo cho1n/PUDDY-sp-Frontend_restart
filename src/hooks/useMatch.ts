@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { MatchListType, FilterDogType } from "../types/match";
+import { FilterDogType } from "../types/match";
 import { getRandomMatch, postmatch } from "../apis/MatchApi";
-import { useNavigate } from "react-router-dom";
-import { ReissueToken } from "../apis/SignApi";
 import useMatchListStore from "../store/useMatchListStore";
+import { useReissueToken } from "./useCommon";
 
 export const useMatch = () => {
-  const navigate = useNavigate();
+  const { getReissueToken } = useReissueToken();
   const { setMatchListValue } = useMatchListStore();
   const [filterValue, setFilterValue] = useState<FilterDogType>({
     type: "",
@@ -66,21 +65,9 @@ export const useMatch = () => {
         setMatchListValue(res.data);
       })
       .catch((err) => {
+        console.log(err.response.status);
         if (err.response.status === 403) {
-          ReissueToken()
-            .then((res) => {
-              const accessToken = res.headers["authorization"] as string;
-              const refreshToken = res.headers["reauthorization"] as string;
-              localStorage.setItem("accessToken", accessToken);
-              localStorage.setItem("refreshToken", refreshToken);
-              navigate("/match");
-            })
-            .catch((err) => {
-              if (err.response.status === 400) {
-                alert("로그인이 필요합니다.");
-                navigate("/");
-              }
-            });
+          getReissueToken("/match");
         }
       });
   }, [filterValue]);
@@ -95,7 +82,11 @@ export const useMatch = () => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 403) {
+          getReissueToken("/match");
+        } else if (err.response.status === 404) {
+          alert("존재하지 않는 유저입니다.");
+        }
       });
   }, []);
 

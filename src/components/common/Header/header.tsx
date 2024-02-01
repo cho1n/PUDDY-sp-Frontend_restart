@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { arrow, alert, filters } from "../../../assets/Header";
+import { arrow, alert, filters, plus } from "../../../assets/Header";
 import { useHeader } from "../../../hooks/useHeader";
 import { Button } from "../Button/Button";
 import { SignUpMiddleTitle } from "../Text";
@@ -18,9 +18,9 @@ interface Title {
 }
 
 export const Header = (titleObject: Title) => {
-  const { handleAlert, handleBack } = useHeader();
+  const { handleAlert, handleBack, handleWritePost } = useHeader();
   const [modalOpen, setModalOpen] = useState(false);
-  const modalBackground = useRef();
+  const modalBackground = useRef<HTMLDivElement>(null);
   const {
     filter,
     handleDogTypeSelect,

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { getMyPage, patchMainDog } from "../apis/MyPageApi";
+import { getMyPage, logOut, patchMainDog } from "../apis/MyPageApi";
 import { MyPageType } from "../types/myPage";
 import { useNavigate } from "react-router-dom";
-import useDogIdStore from "../store/useDogIdStore";
+import { useReissueToken } from "./useCommon";
 
 export const useMyPage = () => {
+  const { getReissueToken } = useReissueToken();
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
-  const { setDogId } = useDogIdStore();
   const [myPageValue, setMyPageValue] = useState<MyPageType>({
     dogs: [],
     gender: true,
@@ -24,9 +23,18 @@ export const useMyPage = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    alert("로그아웃 되었습니다.");
-    navigate("/");
+    logOut()
+      .then(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        alert("로그아웃 되었습니다.");
+        navigate("/");
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          getReissueToken("/mypage");
+        }
+      });
   };
 
   const buttonNavigate = (props: string) => {
@@ -39,12 +47,16 @@ export const useMyPage = () => {
 
   const updateMainDog = (id: number) => {
     patchMainDog(id)
-      .then((res) => {
+      .then(() => {
         alert("메인 강아지가 변경되었습니다.");
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 403) {
+          getReissueToken("/mypage");
+        } else if (err.response.status === 404) {
+          alert("존재하지 않는 강아지입니다.");
+        }
       });
   };
 
@@ -53,12 +65,11 @@ export const useMyPage = () => {
   };
 
   useEffect(() => {
-    if (!accessToken) {
-      alert("로그인이 필요합니다.");
-      navigate("/signin");
-    } else {
-      getMyPageInfo();
-    }
+    getMyPageInfo().catch((err) => {
+      if (err.response.status === 403) {
+        getReissueToken("/mypage");
+      }
+    });
   }, []);
 
   return {

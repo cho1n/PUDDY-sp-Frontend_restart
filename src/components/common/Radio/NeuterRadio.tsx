@@ -1,5 +1,5 @@
 export interface NeuterRadioProps {
-  neuter: boolean;
+  neuter: boolean | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const NeuterRadio = (props: NeuterRadioProps) => {

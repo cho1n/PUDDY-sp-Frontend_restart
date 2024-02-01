@@ -66,3 +66,13 @@ export const deleteDog = (dogId: number) => {
     },
   });
 };
+
+export const logOut = () => {
+  return apiClient.delete(`/api/auth/logout`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+      ReAuthorization: localStorage.getItem("refreshToken"),
+    },
+  });
+};

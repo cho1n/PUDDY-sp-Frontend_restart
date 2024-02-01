@@ -22,6 +22,7 @@ export const useSignIn = () => {
         const refreshToken = res.headers["reauthorization"] as string;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
+        alert("로그인이 완료되었습니다.");
         navigate("/match");
       })
       .catch((err) => {
@@ -30,7 +31,6 @@ export const useSignIn = () => {
         } else if (err.response.status === 400) {
           alert("이미 로그인 중입니다.");
         }
-        console.log(err);
       });
   };
   const handleSignUp = () => {

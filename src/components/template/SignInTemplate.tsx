@@ -1,6 +1,7 @@
 import { Button } from "../common/Button";
 import { InputBox } from "../common/Input";
 import { SignInInputType } from "../../types/sign";
+import { logo } from "../../assets/Logo";
 interface SignInTemplateProps {
   signInValue: SignInInputType;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,9 +12,9 @@ interface SignInTemplateProps {
 export const SignInTemplate = (props: SignInTemplateProps) => {
   return (
     <div className="flex flex-col items-center w-f h-donHave bg-bgYellow">
-      <p className="mt-64 text-fontBlack text-4xl h-32">LOGO</p>
+      <img src={logo} className="w-64 h-64 mt-52" alt="logo" />
       <InputBox
-        style={"bg-bgWhite text-fontBlack text-font14 mt-36"}
+        style={"bg-bgWhite text-fontBlack text-font14 mt-24"}
         placeholder={"아이디를 입력해주세요."}
         type={"text"}
         value={props.signInValue.login}
