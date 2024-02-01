@@ -9,3 +9,4 @@ export { PostDogPage } from "./PostDogPage";
 export { AlertPage } from "./AlertPage";
 export { ChatListPage } from "./ChatListPage";
 export { WhoLikeDetailPage } from "./WhoLikeDetailPage";
+export { ChatPage } from "./ChatPage";

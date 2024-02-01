@@ -28,7 +28,7 @@ export const MyPageTemplate = () => {
       </div>
       <div className="flex flex-row item-center justify-center space-x-14 w-full h-22 border-b-2 border-solid py-2">
         <div className="flex flex-col items-center w-18 h-22 cursor-pointer pl-4">
-          <div className="w-12 h-12 rounded-full bg-bgMyPageButton flex items-center justify-center mb-2">
+          <div className="w-12 h-12 rounded-full bg-bgMyPageButton flex items-center justify-center mb-2 hover:bg-bgGrayHover">
             <img className="w-8 h-8" src={settingIcon} alt="settingIcon" />
           </div>
           <p className="text-fontGray text-defalut"> 설정</p>
@@ -37,14 +37,14 @@ export const MyPageTemplate = () => {
           className="flex flex-col items-center w-18 h-22 cursor-pointer"
           onClick={myPageData.goToPostDog}
         >
-          <div className="w-12 h-12 rounded-full bg-bgMyPageButton2 opacity-60 flex items-center justify-center mb-2">
+          <div className="w-12 h-12 rounded-full bg-bgMyPageButton2 opacity-60 flex items-center justify-center mb-2 hover:bg-bgYellowHover">
             <img className="w-8 h-8" src={mainIcon} alt="mainIcon" />
           </div>
           <p className="text-fontGray text-defalut">새 가족 추가하기</p>
         </div>
         <div className="flex flex-col items-center w-18 h-22 cursor-pointer">
           <div
-            className="w-12 h-12 rounded-full bg-bgMyPageButton flex items-center justify-center mb-2"
+            className="w-12 h-12 rounded-full bg-bgMyPageButton flex items-center justify-center mb-2 hover:bg-bgGrayHover"
             onClick={() => myPageData.buttonNavigate("/mypage/profile")}
           >
             <img className="w-8 h-8" src={pencilIcon} alt="mainIcon" />
