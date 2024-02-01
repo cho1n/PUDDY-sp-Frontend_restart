@@ -9,7 +9,6 @@ export const MatchTemplate = (props: MatchTemplateProps) => {
   return (
     <div className="w-full h-haveHeaderAndFooter px-4">
       <MatchSlider
-        pets={props.matchListValue.pets}
         handleMatchCancel={props.handleMatchCancel}
         handlepostMatch={props.handlepostMatch}
       />

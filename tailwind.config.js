@@ -33,6 +33,7 @@ export default {
       },
       width: {
         359: "359px",
+        393: "393px",
       },
       height: {
         donHave: "777px",

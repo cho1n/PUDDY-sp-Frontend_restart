@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import { AlertListType } from "../types/alert";
-import { getMatch } from "../apis/MatchApi";
+import { getChatList } from "../apis/chat";
+import { ChatListType } from "../types/chat";
 import { useNavigate } from "react-router-dom";
 import { ReissueToken } from "../apis/SignApi";
-import usePersonIdStore from "../store/usePersonIdStore";
 
-export const useAlert = () => {
-  const navigate = useNavigate();
-  const { setPersonId } = usePersonIdStore();
-  const [alertValue, setAlertValue] = useState<AlertListType>({
-    matches: [],
+export const useChat = () => {
+  const [chatListValue, setChatListValue] = useState<ChatListType>({
+    persons: [],
   });
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getMatch()
+    getChatList()
       .then((res) => {
         console.log(res.data);
-        setAlertValue(res.data);
+        setChatListValue(res.data);
       })
       .catch((err) => {
         if (err.response.status === 403) {
@@ -36,11 +35,10 @@ export const useAlert = () => {
         }
       });
   }, []);
+
   const goToProfile = (personId: number) => {
-    setPersonId(personId);
-    navigate("/wholike");
     console.log(personId);
   };
 
-  return { alertValue, goToProfile };
+  return { chatListValue, goToProfile };
 };
