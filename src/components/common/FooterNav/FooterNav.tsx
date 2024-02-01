@@ -48,7 +48,10 @@ export const FooterNav = () => {
           </a>
         </li>
         <li className="pr-3.5">
-          <a href="" onClick={() => selectMode(NAV_MODE.COMMUNITY)}>
+          <a
+            href={PATH_NAME.COMMUNITY}
+            onClick={() => selectMode(NAV_MODE.COMMUNITY)}
+          >
             {navMode == NAV_MODE.COMMUNITY ? (
               <img
                 src={community_click}

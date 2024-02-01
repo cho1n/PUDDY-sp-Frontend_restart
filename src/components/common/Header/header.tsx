@@ -118,6 +118,16 @@ export const Header = (titleObject: Title) => {
           </div>
         </>
       )}
+      {titleObject.title === "커뮤니티" && (
+        <>
+          <div
+            className="flex justify-center items-center gap-2.5"
+            onClick={() => handleWritePost()}
+          >
+            <img src={plus} className="w-6 h-6" alt="alert" />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -5,8 +5,11 @@ export const useHeader = () => {
   const handleAlert = () => {
     navigate("/alert");
   };
+  const handleWritePost = () => {
+    navigate("/post-write");
+  };
   const handleBack = () => {
     window.history.back();
   };
-  return { handleAlert, handleBack };
+  return { handleAlert, handleWritePost, handleBack };
 };
