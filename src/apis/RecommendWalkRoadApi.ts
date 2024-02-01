@@ -8,12 +8,3 @@ export const GetRecommendWalkRoad = () => {
     },
   });
 };
-
-export const GetUserLocation = () => {
-  return apiClient.get("/api/person", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
-    },
-  });
-};
