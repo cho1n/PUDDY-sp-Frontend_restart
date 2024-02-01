@@ -41,6 +41,7 @@ export default {
         110: "110px",
         340: "340px",
         550: "550px",
+        600: "600px",
       },
       maxHeight: {
         donHave: "777px",

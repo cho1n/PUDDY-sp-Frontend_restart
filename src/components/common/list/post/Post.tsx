@@ -10,7 +10,7 @@ export const Post = (props: PostProps) => {
   const gender = props.person.gender ? "아빠" : "엄마";
   return (
     <button
-      className="py-0.5 w-full border-2 px-0"
+      className="py-0 w-full border-2 px-0"
       onClick={() => props.onClick(props.id)}
     >
       <div className="flex flex-row items-center">

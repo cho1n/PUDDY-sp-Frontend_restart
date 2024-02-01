@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { PostInputType, PostListType } from "../types/community";
-import {
-  deletePost,
-  getPostList,
-  patchPost,
-  postCreatePost,
-} from "../apis/CommunityApi";
+import { getPostList, postCreatePost } from "../apis/CommunityApi";
 import { ReissueToken } from "../apis/SignApi";
 
 export const useCommunity = () => {
@@ -54,11 +49,15 @@ export const useCommunity = () => {
     window.location.reload();
   };
 
-  const handlePageChange = (direction: "prev" | "next") => {
-    if (direction === "prev" && page > 1) {
-      setPage(page - 1);
-    } else if (direction === "next") {
-      setPage(page + 1);
+  const handlePageChange = async (direction: "prev" | "next") => {
+    let nextPage = direction === "prev" ? page - 1 : page + 1;
+    if (nextPage > 0) {
+      const response = await getPostList(nextPage);
+      const postData = response.data;
+
+      if (postData && postData.posts && postData.posts.length > 0) {
+        setPage(nextPage);
+      }
     }
   };
 
