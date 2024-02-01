@@ -4,8 +4,10 @@ import { UpdateDogProfileInputType } from "../types/update";
 import { patchDog, getDogInfo, deleteDog } from "../apis/MyPageApi";
 import { useNavigate } from "react-router-dom";
 import { deleteS3, upLoadS3 } from "./useS3";
+import { useReissueToken } from "./useCommon";
 
 export const useDogProfile = () => {
+  const { getReissueToken } = useReissueToken();
   const { dogId } = useParams();
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
@@ -71,13 +73,18 @@ export const useDogProfile = () => {
 
   const handleDeleteDog = async () => {
     if (window.confirm("정말로 강아지를 삭제하시겠습니까?")) {
-      deleteDog(dogId)
-        .then((res) => {
+      deleteDog(Number(dogId))
+        .then(() => {
           alert("강아지가 삭제되었습니다.");
           navigate("/mypage");
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 403) {
+            getReissueToken(`/mypage/dogprofile/${dogId}`);
+          } else if (err.response.status === 404) {
+            alert("존재하지 않는 강아지입니다.");
+            navigate("/mypage");
+          }
         });
     }
   };
@@ -91,7 +98,14 @@ export const useDogProfile = () => {
       alert("모든 정보를 입력해주세요.");
       return;
     }
-    updateDog();
+    updateDog().catch((err) => {
+      if (err.response.status === 403) {
+        getReissueToken(`/mypage/dogprofile/${dogId}`);
+      } else if (err.response.status === 404) {
+        alert("존재하지 않는 강아지입니다.");
+        navigate("/mypage");
+      }
+    });
   };
 
   const updateDog = async () => {
@@ -107,23 +121,32 @@ export const useDogProfile = () => {
         Date.now();
     }
     patchDog(Number(dogId), updateDogValue)
-      .then((res) => {
+      .then(() => {
         alert("강아지 정보가 변경되었습니다.");
         navigate("/mypage");
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 403) {
+          getReissueToken(`/mypage/dogprofile/${dogId}`);
+        } else if (err.response.status === 404) {
+          alert("존재하지 않는 강아지입니다.");
+          navigate("/mypage");
+        }
       });
   };
 
   const getUpdateDogInfo = async () => {
     await getDogInfo(Number(dogId))
       .then((res) => {
-        console.log(res.data);
         setUpdateDogValue(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 403) {
+          getReissueToken(`/mypage/dogprofile/${dogId}`);
+        } else if (err.response.status === 404) {
+          alert("존재하지 않는 강아지입니다.");
+          navigate("/mypage");
+        }
       });
   };
 

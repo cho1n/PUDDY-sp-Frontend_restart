@@ -74,15 +74,11 @@ export const useSignUp = () => {
         alert("비밀번호는 8~20자의 영문 대소문자, 숫자로만 입력해주세요.");
         return;
       }
-      SignUp(signUpValue)
-        .then((res) => {
-          localStorage.setItem("id", res.data.id);
-          alert("회원가입이 완료되었습니다.");
-          navigate("/postdog");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      SignUp(signUpValue).then((res) => {
+        localStorage.setItem("id", res.data.id);
+        alert("회원가입이 완료되었습니다.");
+        navigate("/postdog");
+      });
     } else {
       alert("입력값을 확인해주세요.");
     }

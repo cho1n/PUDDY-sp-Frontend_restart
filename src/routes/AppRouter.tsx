@@ -37,7 +37,7 @@ export const AppRouter = () => {
         <Route path="/post-write" element={<PostWritePage />} />
         <Route path="/post-fix/:postId" element={<PostFixPage />} />
         <Route path="/chatlist" element={<ChatListPage />} />
-        <Route path="/wholike" element={<WhoLikeDetailPage />} />
+        <Route path="/wholike:personId" element={<WhoLikeDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

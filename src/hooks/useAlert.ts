@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { AlertListType } from "../types/alert";
 import { getMatch } from "../apis/MatchApi";
 import { useNavigate } from "react-router-dom";
-import { ReissueToken } from "../apis/SignApi";
 import usePersonIdStore from "../store/usePersonIdStore";
+import { useReissueToken } from "./useCommon";
 
 export const useAlert = () => {
   const navigate = useNavigate();
   const { setPersonId } = usePersonIdStore();
+  const { getReissueToken } = useReissueToken();
   const [alertValue, setAlertValue] = useState<AlertListType>({
     matches: [],
   });
@@ -19,20 +20,7 @@ export const useAlert = () => {
       })
       .catch((err) => {
         if (err.response.status === 403) {
-          ReissueToken()
-            .then((res) => {
-              const accessToken = res.headers["authorization"] as string;
-              const refreshToken = res.headers["reauthorization"] as string;
-              localStorage.setItem("accessToken", accessToken);
-              localStorage.setItem("refreshToken", refreshToken);
-              navigate("/alert");
-            })
-            .catch((err) => {
-              if (err.response.status === 400) {
-                alert("로그인이 필요합니다.");
-                navigate("/");
-              }
-            });
+          getReissueToken("/alert");
         }
       });
   }, []);

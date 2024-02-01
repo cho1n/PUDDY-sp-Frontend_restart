@@ -1,8 +1,12 @@
 import create from "zustand";
+interface PersonIdStore {
+  PersonId: number;
+  setPersonId: (personId: number) => void;
+}
 
-const usePersonIdStore = create((set) => ({
-  PersonId: null,
-  setPersonId: (PersonId: number) => set({ PersonId }),
+const usePersonIdStore = create<PersonIdStore>((set) => ({
+  PersonId: 0 as number,
+  setPersonId: (personId: number) => set({ PersonId: personId }),
 }));
 
 export default usePersonIdStore;
