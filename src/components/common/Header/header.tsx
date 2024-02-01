@@ -9,26 +9,21 @@ export const Header = (titleObject: Title) => {
 
   return (
     <div className="flex px-4 w-full h-16 px-1 py-2 items-center gap-1 shrink-0">
-      {titleObject.title !== "강아지 매칭" &&
-        titleObject.title !== "커뮤니티" && (
-          <div className="flex justify-center items-center gap-2.5 ">
-            <div
-              className="flex justify-center items-center gap-2.5"
-              onClick={() => handleBack()}
-            >
-              <img src={arrow} className="w-6 h-6" alt="arrow" />
-            </div>
-            <p className="flex flex-1 items-center h-6 leading-7 font-normal text-bigTitle text-left">
-              {titleObject.title}
-            </p>
+      {titleObject.title !== "강아지 매칭" && (
+        <div className="flex justify-center items-center gap-2.5 ">
+          <div
+            className="flex justify-center items-center gap-2.5"
+            onClick={() => handleBack()}
+          >
+            <img src={arrow} className="w-6 h-6" alt="arrow" />
           </div>
-        )}
-
+        </div>
+      )}
+      <p className="flex flex-1 items-center h-6 leading-7 font-normal text-bigTitle text-left">
+        {titleObject.title}
+      </p>
       {titleObject.title === "강아지 매칭" && (
         <>
-          <p className="flex flex-1 items-center h-6 leading-7 font-normal text-bigTitle text-left">
-            {titleObject.title}
-          </p>
           <div className="flex justify-center items-center px-2 gap-2.5">
             <img src={filter} className="w-6 h-6" alt="filter" />
           </div>
@@ -40,25 +35,15 @@ export const Header = (titleObject: Title) => {
           </div>
         </>
       )}
-
       {titleObject.title === "커뮤니티" && (
-        <div className="flex justify-center items-center gap-2.5 ">
+        <>
           <div
             className="flex justify-center items-center gap-2.5"
-            onClick={() => handleBack()}
-          >
-            <img src={arrow} className="w-6 h-6" alt="arrow" />
-          </div>
-          <p className="flex flex-1 items-center h-6 leading-7 font-normal text-bigTitle text-left">
-            {titleObject.title}
-          </p>
-          <div
-            className="flex justify-center ml-48 items-center gap-2.5"
             onClick={() => handleWritePost()}
           >
             <img src={plus} className="w-6 h-6" alt="alert" />
           </div>
-        </div>
+        </>
       )}
     </div>
   );
