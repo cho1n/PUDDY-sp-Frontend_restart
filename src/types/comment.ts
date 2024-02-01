@@ -5,6 +5,7 @@ export type CommentListType = {
 };
 
 export type CommentType = {
+  id: number;
   person: ProfileType;
   content: string;
   createdAt: string;

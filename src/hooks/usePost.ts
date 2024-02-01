@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ReissueToken } from "../apis/SignApi";
 import { PostDetailType } from "../types/community";
-import { getPostDetail, postComment, postLikePost } from "../apis/CommunityApi";
+import {
+  deleteComment,
+  getPostDetail,
+  patchComment,
+  postComment,
+  postLikePost,
+} from "../apis/CommunityApi";
 import { useParams } from "react-router";
 
 export const usePost = () => {
@@ -10,6 +16,7 @@ export const usePost = () => {
   const { postId } = useParams();
   const postIdNumber = Number(postId);
   const [comment, setComment] = useState<string>("");
+  const [changeComment, setChangeComment] = useState<string>("");
 
   const [post, setPost] = useState<PostDetailType>({
     id: postIdNumber,
@@ -57,16 +64,34 @@ export const usePost = () => {
     setComment(e.target.value);
   };
 
+  const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangeComment(e.target.value);
+  };
+
   const handleCreateComment = (postId: number, content: string) => {
     postComment(postId, content);
+    window.location.reload();
+  };
+
+  const handlePatchComment = (commentId: number, content: string) => {
+    patchComment(post.id, commentId, content);
+    window.location.reload();
+  };
+
+  const handleDeleteComment = (commentId: number) => {
+    deleteComment(post.id, commentId);
     window.location.reload();
   };
 
   return {
     post,
     comment,
+    changeComment,
     handleLikeClick,
     handleComment,
+    handleChangeComment,
     handleCreateComment,
+    handlePatchComment,
+    handleDeleteComment,
   };
 };

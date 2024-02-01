@@ -7,9 +7,13 @@ import { InputBox } from "../common/Input";
 interface PostProps {
   post: PostDetailType;
   comment: string;
+  changeComment: string;
   onClickLike: () => void;
+  onChangeComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCreateComment: (postId: number, content: string) => void;
+  onPatchComment: (commentId: number, content: string) => void;
+  onDeleteComment: (commentId: number) => void;
 }
 
 export const PostTemplate = (props: PostProps) => {
@@ -48,7 +52,13 @@ export const PostTemplate = (props: PostProps) => {
           <p className="ml-1">{props.post.comments.length}</p>
         </div>
         <div className="flex w-full mt-2 mb-4">
-          <CommentTemplate PostDetailValue={props.post} />
+          <CommentTemplate
+            changeComment={props.changeComment}
+            onChangeComment={props.onChangeComment}
+            onPatchComment={props.onPatchComment}
+            onDeleteComment={props.onDeleteComment}
+            PostDetailValue={props.post}
+          />
         </div>
       </div>
       <div className="flex flex-row h-20 py-2 bg-bgGray rounded-xl">

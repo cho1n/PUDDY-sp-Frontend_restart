@@ -56,3 +56,29 @@ export const postComment = (postId: number, content: string) => {
     }
   );
 };
+
+export const patchComment = (
+  postId: number,
+  commentId: number,
+  content: string
+) => {
+  return apiClient.patch(
+    `/api/${postId}/comment/${commentId}`,
+    { content },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    }
+  );
+};
+
+export const deleteComment = (postId: number, commentId: number) => {
+  return apiClient.delete(`/api/${postId}/comment/${commentId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
