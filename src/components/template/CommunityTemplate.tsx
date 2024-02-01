@@ -18,13 +18,13 @@ export const CommunityTemplate = (props: CommunityProps) => {
       </div>
       <div className="flex flex-row px-4 justify-center">
         <Button
-          style="mr-1.5"
+          style="mr-3 px-1"
           text="이전"
           onClick={() => props.onChangePage("prev")}
         />
         <p className="pt-2.5 mx-20">{props.pageNum}</p>
         <Button
-          style="ml-1.5"
+          style="ml-3 px-1"
           text="다음"
           onClick={() => props.onChangePage("next")}
         />

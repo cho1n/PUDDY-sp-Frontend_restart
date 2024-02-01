@@ -12,6 +12,7 @@ import {
   CommunityPage,
   PostPage,
   PostWritePage,
+  PostFixPage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -32,6 +33,7 @@ export const AppRouter = () => {
         <Route path="/post" element={<CommunityPage />} />
         <Route path="/post/:postId" element={<PostPage />} />
         <Route path="/post-write" element={<PostWritePage />} />
+        <Route path="/post-fix/:postId" element={<PostFixPage />} />
       </Routes>
     </BrowserRouter>
   );

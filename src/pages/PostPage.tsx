@@ -13,6 +13,8 @@ export const PostPage = () => {
     handleCreateComment,
     handlePatchComment,
     handleDeleteComment,
+    handlePatchPost,
+    handleDeletePost,
   } = usePost();
   return (
     <Layout title={"커뮤니티"} showHeader={true} showFooter={true}>
@@ -26,6 +28,8 @@ export const PostPage = () => {
         onCreateComment={handleCreateComment}
         onPatchComment={handlePatchComment}
         onDeleteComment={handleDeleteComment}
+        onPatchPost={handlePatchPost}
+        onDeletePost={handleDeletePost}
       />
     </Layout>
   );

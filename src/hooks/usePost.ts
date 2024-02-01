@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ReissueToken } from "../apis/SignApi";
-import { PostDetailType } from "../types/community";
+import { PostDetailType, PostInputType } from "../types/community";
 import {
   deleteComment,
+  deletePost,
   getPostDetail,
   patchComment,
+  patchPost,
   postComment,
   postLikePost,
 } from "../apis/CommunityApi";
@@ -60,6 +62,13 @@ export const usePost = () => {
     window.location.reload();
   };
 
+  const handlePost = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost({
+      ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
@@ -83,15 +92,30 @@ export const usePost = () => {
     window.location.reload();
   };
 
+  const handlePatchPost = (postId: number, postInputType: PostInputType) => {
+    patchPost(postId, postInputType);
+    navigate("/post");
+    window.location.reload();
+  };
+
+  const handleDeletePost = (postId: number) => {
+    deletePost(postId);
+    navigate("/post");
+    window.location.reload();
+  };
+
   return {
     post,
     comment,
     changeComment,
+    handlePost,
     handleLikeClick,
     handleComment,
     handleChangeComment,
     handleCreateComment,
     handlePatchComment,
     handleDeleteComment,
+    handlePatchPost,
+    handleDeletePost,
   };
 };

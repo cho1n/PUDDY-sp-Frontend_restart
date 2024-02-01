@@ -1,8 +1,13 @@
 import { PostDetailType } from "../../types/community";
 import thumbUp from "../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../assets/Community/ChatBubble.svg";
+import menuVertical from "../../assets/Community/MenuVertical.svg";
 import { CommentTemplate } from "./CommentTemplate";
 import { InputBox } from "../common/Input";
+import { useState } from "react";
+import { Button } from "../common/Button";
+import { PostInputType } from "../../types/community";
+import { useNavigate } from "react-router";
 
 interface PostProps {
   post: PostDetailType;
@@ -14,10 +19,17 @@ interface PostProps {
   onCreateComment: (postId: number, content: string) => void;
   onPatchComment: (commentId: number, content: string) => void;
   onDeleteComment: (commentId: number) => void;
+  onPatchPost: (postId: number, postInputType: PostInputType) => void;
+  onDeletePost: (postId: number) => void;
 }
 
 export const PostTemplate = (props: PostProps) => {
+  const navigate = useNavigate();
   const gender = props.post.person.gender ? "아빠" : "엄마";
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
   return (
     <div className="h-haveHeaderAndFooter px-4 w-full">
@@ -31,9 +43,30 @@ export const PostTemplate = (props: PostProps) => {
           <div className="flex flex-col w-full justify-start items-start">
             <p className="text-default">
               {props.post.person.dog.name} {gender}
+              <button onClick={toggleMenu} className="ml-48 px-0.5 py-0.5">
+                <img
+                  src={menuVertical}
+                  className="w-5 h-5 bg-bgWhite"
+                  alt="menu"
+                />
+              </button>
             </p>
-            <p className="text-smallFont text-fontGray">
+            <p className="flex text-smallFont text-fontGray h-4">
               {props.post.createdAt}
+              {isMenuOpen && (
+                <div className="flex ml-2">
+                  <Button
+                    text="게시글수정"
+                    style="ml-28 px-0 py-0 text-fontBlack "
+                    onClick={() => navigate(`/post-fix/${props.post.id}`)}
+                  />
+                  <Button
+                    text="게시글삭제"
+                    style="px-0 py-0 text-fontBlack "
+                    onClick={() => props.onDeletePost(props.post.id)}
+                  />
+                </div>
+              )}
             </p>
           </div>
         </div>

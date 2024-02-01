@@ -51,16 +51,7 @@ export const useCommunity = () => {
   const handleWritePost = (postInputType: PostInputType) => {
     postCreatePost(postInputType);
     navigate("/post");
-  };
-
-  const handlePatchPost = (postId: number, postInputType: PostInputType) => {
-    patchPost(postId, postInputType);
-    navigate("/post");
-  };
-
-  const handleDeletePost = (postId: number) => {
-    deletePost(postId);
-    navigate("/post");
+    window.location.reload();
   };
 
   const handlePageChange = (direction: "prev" | "next") => {
@@ -86,8 +77,6 @@ export const useCommunity = () => {
     content,
     handlePostClick,
     handleWritePost,
-    handlePatchPost,
-    handleDeletePost,
     handlePageChange,
     handleTitle,
     handleContent,
