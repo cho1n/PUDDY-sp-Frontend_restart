@@ -4,7 +4,9 @@ import { CheckRegisterNum, PostDog, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
 import { useNavigate } from "react-router-dom";
 import { upLoadS3 } from "./useS3";
+import { useReissueToken } from "./useCommon";
 export const usePostDogWithSignUp = () => {
+  const { getReissueToken } = useReissueToken();
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [postDogValue, setPostDogValue] = useState<PostDogInputType>({
@@ -106,13 +108,15 @@ export const usePostDogWithSignUp = () => {
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
       PostDogWithSignUp(id, postDogValue)
-        .then((res) => {
+        .then(() => {
           alert("강아지 등록이 완료되었습니다.");
           window.location.reload();
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 404) {
+            alert("존재하지 않는 회원입니다.");
+            navigate("/");
+          }
         });
     }
   };
@@ -142,13 +146,14 @@ export const usePostDogWithSignUp = () => {
     }
     postDogValue.birth = `${dateValue.year}-${month}-${day}`;
     PostDog(postDogValue)
-      .then((res) => {
+      .then(() => {
         alert("강아지 등록이 완료되었습니다.");
         navigate("/mypage");
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 403) {
+          getReissueToken("/mypage/postdog");
+        }
       });
   };
   const handlePostDogFinish = async () => {
@@ -180,14 +185,16 @@ export const usePostDogWithSignUp = () => {
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
       PostDogWithSignUp(id, postDogValue)
-        .then((res) => {
+        .then(() => {
           alert("강아지 등록이 완료되었습니다.");
           navigate("/");
           localStorage.removeItem("id");
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 404) {
+            alert("존재하지 않는 회원입니다.");
+            navigate("/");
+          }
         });
     }
   };

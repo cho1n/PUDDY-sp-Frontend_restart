@@ -9,6 +9,10 @@ import {
   UserProfileUpdatePage,
   DogProfileUpdatePage,
   AlertPage,
+  CommunityPage,
+  PostPage,
+  PostWritePage,
+  PostFixPage,
   ChatListPage,
   WhoLikeDetailPage,
   ChatPage,
@@ -29,9 +33,13 @@ export const AppRouter = () => {
           element={<DogProfileUpdatePage />}
         />
         <Route path="/mypage/postdog" element={<PostDogPage />} />
+        <Route path="/post" element={<CommunityPage />} />
+        <Route path="/post/:postId" element={<PostPage />} />
+        <Route path="/post-write" element={<PostWritePage />} />
+        <Route path="/post-fix/:postId" element={<PostFixPage />} />
         <Route path="/chatlist" element={<ChatListPage />} />
-        <Route path="/wholike" element={<WhoLikeDetailPage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/wholike:personId" element={<WhoLikeDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
