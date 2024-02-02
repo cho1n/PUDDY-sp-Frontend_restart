@@ -60,16 +60,18 @@ export const useMatch = () => {
   };
 
   useEffect(() => {
-    getRandomMatch(filterValue)
-      .then((res) => {
-        setMatchListValue(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.status);
-        if (err.response.status === 403) {
-          getReissueToken("/match");
-        }
-      });
+    if (window.location.pathname === "/match") {
+      getRandomMatch(filterValue)
+        .then((res) => {
+          setMatchListValue(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response.status);
+          if (err.response.status === 403) {
+            getReissueToken("/match");
+          }
+        });
+    }
   }, [filterValue]);
 
   const handleMatchCancel = () => {
