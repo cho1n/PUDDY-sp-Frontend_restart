@@ -1,13 +1,12 @@
 import { PostDetailType } from "../../types/community";
-import thumbUp from "../../assets/Community/ThumbUp.svg";
-import chatBubble from "../../assets/Community/ChatBubble.svg";
-import menuVertical from "../../assets/Community/MenuVertical.svg";
 import { CommentTemplate } from "./CommentTemplate";
-import { InputBox } from "../common/Input";
 import { useState } from "react";
 import { Button } from "../common/Button";
 import { PostInputType } from "../../types/community";
 import { useNavigate } from "react-router";
+import thumbUp from "../../assets/Community/ThumbUp.svg";
+import chatBubble from "../../assets/Community/ChatBubble.svg";
+import menuVertical from "../../assets/Community/MenuVertical.svg";
 
 interface PostProps {
   post: PostDetailType;
@@ -15,7 +14,7 @@ interface PostProps {
   changeComment: string;
   onClickLike: () => void;
   onChangeComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCheckComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheckComment: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onCreateComment: (postId: number, content: string) => void;
   onPatchComment: (commentId: number, content: string) => void;
   onDeleteComment: (commentId: number) => void;
@@ -33,58 +32,61 @@ export const PostTemplate = (props: PostProps) => {
 
   return (
     <div className="h-haveHeaderAndFooter px-4 w-full">
-      <div className="border-t px-1 h-550 overflow-auto scrollbar-hide w-full">
+      <div className="w-full h-550 overflow-auto scrollbar-hide border-t">
         <div className="flex flex-row mt-2">
           <img
             src={props.post.person.dog.image}
             className="w-9 h-9 mr-1 mt-1 rounded-full"
             alt="dog"
           />
-          <div className="flex flex-col w-full justify-start items-start">
+          <div className="flex flex-col ml-1 w-317 justify-start items-start">
             <p className="text-default">
               {props.post.person.dog.name} {gender}
-              <button onClick={toggleMenu} className="ml-48 px-0.5 py-0.5">
-                <img
-                  src={menuVertical}
-                  className="w-5 h-5 bg-bgWhite"
-                  alt="menu"
-                />
-              </button>
             </p>
-            <p className="flex text-smallFont text-fontGray h-4">
+            <p className="flex text-smallFont text-fontGray h-4 w-72">
               {props.post.createdAt}
               {isMenuOpen && (
-                <div className="flex ml-2">
+                <div className="flex ml-28">
                   <Button
-                    text="게시글수정"
-                    style="ml-28 px-0 py-0 text-fontBlack "
+                    text="수정하기"
+                    style="px-0 py-0 ml-2 text-fontGray bg-bgWhite underline"
                     onClick={() => navigate(`/post-fix/${props.post.id}`)}
                   />
                   <Button
-                    text="게시글삭제"
-                    style="px-0 py-0 text-fontBlack "
+                    text="삭제하기"
+                    style="px-0 py-0 ml-1 text-fontGray bg-bgWhite underline"
                     onClick={() => props.onDeletePost(props.post.id)}
                   />
                 </div>
               )}
             </p>
           </div>
+          {props.post.isMine && (
+            <button onClick={toggleMenu} className="px-0 py-0 bg-bgWhite ml-0">
+              <img src={menuVertical} className="w-5 h-5" alt="menu" />
+            </button>
+          )}
         </div>
         <div className="flex flex-col text-ellipsis overflow-hidden">
-          <p className="pt-1 text-middleFont text-start ">{props.post.title}</p>
+          <p className="mt-2 mx-2 text-middleFont text-start ">
+            {props.post.title}
+          </p>
         </div>
         <div className="flex flex-col mt-3">
-          <p className="text-smallFont text-start">{props.post.content}</p>
+          <p className="text-smallFont mx-2 text-start">{props.post.content}</p>
         </div>
         <div className="flex mt-4">
-          <button className="m-0 p-0" onClick={() => props.onClickLike()}>
+          <button
+            className="m-0 p-0 bg-bgWhite"
+            onClick={() => props.onClickLike()}
+          >
             <img className="w-5 h-5" src={thumbUp} />
           </button>
           <p className="ml-1">{props.post.likeCount}</p>
-          <img className="w-5 h-5 ml-4" src={chatBubble} />
+          <img className="w-5 h-5 ml-4 mt-1" src={chatBubble} />
           <p className="ml-1">{props.post.comments.length}</p>
         </div>
-        <div className="flex w-full mt-2 mb-4">
+        <div className="flex w-full mt-3 mb-4">
           <CommentTemplate
             changeComment={props.changeComment}
             onChangeComment={props.onChangeComment}
@@ -95,10 +97,9 @@ export const PostTemplate = (props: PostProps) => {
         </div>
       </div>
       <div className="flex flex-row h-20 py-2 bg-bgGray rounded-xl">
-        <InputBox
-          style={"bg-bGray text-fontBlack text-default ml-2"}
+        <textarea
+          className="bg-bgGray w-64 p-2 text-fontBlack text-default ml-3 overflow-auto scrollbar-hide "
           placeholder={"댓글을 입력해주세요."}
-          type={"comment"}
           value={props.comment}
           name={"comment"}
           onChange={props.onCheckComment}

@@ -40,6 +40,7 @@ export default {
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
         110: "110px",
+        317: "317px",
         340: "340px",
         550: "550px",
         600: "600px",
