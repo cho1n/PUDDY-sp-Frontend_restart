@@ -31,15 +31,13 @@ export const SignInTemplate = (props: SignInTemplateProps) => {
       />
       <div className="flex flex-row w-64 h-12 mt-2.5">
         <Button
-          style={
-            "bg-bgWhite text-fontBlack text-buttonFont w-28 h-f basis-1/2 text-nowrap"
-          }
+          style={"bg-bgWhite text-fontBlack text-buttonFont w-28 h-f basis-1/2"}
           text={"로그인"}
           onClick={props.onClick}
         />
         <Button
           style={
-            "bg-bgBlack text-fontWhite text-buttonFont w-28 h-f ml-2.5 basis-1/2 text-nowrap"
+            "bg-bgBlack text-fontWhite text-buttonFont w-28 h-f ml-2.5 basis-1/2"
           }
           text={"회원가입"}
           onClick={props.onSignUp}
