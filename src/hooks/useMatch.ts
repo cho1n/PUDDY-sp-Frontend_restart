@@ -63,6 +63,7 @@ export const useMatch = () => {
   useEffect(() => {
     getRandomMatch(filterValue)
       .then((res) => {
+        console.log(res.data);
         setMatchListValue(res.data);
       })
       .catch((err) => {

@@ -9,7 +9,7 @@ export const MyPageTemplate = () => {
 
   return (
     <div className="flex flex-col items-center w-full h-haveHeaderAndFooter bg-bgWhite mt-2.5 px-4">
-      <div className="flex flex-col items-center w-full h-30">
+      <div className="flex flex-col items-center w-full ">
         {myPageData.myPageValue && myPageData.myPageValue.dogs && (
           <img
             className="rounded-full w-36 h-36 mb-2.5"

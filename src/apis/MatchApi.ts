@@ -3,7 +3,6 @@ import { FilterDogType } from "../types/match";
 
 export const getRandomMatch = (filter: FilterDogType) => {
   const { type, neuter, tags } = filter;
-  console.log(type, neuter, tags);
   return apiClient.get(`/api/random`, {
     params: {
       type: type === "" ? null : type,

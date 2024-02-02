@@ -22,6 +22,8 @@ export default {
         bgYellowHover: "#F4D32F",
         bgWhiteHover: "#F7F7F7",
         bgGrayHover: "#BEBEBE",
+        bgChat: "#F0F0F0",
+        bgMyChat: "#FFDD2E",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
@@ -46,7 +48,9 @@ export default {
         haveHeaderAndFooter: "633px",
         110: "110px",
         340: "340px",
-        580: "580px",
+        560: "560px",
+        500: "500px",
+        65: "65px",
         43: "43px",
         30: "30px",
       },
@@ -62,6 +66,7 @@ export default {
       },
       borderRadius: {
         20: "20px",
+        25: "25px",
         32: "32px",
       },
     },
