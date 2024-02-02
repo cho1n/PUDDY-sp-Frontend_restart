@@ -20,7 +20,7 @@ export const Post = (props: PostProps) => {
             className="w-16 h-16 ml-2 mr-2 rounded-full "
             alt="dog"
           />
-          <div className="w-260 flex flex-col justify-start items-start">
+          <div className="w-64 ml-1 flex flex-col justify-start items-start">
             <div className="h-6 text-ellipsis overflow-hidden">
               <p className="text-default text-start mt-0.5">{props.title}</p>
             </div>

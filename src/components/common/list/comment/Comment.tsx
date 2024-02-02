@@ -28,7 +28,7 @@ export const Comment = (props: CommentProps) => {
 
   return (
     <div className="flex-col w-full border-t">
-      <div className=" w-full overflow-auto scrollbar-hide">
+      <div className=" w-full">
         <div className="flex w-full flex-row mt-2">
           <img
             src={props.person.dog.image}

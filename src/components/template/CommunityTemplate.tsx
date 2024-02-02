@@ -16,7 +16,7 @@ export const CommunityTemplate = (props: CommunityProps) => {
       <div className="flex-col px-2 w-full h-600">
         <PostList onClick={props.onClick} {...props.postValue} />
       </div>
-      <div className="flex flex-row px-4 justify-center ">
+      <div className="flex flex-row px-4 justify-center">
         <Button
           style="mr-3 px-1"
           text="이전"
