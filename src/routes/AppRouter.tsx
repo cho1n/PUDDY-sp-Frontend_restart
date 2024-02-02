@@ -15,6 +15,7 @@ import {
   PostFixPage,
   ChatListPage,
   WhoLikeDetailPage,
+  ChatPage,
 } from "../pages";
 export const AppRouter = () => {
   return (
@@ -37,6 +38,7 @@ export const AppRouter = () => {
         <Route path="/post-write" element={<PostWritePage />} />
         <Route path="/post-fix/:postId" element={<PostFixPage />} />
         <Route path="/chatlist" element={<ChatListPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/wholike:personId" element={<WhoLikeDetailPage />} />
       </Routes>
     </BrowserRouter>

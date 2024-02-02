@@ -19,9 +19,15 @@ export default {
         bgWhite: "#FFFFFF",
         bgMyPageButton: "#CECECE",
         bgMyPageButton2: "#FFDD2E",
+        bgYellowHover: "#F4D32F",
+        bgWhiteHover: "#F7F7F7",
+        bgGrayHover: "#BEBEBE",
+        bgChat: "#F0F0F0",
+        bgMyChat: "#FFDD2E",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
+        abee: ["ABeeZee", "sans-serif"],
       },
       fontSize: {
         bigTitle: "22px",
@@ -34,6 +40,7 @@ export default {
       width: {
         359: "359px",
         393: "393px",
+        30: "30px",
       },
       height: {
         donHave: "777px",
@@ -42,6 +49,11 @@ export default {
         110: "110px",
         317: "317px",
         340: "340px",
+        560: "560px",
+        500: "500px",
+        65: "65px",
+        43: "43px",
+        30: "30px",
         550: "550px",
         600: "600px",
       },
@@ -54,6 +66,11 @@ export default {
         donHave: "777px",
         haveHeader: "713px",
         haveHeaderAndFooter: "633px",
+      },
+      borderRadius: {
+        20: "20px",
+        25: "25px",
+        32: "32px",
       },
     },
   },

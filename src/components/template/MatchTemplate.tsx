@@ -1,7 +1,5 @@
-import { MatchListType } from "../../types/match";
 import { MatchSlider } from "../common/slider/MatchSlider";
 interface MatchTemplateProps {
-  matchListValue: MatchListType;
   handleMatchCancel: () => void;
   handlepostMatch: (personId: number) => void;
 }
