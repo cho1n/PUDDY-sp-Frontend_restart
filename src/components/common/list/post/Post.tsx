@@ -19,12 +19,15 @@ export const Post = (props: PostProps) => {
           className="w-20 h-20 mr-1 rounded-full"
           alt="dog"
         />
-        <div className="flex flex-col w-full justify-start items-start ">
-          <p className="text-default">{props.title}</p>
+        <div className="flex flex-col w-full justify-start items-start">
+          <div className="h-6 text-ellipsis overflow-hidden">
+            <p className="text-default text-start">{props.title}</p>
+          </div>
 
           <div className="h-10 text-ellipsis overflow-hidden">
-            <p className="pt-1 text-smallFont text-start ">{props.content}</p>
+            <p className="pt-1 text-smallFont text-start">{props.content}</p>
           </div>
+
           <div className="flex w-full pt-1">
             <p className="text-smallFont text-fontGray">
               {props.createdAt} {" | "} {props.person.dog.name} {gender}
@@ -32,7 +35,7 @@ export const Post = (props: PostProps) => {
             <div className="flex ml-4">
               <img className="w-5 h-5" src={thumbUp} />
               <p className="ml-1">{props.likeCount}</p>
-              <img className="w-5 h-5 ml-4" src={chatBubble} />
+              <img className="w-5 h-5 ml-4 mt-0.5" src={chatBubble} />
               <p className="ml-1">{props.commentCount}</p>
             </div>
           </div>

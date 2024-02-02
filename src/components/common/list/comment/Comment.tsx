@@ -19,6 +19,7 @@ export const Comment = (props: CommentProps) => {
   };
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
+    console.log();
     setIsOpen(true);
   };
   const closeModal = () => {
@@ -34,35 +35,33 @@ export const Comment = (props: CommentProps) => {
             className="w-9 h-9 mr-1 mt-1 rounded-full"
             alt="dog"
           />
-          <div className="flex w-full flex-col justify-start items-start">
+          <div className="flex flex-col w-full justify-start items-start">
             <p className="text-default">
               {props.person.dog.name} {gender}
-              <button onClick={toggleMenu} className="ml-48 px-0.5 py-0.5">
-                <img
-                  src={menuVertical}
-                  className="w-5 h-5 bg-bgWhite"
-                  alt="menu"
-                />
-              </button>
             </p>
             <p className="flex text-smallFont text-fontGray h-4">
               {props.createdAt}
               {isMenuOpen && (
-                <div className="flex">
+                <div className="flex ml-2">
                   <Button
-                    text="댓글수정"
-                    style="ml-36 px-0 py-0 text-fontBlack "
+                    text="수정하기"
+                    style="ml-28 px-0 py-0 text-fontGray bg-bgWhite underline"
                     onClick={openModal}
                   />
                   <Button
-                    text="댓글삭제"
-                    style="px-0 py-0 text-fontBlack "
+                    text="삭제하기"
+                    style="ml-1 px-0 py-0 text-fontGray bg-bgWhite underline"
                     onClick={() => props.onDeleteComment(props.id)}
                   />
                 </div>
               )}
             </p>
           </div>
+          {props.isMine && (
+            <button onClick={toggleMenu} className="ml-1 px-0 py-0 bg-bgWhite">
+              <img src={menuVertical} className="w-5 h-5" alt="menu" />
+            </button>
+          )}
         </div>
       </div>
 
