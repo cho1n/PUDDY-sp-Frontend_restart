@@ -1,20 +1,18 @@
-import { PostInputType, PostListType } from "../../types/community";
+import { TrailReviewListType } from "../../types/trailReview";
 import { Button } from "../common/Button";
-import { PostList } from "../common/list/post/PostList";
+import { TrailList } from "../common/list/trail/TrailList";
 
-interface CommunityProps {
-  postValue: PostListType;
+interface TrailListProps {
+  trailValue: TrailReviewListType;
   pageNum: number;
-  onClick: (postId: number) => void;
-  onCreatePost: (postInputType: PostInputType) => void;
   onChangePage: (direction: "prev" | "next") => void;
 }
 
-export const CommunityTemplate = (props: CommunityProps) => {
+export const TrailListTemplate = (props: TrailListProps) => {
   return (
     <div className="flex flex-col w-full h-haveHeaderAndFooter px-4">
-      <div className="flex-col px-4 w-full h-600">
-        <PostList onClick={props.onClick} {...props.postValue} />
+      <div className="flex-col px-2 w-full h-600">
+        <TrailList {...props.trailValue} />
       </div>
       <div className="flex flex-row px-4 justify-center">
         <Button

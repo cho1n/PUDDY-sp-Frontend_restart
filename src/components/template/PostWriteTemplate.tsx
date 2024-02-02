@@ -25,7 +25,7 @@ export const PostWriteTemplate = (props: PostWriteProps) => {
       <p className="mt-3 text-start text-middleFont">내용</p>
       <textarea
         className={
-          "bg-bgWhite border-2 w-full h-340 overflow-auto scrollbar-hide rounded-lg"
+          "bg-bgWhite border-2 w-full h-340 overflow-auto scrollbar-hide rounded-lg p-1.5 mt-1"
         }
         placeholder={""}
         value={props.content}
