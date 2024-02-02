@@ -13,3 +13,4 @@ export { PostWritePage } from "./PostWritePage";
 export { PostFixPage } from "./PostFixPage";
 export { ChatListPage } from "./ChatListPage";
 export { WhoLikeDetailPage } from "./WhoLikeDetailPage";
+export { TrailListPage } from "./TrailListPage";

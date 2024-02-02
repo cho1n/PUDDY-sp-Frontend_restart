@@ -15,7 +15,9 @@ import {
   PostFixPage,
   ChatListPage,
   WhoLikeDetailPage,
+  TrailListPage,
 } from "../pages";
+import { TrailWritePage } from "../pages/TrailWritePage";
 export const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -38,6 +40,8 @@ export const AppRouter = () => {
         <Route path="/post-fix/:postId" element={<PostFixPage />} />
         <Route path="/chatlist" element={<ChatListPage />} />
         <Route path="/wholike:personId" element={<WhoLikeDetailPage />} />
+        <Route path="/trail/:trailId/review" element={<TrailListPage />} />
+        <Route path="/trail-write/:trailId" element={<TrailWritePage />} />
       </Routes>
     </BrowserRouter>
   );

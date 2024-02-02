@@ -8,6 +8,7 @@ import { SelectDogType } from "../SelectBox";
 import { NeuterRadio } from "../Radio";
 import { TagButtonList } from "../Button";
 import { useMatch } from "../../../hooks";
+import { useParams } from "react-router-dom";
 
 interface Title {
   title: string;
@@ -18,7 +19,8 @@ interface Title {
 }
 
 export const Header = (titleObject: Title) => {
-  const { handleAlert, handleBack, handleWritePost } = useHeader();
+  const { handleAlert, handleBack, handleWritePost, handleWriteTrail } =
+    useHeader();
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef<HTMLDivElement>(null);
   const {
@@ -28,6 +30,8 @@ export const Header = (titleObject: Title) => {
     handlePostDogTag,
     setFilterValue,
   } = useMatch();
+  const { trailId } = useParams();
+  const trailIdNumber = Number(trailId);
 
   return (
     <div className="flex px-4 w-full h-16 px-1 py-2 items-center gap-1 shrink-0">
@@ -123,6 +127,16 @@ export const Header = (titleObject: Title) => {
           <div
             className="flex justify-center items-center gap-2.5"
             onClick={() => handleWritePost()}
+          >
+            <img src={plus} className="w-6 h-6" alt="alert" />
+          </div>
+        </>
+      )}
+      {titleObject.title === "산책로 후기" && (
+        <>
+          <div
+            className="flex justify-center items-center gap-2.5"
+            onClick={() => handleWriteTrail(trailIdNumber)}
           >
             <img src={plus} className="w-6 h-6" alt="alert" />
           </div>

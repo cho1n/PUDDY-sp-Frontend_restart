@@ -8,8 +8,11 @@ export const useHeader = () => {
   const handleWritePost = () => {
     navigate("/post-write");
   };
+  const handleWriteTrail = (id: number) => {
+    navigate(`/trail-write/${id}`);
+  };
   const handleBack = () => {
     window.history.back();
   };
-  return { handleAlert, handleWritePost, handleBack };
+  return { handleAlert, handleWritePost, handleWriteTrail, handleBack };
 };
