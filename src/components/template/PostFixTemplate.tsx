@@ -4,7 +4,8 @@ import { InputBox } from "../common/Input";
 
 interface PostFixProps {
   post: PostDetailType;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onPatchPost: (postId: number, postInputType: PostInputType) => void;
 }
 
@@ -18,16 +19,17 @@ export const PostFixTemplate = (props: PostFixProps) => {
         type={"title"}
         value={props.post.title}
         name={"title"}
-        onChange={props.onChange}
+        onChange={props.onChangeTitle}
       />
       <p className="mt-3 text-start text-middleFont">내용</p>
-      <InputBox
-        style={"bg-bgWhite border-2 w-full h-340"}
+      <textarea
+        className={
+          "bg-bgWhite border-2 w-full h-340 overflow-auto scrollbar-hide rounded-lg p-1.5 mt-1"
+        }
         placeholder={""}
-        type={"content"}
         value={props.post.content}
         name={"content"}
-        onChange={props.onChange}
+        onChange={props.onChangeContent}
       />
       <Button
         style="mt-36 w-full bg-bgYellow"

@@ -9,38 +9,40 @@ interface PostProps extends PostType {
 export const Post = (props: PostProps) => {
   const gender = props.person.gender ? "아빠" : "엄마";
   return (
-    <button
-      className="py-0 w-full border-2 px-0"
-      onClick={() => props.onClick(props.id)}
-    >
-      <div className="flex flex-row items-center">
-        <img
-          src={props.person.dog.image}
-          className="w-20 h-20 mr-1 rounded-full"
-          alt="dog"
-        />
-        <div className="flex flex-col w-full justify-start items-start">
-          <div className="h-6 text-ellipsis overflow-hidden">
-            <p className="text-default text-start">{props.title}</p>
-          </div>
+    <div className="border-t-2">
+      <button
+        className="w-full border-2 px-0.5 py-0 bg-bgWhite"
+        onClick={() => props.onClick(props.id)}
+      >
+        <div className="flex flex-row items-center">
+          <img
+            src={props.person.dog.image}
+            className="w-16 h-16 ml-2 mr-2 rounded-full "
+            alt="dog"
+          />
+          <div className="w-260 flex flex-col justify-start items-start">
+            <div className="h-6 text-ellipsis overflow-hidden">
+              <p className="text-default text-start mt-0.5">{props.title}</p>
+            </div>
 
-          <div className="h-10 text-ellipsis overflow-hidden">
-            <p className="pt-1 text-smallFont text-start">{props.content}</p>
-          </div>
+            <div className="h-10 text-ellipsis overflow-hidden">
+              <p className="text-smallFont text-start mt-1">{props.content}</p>
+            </div>
 
-          <div className="flex w-full pt-1">
-            <p className="text-smallFont text-fontGray">
-              {props.createdAt} {" | "} {props.person.dog.name} {gender}
-            </p>
-            <div className="flex ml-4">
-              <img className="w-5 h-5" src={thumbUp} />
-              <p className="ml-1">{props.likeCount}</p>
-              <img className="w-5 h-5 ml-4 mt-0.5" src={chatBubble} />
-              <p className="ml-1">{props.commentCount}</p>
+            <div className="flex mt-1">
+              <p className="text-smallFont text-fontGray w-40 text-start">
+                {props.createdAt} {" | "} {props.person.dog.name} {gender}
+              </p>
+              <div className="flex ml-0">
+                <img className="w-5 h-5" src={thumbUp} />
+                <p className="ml-1">{props.likeCount}</p>
+                <img className="w-5 h-5 ml-4 mt-0.5" src={chatBubble} />
+                <p className="ml-1">{props.commentCount}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </button>
+      </button>
+    </div>
   );
 };

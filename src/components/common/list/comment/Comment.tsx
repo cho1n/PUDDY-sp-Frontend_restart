@@ -28,29 +28,29 @@ export const Comment = (props: CommentProps) => {
 
   return (
     <div className="flex-col w-full border-t">
-      <div className="px-1 w-full overflow-auto scrollbar-hide">
-        <div className="flex w-full flex-row mt-1">
+      <div className=" w-full overflow-auto scrollbar-hide">
+        <div className="flex w-full flex-row mt-2">
           <img
             src={props.person.dog.image}
             className="w-9 h-9 mr-1 mt-1 rounded-full"
             alt="dog"
           />
-          <div className="flex flex-col w-full justify-start items-start">
+          <div className="flex flex-col ml-1 w-317 justify-start items-start">
             <p className="text-default">
               {props.person.dog.name} {gender}
             </p>
-            <p className="flex text-smallFont text-fontGray h-4">
+            <p className="flex text-smallFont text-fontGray h-4 w-72">
               {props.createdAt}
               {isMenuOpen && (
-                <div className="flex ml-2">
+                <div className="flex ml-28">
                   <Button
                     text="수정하기"
-                    style="ml-28 px-0 py-0 text-fontGray bg-bgWhite underline"
+                    style="px-0 py-0 ml-2 text-fontGray bg-bgWhite underline"
                     onClick={openModal}
                   />
                   <Button
                     text="삭제하기"
-                    style="ml-1 px-0 py-0 text-fontGray bg-bgWhite underline"
+                    style="px-0 py-0 ml-1 text-fontGray bg-bgWhite underline"
                     onClick={() => props.onDeleteComment(props.id)}
                   />
                 </div>
@@ -66,7 +66,7 @@ export const Comment = (props: CommentProps) => {
       </div>
 
       <div className="flex mt-3 mb-1 w-full">
-        <p className="text-smallFont text-start">{props.content}</p>
+        <p className="text-smallFont mx-2 text-start">{props.content}</p>
       </div>
       {isOpen && (
         <div className="flex z-50 items-center justify-center w-full border">

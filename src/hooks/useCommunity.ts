@@ -61,7 +61,7 @@ export const useCommunity = () => {
     setTitle(e.target.value);
   };
 
-  const handleContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 

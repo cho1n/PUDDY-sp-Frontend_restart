@@ -52,14 +52,20 @@ export const usePost = () => {
     window.location.reload();
   };
 
-  const handlePost = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePostTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost({
+      ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handlePostContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPost({
       ...post,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
@@ -116,7 +122,8 @@ export const usePost = () => {
     post,
     comment,
     changeComment,
-    handlePost,
+    handlePostTitle,
+    handlePostContent,
     handleLikeClick,
     handleComment,
     handleChangeComment,

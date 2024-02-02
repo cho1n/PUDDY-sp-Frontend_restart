@@ -6,7 +6,7 @@ interface PostWriteProps {
   title: string;
   content: string;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeContent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onWritePost: (postInputType: PostInputType) => void;
 }
 
@@ -23,16 +23,17 @@ export const PostWriteTemplate = (props: PostWriteProps) => {
         onChange={props.onChangeTitle}
       />
       <p className="mt-3 text-start text-middleFont">내용</p>
-      <InputBox
-        style={"bg-bgWhite border-2 w-full h-340"}
+      <textarea
+        className={
+          "bg-bgWhite border-2 w-full h-340 overflow-auto scrollbar-hide rounded-lg"
+        }
         placeholder={""}
-        type={"content"}
         value={props.content}
         name={"content"}
         onChange={props.onChangeContent}
       />
       <Button
-        style="mt-36 w-full bg-bgYellow"
+        style="mt-28 w-full bg-bgYellow"
         text="작성하기"
         onClick={() =>
           props.onWritePost({ title: props.title, content: props.content })
