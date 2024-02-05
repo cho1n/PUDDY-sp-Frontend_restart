@@ -5,7 +5,11 @@ import {
   TrailReviewInputType,
   TrailReviewListType,
 } from "../types/trailReview";
-import { GetTrailReviewList, PostTrailReview } from "../apis/TrailReviewApi";
+import {
+  DeleteTrailReview,
+  GetTrailReviewList,
+  PostTrailReview,
+} from "../apis/TrailReviewApi";
 import { useParams } from "react-router";
 
 export const useTrailList = () => {
@@ -50,6 +54,11 @@ export const useTrailList = () => {
     window.location.reload();
   };
 
+  const handleDeleteTrail = (reviewId: number) => {
+    DeleteTrailReview(trailIdNumber, reviewId);
+    window.location.reload();
+  };
+
   const handlePageChange = async (direction: "prev" | "next") => {
     let nextPage = direction === "prev" ? page - 1 : page + 1;
     if (nextPage > 0) {
@@ -76,6 +85,7 @@ export const useTrailList = () => {
     content,
     trailIdNumber,
     handleWriteTrail,
+    handleDeleteTrail,
     handlePageChange,
     handleContent,
   };
