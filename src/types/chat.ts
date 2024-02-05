@@ -1,12 +1,10 @@
 export type ChatListType = {
-  persons: ChatProfileType[];
+  chats: ChatProfileType[];
 };
 
 export type ChatProfileType = {
   id: number;
-  personId: number;
-  gender: boolean;
-  dog: ChatDogType;
+  person: ChatPersonType | null;
 };
 
 export type ChatDogType = {
@@ -22,12 +20,14 @@ export type ChatDetailType = {
 };
 
 export type ChatPersonType = {
+  personId: number;
   gender: boolean;
   dog: ChatDogType;
 };
 
 export type ChatMessageType = {
   id: number;
+  chatId: number;
   content: string;
   senderId: number;
   createdAt: string;
