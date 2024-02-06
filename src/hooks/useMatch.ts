@@ -66,7 +66,6 @@ export const useMatch = () => {
           setMatchListValue(res.data);
         })
         .catch((err) => {
-          console.log(err.response.status);
           if (err.response.status === 403) {
             getReissueToken("/match");
           }

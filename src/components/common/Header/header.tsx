@@ -3,7 +3,6 @@ import { arrow, alert, filters, plus } from "../../../assets/Header";
 import { useHeader } from "../../../hooks/useHeader";
 import { Button } from "../Button/Button";
 import { SignUpMiddleTitle } from "../Text";
-import { FilterInputType } from "../../../types/filter";
 import { SelectDogType } from "../SelectBox";
 import { NeuterRadio } from "../Radio";
 import { TagButtonList } from "../Button";
@@ -12,10 +11,6 @@ import { useParams } from "react-router-dom";
 
 interface Title {
   title: string;
-  filter: FilterInputType;
-  onSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onNeuterCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeTag: (content: string) => void;
 }
 
 export const Header = (titleObject: Title) => {

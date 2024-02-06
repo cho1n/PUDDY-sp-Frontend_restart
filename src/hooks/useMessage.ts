@@ -1,6 +1,6 @@
 import { Client } from "@stomp/stompjs";
 import { ChatDetailType } from "../types/chat";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getChatDetail } from "../apis/ChatApi";
 import { useReissueToken } from "./useCommon";
