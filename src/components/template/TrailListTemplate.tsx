@@ -6,13 +6,17 @@ interface TrailListProps {
   trailValue: TrailReviewListType;
   pageNum: number;
   onChangePage: (direction: "prev" | "next") => void;
+  onDeleteReview: (reviewId: number) => void;
 }
 
 export const TrailListTemplate = (props: TrailListProps) => {
   return (
     <div className="flex flex-col w-full h-haveHeaderAndFooter px-4">
       <div className="flex-col px-2 w-full h-600">
-        <TrailList {...props.trailValue} />
+        <TrailList
+          onDeleteReview={props.onDeleteReview}
+          {...props.trailValue}
+        />
       </div>
       <div className="flex flex-row px-4 justify-center">
         <Button
