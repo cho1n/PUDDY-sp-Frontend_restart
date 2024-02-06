@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { ChatListType } from "../../../../types/chat";
 import { Chat } from "./chat";
 
