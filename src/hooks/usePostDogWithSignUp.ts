@@ -8,7 +8,7 @@ import { useReissueToken } from "./useCommon";
 export const usePostDogWithSignUp = () => {
   const { getReissueToken } = useReissueToken();
   const navigate = useNavigate();
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File>(new File([""], "filename"));
   const [postDogValue, setPostDogValue] = useState<PostDogInputType>({
     image: "",
     registerNum: "",

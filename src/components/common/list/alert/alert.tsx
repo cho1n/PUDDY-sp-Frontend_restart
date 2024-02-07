@@ -9,7 +9,7 @@ export const Alert = (props: AlertProps) => {
   const gender = props.gender ? "아빠" : "엄마";
   const message = `${props.dog.name} ${gender}님이 Like를 보냈습니다.`;
   return (
-    <div className="py-2.5 w-full border-y-2">
+    <div className="py-2.5 w-full border-b-2">
       <div className="flex flex-row justify-start w-full h-10">
         <img
           src={props.dog.image}
