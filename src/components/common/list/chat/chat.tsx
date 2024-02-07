@@ -9,7 +9,7 @@ export const Chat = (props: ChatProps) => {
   const message = `${props.person?.dog.name} ${gender}님과 채팅을 시작해보세요 !`;
   return (
     <div
-      className="py-2.5 w-full border-y-2 hover:bg-bgWhiteHover"
+      className="py-2.5 w-full border-b-2 hover:bg-bgWhiteHover"
       onClick={() => props.enterChat(props.id)}
     >
       <div className="flex flex-row justify-start items-center w-full">

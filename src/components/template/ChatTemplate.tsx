@@ -24,50 +24,71 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
 
   return (
     <div className="flex flex-col items-center justify-end w-393 h-haveHeader bg-bgYellow font-abee">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full flex items-center justify-center">
         <img
           src={props.chatDetailValue.person?.dog.image}
-          className="w-20 h-20 rounded-full"
+          className="w-24 h-24 rounded-full"
           alt=""
         ></img>
       </div>
-      <p className="text-bigTitle mt-2 font-abee font-bold text-fontWhite ">
+      <p className="text-buttonFont my-2 font-abee text-fontWhite font-bold">
         {props.chatDetailValue.person?.dog.name}{" "}
         {props.chatDetailValue.person?.gender ? "아빠" : "엄마"}
       </p>
-      <div className="bg-bgWhite w-full h-560 rounded-t-32 px-4">
+      <div className="bg-bgWhite w-full h-560 rounded-t-32 px-4 pt-1">
         <div
           ref={scrollRef}
-          className="justify-end w-full h-500 mb-2 pt-10 overflow-y-auto scrollbar-hide"
+          className="justify-end w-full h-500  overflow-y-auto scrollbar-hide"
         >
-          {props.chatDetailValue.messages.map((message, index) => (
-            <>
-              {message.senderId !== props.chatDetailValue.currentUserId ? (
-                <div
-                  key={index}
-                  className="flex flex-row justify-start items-center w-full h-65 mb-6"
-                >
-                  <img
-                    className="w-14 h-14 rounded-full flex items-center justify-center z-10"
-                    src={props.chatDetailValue.person?.dog.image}
-                  ></img>
-                  <div className="flex justify-center flex-wrap whitespace-normal max-w-60 ml-5 mb-11 min-h-14 bg-bgChat rounded-tl-25 rounded-tr-25 rounded-br-25 items-center p-4">
-                    <p className="w-full break-words text-default text-fontBlack">
-                      {message.content}
-                    </p>
+          {props.chatDetailValue.messages.map((message, index) => {
+            const previousMessage = props.chatDetailValue.messages[index - 1];
+            const isNewDate =
+              previousMessage && previousMessage.date !== message.date;
+
+            return (
+              <>
+                {isNewDate && (
+                  <div className="w-full flex justify-center mb-6">
+                    <div className="w-24 h-6 rounded-2xl bg-bgGrayHover flex justify-center items-center text-center">
+                      <p className="w-full text-defalut text-fontWhite">
+                        {message.date}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="flex flex-row justify-end items-center w-full h-65 mb-6">
-                  <div className="flex justify-center flex-wrap whitespace-normal max-w-60 mb-11 min-h-14 bg-bgMyChat opacity-60 rounded-tl-25 rounded-tr-25 rounded-bl-25 items-center p-4">
-                    <p className="w-full break-words text-default text-fontBlack">
-                      {message.content}
-                    </p>
+                )}
+                {message.senderId !== props.chatDetailValue.currentUserId ? (
+                  <div
+                    key={index}
+                    className="flex flex-row justify-start items-center w-full h-65 mb-6"
+                  >
+                    <img
+                      className="w-14 h-14 rounded-full flex items-center justify-center z-10"
+                      src={props.chatDetailValue.person?.dog.image}
+                    ></img>
+                    <div className="flex justify-center flex-wrap whitespace-normal max-w-60 ml-5 mb-11 min-h-14 bg-bgChat rounded-tl-25 rounded-tr-25 rounded-br-25 items-center p-4">
+                      <p className="w-full break-words text-default text-fontBlack">
+                        {message.content}
+                      </p>
+                    </div>
+                    <div className="ml-2 mb-2 text-defalut text-fontGray">
+                      <p>{message.time}</p>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          ))}
+                ) : (
+                  <div className="flex flex-row justify-end items-center w-full h-65 mb-6">
+                    <div className="mr-2 mb-2 text-defalut text-fontGray">
+                      <p>{message.time}</p>
+                    </div>
+                    <div className="flex justify-center flex-wrap whitespace-normal max-w-60 mb-11 min-h-14 bg-bgMyChat opacity-60 rounded-tl-25 rounded-tr-25 rounded-bl-25 items-center p-4">
+                      <p className="w-full break-words text-default text-fontBlack">
+                        {message.content}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })}
           <div ref={messageEndRef}></div>
         </div>
         <div className="flex justify-start items-center w-359 shadow-lg h-43 rounded-20 mb-3 pl-2">
