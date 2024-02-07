@@ -68,6 +68,7 @@ export const useMessage = () => {
       body: JSON.stringify(message),
     });
     setContent("");
+    
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
@@ -89,5 +90,5 @@ export const useMessage = () => {
       client?.deactivate();
     };
   }, [chatId]);
-  return { chatDetailValue, sendMessage, handleInput };
+  return { chatDetailValue, sendMessage, handleInput, content };
 };

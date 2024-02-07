@@ -7,6 +7,7 @@ interface ChatTemplateProps {
   chatDetailValue: ChatDetailType;
   sendMessage: () => void;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  content: string;
 }
 
 export const ChatTemplate = (props: ChatTemplateProps) => {
@@ -24,7 +25,11 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
   return (
     <div className="flex flex-col items-center justify-end w-393 h-haveHeader bg-bgYellow font-abee">
       <div className="w-20 h-20 rounded-full flex items-center justify-center">
-        <img src={veterinarian} className="w-20 h-20" alt=""></img>
+        <img
+          src={props.chatDetailValue.person?.dog.image}
+          className="w-20 h-20 rounded-full"
+          alt=""
+        ></img>
       </div>
       <p className="text-bigTitle mt-2 font-abee font-bold text-fontWhite ">
         {props.chatDetailValue.person?.dog.name}{" "}
@@ -70,6 +75,7 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
             className="w-72 h-5/6 pl-2"
             placeholder="메세지를 입력하세요..."
             onChange={props.handleInput}
+            value={props.content}
           />
           <div
             className="flex items-center w-30 h-30 bg-bgYellow ml-4 pl-2 rounded-full hover:bg-bgYellowHover cursor-pointer"
