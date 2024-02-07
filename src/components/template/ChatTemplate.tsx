@@ -1,5 +1,4 @@
 import sendIcon from "../../assets/chat/sendIcon.svg";
-import veterinarian from "../../assets/MyPage/Veterinarian.svg";
 import { useEffect, useRef } from "react";
 import { ChatDetailType } from "../../types/chat";
 
@@ -27,7 +26,7 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
       <div className="w-24 h-24 rounded-full flex items-center justify-center">
         <img
           src={props.chatDetailValue.person?.dog.image}
-          className="w-24 h-24 rounded-full"
+          className="w-24 h-24 rounded-full bg-bgWhite"
           alt=""
         ></img>
       </div>
@@ -35,10 +34,10 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
         {props.chatDetailValue.person?.dog.name}{" "}
         {props.chatDetailValue.person?.gender ? "아빠" : "엄마"}
       </p>
-      <div className="bg-bgWhite w-full h-560 rounded-t-32 px-4 pt-1">
+      <div className="bg-bgWhite w-full h-560 rounded-t-32 px-4">
         <div
           ref={scrollRef}
-          className="justify-end w-full h-500  overflow-y-auto scrollbar-hide"
+          className="justify-end w-full pt-10 h-500 overflow-y-auto scrollbar-hide"
         >
           {props.chatDetailValue.messages.map((message, index) => {
             const previousMessage = props.chatDetailValue.messages[index - 1];
