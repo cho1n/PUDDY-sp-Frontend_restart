@@ -9,7 +9,7 @@ interface PostProps extends PostType {
 export const Post = (props: PostProps) => {
   const gender = props.person.gender ? "아빠" : "엄마";
   return (
-    <div className="border-t-2">
+    <div className="border-b-2">
       <button
         className="w-full border-2 px-0.5 py-0 bg-bgWhite"
         onClick={() => props.onClick(props.id)}

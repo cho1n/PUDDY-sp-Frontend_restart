@@ -30,5 +30,6 @@ export type ChatMessageType = {
   chatId: number;
   content: string;
   senderId: number;
-  createdAt: string;
+  date: string;
+  time: string;
 };
