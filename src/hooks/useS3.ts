@@ -15,7 +15,7 @@ const s3 = new AWS.S3();
 export const upLoadS3 = async (
   name: string,
   registerNum: string,
-  file: File | null
+  file: File
 ) => {
   const uploadPromise = () => {
     const params = {

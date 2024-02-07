@@ -35,19 +35,26 @@ export const useMessage = () => {
         },
       });
       clientData.onConnect = function () {
-        clientData.subscribe(
-          `/sub/chat/${chatId}`,
-          (message) => {
-            const newMessage = JSON.parse(message.body);
-            setChatDetailValue((prev) => ({
-              ...prev,
-              messages: [...prev.messages, newMessage],
-            }));
-          },
-          {
-            Authorization: `${localStorage.getItem("accessToken")}`,
+        try {
+          clientData.subscribe(
+            `/sub/chat/${chatId}`,
+            (message) => {
+              const newMessage = JSON.parse(message.body);
+              console.log(newMessage);
+              setChatDetailValue((prev) => ({
+                ...prev,
+                messages: [...prev.messages, newMessage],
+              }));
+            },
+            {
+              Authorization: `${localStorage.getItem("accessToken")}`,
+            }
+          );
+        } catch (err: any) {
+          if (err.response.status === 403) {
+            getReissueToken(`/chat/${chatId}`);
           }
-        );
+        }
       };
       clientData.activate();
       setClient(clientData);
@@ -60,14 +67,20 @@ export const useMessage = () => {
       currentUserId: chatDetailValue.currentUserId,
     };
     if (content === "") return;
-    client?.publish({
-      destination: `/pub/message`,
-      headers: {
-        Authorization: `${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(message),
-    });
-    setContent("");
+    try {
+      client?.publish({
+        destination: `/pub/message`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(message),
+      });
+      setContent("");
+    } catch (err: any) {
+      if (err.response.status === 403) {
+        getReissueToken(`/chat/${chatId}`);
+      }
+    }
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
