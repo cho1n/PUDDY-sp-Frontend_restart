@@ -42,7 +42,8 @@ export const ChatTemplate = (props: ChatTemplateProps) => {
           {props.chatDetailValue.messages.map((message, index) => {
             const previousMessage = props.chatDetailValue.messages[index - 1];
             const isNewDate =
-              previousMessage && previousMessage.date !== message.date;
+              (previousMessage && previousMessage.date !== message.date) ||
+              index === 0;
 
             return (
               <>
