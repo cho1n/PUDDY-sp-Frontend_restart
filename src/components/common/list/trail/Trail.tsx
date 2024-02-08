@@ -2,6 +2,7 @@ import { TrailReviewType } from "../../../../types/trailReview";
 import { useState } from "react";
 import menuVertical from "../../../../assets/Community/MenuVertical.svg";
 import { Button } from "../../Button";
+import { emptyStar, fullStar } from "../../../../assets/trailReview";
 
 interface TrailProps extends TrailReviewType {
   onDeleteReview: (reviewId: number) => void;
@@ -49,10 +50,20 @@ export const Trail = (props: TrailProps) => {
             </div>
           </div>
 
-          <div className="flex flex-col mt-1">
-            <p className="text-smallFont text-fontGray w-40 text-start">
+          <div className="flex flex-row mt-1 w-full">
+            <p className="text-smallFont flex-1 text-fontGray w-40 text-start">
               {props.createdAt} {" | "} {props.reviewer.dog.name} {gender}
             </p>
+            <div className="flex flex-row">
+              {Array.from({ length: 5 }, (_, i) => (
+                <img
+                  key={i}
+                  src={i < props.star ? fullStar : emptyStar}
+                  alt="star"
+                  className="w-4 h-4"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
