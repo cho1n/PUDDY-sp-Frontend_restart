@@ -7,8 +7,7 @@ interface AlertListProps extends AlertListType {
 
 export const AlertList = (props: AlertListProps) => {
   return (
-    <div className="w-full grid grid-cols-1">
-      <div className="w-full border-b-2" />
+    <div className="w-full grid grid-cols-1 border-t-2">
       {props.matches.map((match, index) => (
         <Alert key={index} {...match} goToProfile={props.goToProfile} />
       ))}

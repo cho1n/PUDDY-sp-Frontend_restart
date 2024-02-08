@@ -16,17 +16,19 @@ export const Trail = (props: TrailProps) => {
 
   const gender = props.reviewer.gender ? "아빠" : "엄마";
   return (
-    <div className="border-t-2">
-      <div className="flex flex-row items-center h-24">
+    <div className="border-b-2">
+      <div className="flex flex-row py-4 min-h-24">
         <img
           src={props.reviewer.dog.image}
           className="w-16 h-16 ml-2 mr-2 rounded-full "
           alt="dog"
         />
-        <div className="flex flex-col w-64 ml-1 justify-start items-start">
-          <div className="flex flex-row">
-            <div className="flex w-56 min-h-10 text-ellipsis overflow-hidden">
-              <p className="text-smallFont text-start mt-1">{props.content}</p>
+        <div className="flex flex-col flex-1 ml-1 justify-start items-start">
+          <div className="flex flex-row w-full">
+            <div className="flex w-full min-h-10 text-ellipsis overflow-hidden">
+              <p className="text-smallFont text-start mt-1 w-full break-all">
+                {props.content}
+              </p>
             </div>
 
             <div className="flex flex-col">
@@ -42,7 +44,7 @@ export const Trail = (props: TrailProps) => {
                 <div className="flex">
                   <Button
                     text="삭제"
-                    style="px-0 py-0  text-fontGray text-smallFont bg-bgWhite underline"
+                    style="px-0 py-0 text-fontGray text-smallFont bg-bgWhite underline"
                     onClick={() => props.onDeleteReview(props.id)}
                   />
                 </div>

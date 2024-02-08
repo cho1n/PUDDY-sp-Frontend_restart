@@ -13,10 +13,10 @@ interface CommunityProps {
 export const CommunityTemplate = (props: CommunityProps) => {
   return (
     <div className="flex flex-col w-full h-haveHeaderAndFooter px-4">
-      <div className="flex-col px-4 w-full h-600">
+      <div className="flex-col w-full max-h-600 overflow-auto  scrollbar-hide">
         <PostList onClick={props.onClick} {...props.postValue} />
       </div>
-      <div className="flex flex-row px-4 justify-center">
+      <div className="flex flex-row justify-center">
         <Button
           style="mr-3 px-1"
           text="이전"

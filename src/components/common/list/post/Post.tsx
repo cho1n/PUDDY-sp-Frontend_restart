@@ -1,6 +1,7 @@
 import { PostType } from "../../../../types/community";
 import thumbUp from "../../../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../../../assets/Community/ChatBubble.svg";
+import { useEffect } from "react";
 
 interface PostProps extends PostType {
   onClick: (postId: number) => void;
@@ -8,29 +9,35 @@ interface PostProps extends PostType {
 
 export const Post = (props: PostProps) => {
   const gender = props.person.gender ? "아빠" : "엄마";
+  const smallContent =
+    props.content.length > 60
+      ? props.content.slice(0, 60) + "..."
+      : props.content;
   return (
-    <div className="border-b-2">
-      <button
-        className="w-full border-2 px-0.5 py-0 bg-bgWhite"
+    <div className="w-full border-b-2 py-2">
+      <div
+        className="w-full px-0.5 bg-bgWhite"
         onClick={() => props.onClick(props.id)}
       >
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center w-full">
           <img
             src={props.person.dog.image}
-            className="w-16 h-16 ml-2 mr-2 rounded-full "
+            className="w-16 h-16 ml-2 mr-2 rounded-full"
             alt="dog"
           />
-          <div className="w-64 ml-1 flex flex-col justify-start items-start">
+          <div className="ml-1 flex flex-col justify-start items-start flex-1">
             <div className="h-6 text-ellipsis overflow-hidden">
               <p className="text-default text-start mt-0.5">{props.title}</p>
             </div>
 
-            <div className="h-10 text-ellipsis overflow-hidden">
-              <p className="text-smallFont text-start mt-1">{props.content}</p>
+            <div className="flex min-h-10 text-ellipsis overflow-hidden">
+              <p className="text-smallFont text-start mt-1 break-all">
+                {smallContent}
+              </p>
             </div>
 
-            <div className="flex mt-1">
-              <p className="text-smallFont text-fontGray w-40 text-start">
+            <div className="flex mt-1 w-full">
+              <p className="text-smallFont text-fontGray w-40 text-start flex-1">
                 {props.createdAt} {" | "} {props.person.dog.name} {gender}
               </p>
               <div className="flex ml-0">
@@ -42,7 +49,7 @@ export const Post = (props: PostProps) => {
             </div>
           </div>
         </div>
-      </button>
+      </div>
     </div>
   );
 };
