@@ -21,7 +21,7 @@ export const FooterNav = () => {
 
   return (
     <>
-      <ul className="flex justify-between items-center bg-white px-4">
+      <ul className="flex justify-between items-center bg-white px-4 h-20">
         <li className="pr-3.5">
           <a href={PATH_NAME.HOME} onClick={() => selectMode(NAV_MODE.HOME)}>
             {navMode == NAV_MODE.HOME ? (
@@ -32,7 +32,10 @@ export const FooterNav = () => {
           </a>
         </li>
         <li className="pr-3.5">
-          <a href="" onClick={() => selectMode(NAV_MODE.MESSAGE)}>
+          <a
+            href={PATH_NAME.Message}
+            onClick={() => selectMode(NAV_MODE.MESSAGE)}
+          >
             {navMode == NAV_MODE.MESSAGE ? (
               <img
                 src={message_click}
@@ -45,7 +48,10 @@ export const FooterNav = () => {
           </a>
         </li>
         <li className="pr-3.5">
-          <a href="" onClick={() => selectMode(NAV_MODE.COMMUNITY)}>
+          <a
+            href={PATH_NAME.COMMUNITY}
+            onClick={() => selectMode(NAV_MODE.COMMUNITY)}
+          >
             {navMode == NAV_MODE.COMMUNITY ? (
               <img
                 src={community_click}
@@ -71,7 +77,10 @@ export const FooterNav = () => {
           </a>
         </li>
         <li>
-          <a href="" onClick={() => selectMode(NAV_MODE.MY_PAGE)}>
+          <a
+            href={PATH_NAME.MY_PAGE}
+            onClick={() => selectMode(NAV_MODE.MY_PAGE)}
+          >
             {navMode == NAV_MODE.MY_PAGE ? (
               <img
                 src={myPage_click}

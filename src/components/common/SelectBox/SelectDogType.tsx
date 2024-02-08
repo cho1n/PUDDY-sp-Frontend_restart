@@ -20,7 +20,6 @@ export const SelectDogType = (props: SelectDogTypeProps) => {
         const dogTypes: DogTypes = res.data;
         const types = dogTypes.dogTypes.map((dogType) => dogType.content);
         setDogTypeList(types);
-        console.log(dogTypeList);
       })
       .catch((err) => {
         console.log(err);
@@ -34,8 +33,15 @@ export const SelectDogType = (props: SelectDogTypeProps) => {
       value: props.content,
       onChange: props.onChange,
     },
-    dogTypeList.map((dogType) =>
-      React.createElement("option", { key: dogType, value: dogType }, dogType)
-    )
+    [
+      React.createElement(
+        "option",
+        { key: "", value: "", disabled: true },
+        "견종을 선택하세요."
+      ),
+      dogTypeList.map((dogType) =>
+        React.createElement("option", { key: dogType, value: dogType }, dogType)
+      ),
+    ]
   );
 };

@@ -1,23 +1,14 @@
 import { useState } from "react";
 import { PostDogInputType } from "../types/sign";
-import { CheckRegisterNum, PostDogWithSignUp } from "../apis/DogApi";
+import { CheckRegisterNum, PostDog, PostDogWithSignUp } from "../apis/DogApi";
 import { DateType } from "../types/date";
-import AWS from "aws-sdk";
-window.AWS = AWS;
+import { useNavigate } from "react-router-dom";
+import { upLoadS3 } from "./useS3";
+import { useReissueToken } from "./useCommon";
 export const usePostDogWithSignUp = () => {
-  const config = {
-    bucketName: import.meta.env.VITE_BUCKET_NAME,
-    region: import.meta.env.VITE_REGION,
-    accessKeyId: import.meta.env.VITE_ACCESS,
-    secretAccessKey: import.meta.env.VITE_SECRET,
-  };
-  AWS.config.update({
-    region: config.region,
-    accessKeyId: config.accessKeyId,
-    secretAccessKey: config.secretAccessKey,
-  });
-  const s3 = new AWS.S3();
-  const [file, setFile] = useState<File | null>(null);
+  const { getReissueToken } = useReissueToken();
+  const navigate = useNavigate();
+  const [file, setFile] = useState<File>(new File([""], "filename"));
   const [postDogValue, setPostDogValue] = useState<PostDogInputType>({
     image: "",
     registerNum: "",
@@ -73,24 +64,6 @@ export const usePostDogWithSignUp = () => {
       reader.readAsDataURL(file);
     }
   };
-  const upLoadS3 = async () => {
-    const uploadPromise = () => {
-      const params = {
-        Bucket: config.bucketName,
-        Key: postDogValue.name + "_" + postDogValue.registerNum,
-        Body: file,
-      };
-      return s3.upload(params).promise();
-    };
-    try {
-      const result = await Promise.resolve(uploadPromise());
-      return result.Location;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  };
-
   const handleDateSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDateValue({
       ...dateValue,
@@ -113,15 +86,18 @@ export const usePostDogWithSignUp = () => {
       postDogValue.image === "" ||
       postDogValue.name === "" ||
       postDogValue.tags.length === 0 ||
-      postDogValue.type === "" ||
-      postDogValue.tags.length === 0
+      postDogValue.type === ""
     ) {
       alert("모든 정보를 입력해주세요.");
       return;
     }
     const id = localStorage.getItem("id");
     if (id) {
-      postDogValue.image = await upLoadS3();
+      postDogValue.image = await upLoadS3(
+        postDogValue.name,
+        postDogValue.registerNum,
+        file
+      );
       let month = `${dateValue.month}`;
       let day = `${dateValue.day}`;
       if (dateValue.month < 10) {
@@ -132,15 +108,53 @@ export const usePostDogWithSignUp = () => {
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
       PostDogWithSignUp(id, postDogValue)
-        .then((res) => {
+        .then(() => {
           alert("강아지 등록이 완료되었습니다.");
           window.location.reload();
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 404) {
+            alert("존재하지 않는 회원입니다.");
+            navigate("/");
+          }
         });
     }
+  };
+  const handlePostDogWithOutSignUp = async () => {
+    if (
+      isCorrectRegisterNum !== 1 ||
+      postDogValue.image === "" ||
+      postDogValue.name === "" ||
+      postDogValue.tags.length === 0 ||
+      postDogValue.type === ""
+    ) {
+      alert("모든 정보를 입력해주세요.");
+      return;
+    }
+    postDogValue.image = await upLoadS3(
+      postDogValue.name,
+      postDogValue.registerNum,
+      file
+    );
+    let month = `${dateValue.month}`;
+    let day = `${dateValue.day}`;
+    if (dateValue.month < 10) {
+      month = `0${dateValue.month}`;
+    }
+    if (dateValue.day < 10) {
+      day = `0${dateValue.day}`;
+    }
+    postDogValue.birth = `${dateValue.year}-${month}-${day}`;
+    PostDog(postDogValue)
+      .then(() => {
+        alert("강아지 등록이 완료되었습니다.");
+        navigate("/mypage");
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          getReissueToken("/mypage/postdog");
+        }
+      });
   };
   const handlePostDogFinish = async () => {
     if (
@@ -156,7 +170,11 @@ export const usePostDogWithSignUp = () => {
     }
     const id = localStorage.getItem("id");
     if (id) {
-      postDogValue.image = await upLoadS3();
+      postDogValue.image = await upLoadS3(
+        postDogValue.name,
+        postDogValue.registerNum,
+        file
+      );
       let month = `${dateValue.month}`;
       let day = `${dateValue.day}`;
       if (dateValue.month < 10) {
@@ -166,14 +184,17 @@ export const usePostDogWithSignUp = () => {
         day = `0${dateValue.day}`;
       }
       postDogValue.birth = `${dateValue.year}-${month}-${day}`;
-      console.log(postDogValue);
       PostDogWithSignUp(id, postDogValue)
-        .then((res) => {
+        .then(() => {
           alert("강아지 등록이 완료되었습니다.");
-          console.log(res);
+          navigate("/");
+          localStorage.removeItem("id");
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 404) {
+            alert("존재하지 않는 회원입니다.");
+            navigate("/");
+          }
         });
     }
   };
@@ -206,5 +227,6 @@ export const usePostDogWithSignUp = () => {
     handleCheckRegisterNum,
     handlePostDog,
     handlePostDogFinish,
+    handlePostDogWithOutSignUp,
   };
 };

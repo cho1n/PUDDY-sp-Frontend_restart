@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface TagButtonProps {
   content: string;
   onChange: (content: string) => void;
+  check: boolean;
 }
 
 export const TagButton = (props: TagButtonProps) => {
   const [clicked, setClicked] = useState(false);
-  const style =
-    "rounded-2xl h-6 text-smallFont " + (clicked ? "bg-bgYellow" : "bg-bgGray");
+  const style = "rounded-2xl h-6 px-2 mr-2 text-smallFont " + (clicked ? "bg-bgYellow" : "bg-bgGray");
+  useEffect(() => {
+    if (props.check) {
+      setClicked(props.check);
+    }
+  }, [props.check]);
   return (
     <input
       className={style}

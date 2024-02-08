@@ -17,3 +17,11 @@ export const CheckLogin = (login: string) => {
 export const CheckAddress = (mainAddress: string) => {
   return apiClient.get(`/api/kakao/address?mainAddress=${mainAddress}`);
 };
+export const ReissueToken = () => {
+  return apiClient.post("/api/auth/reissue", {
+    headers: {
+      Authorization: localStorage.getItem("accessToken"),
+      Reauthorization: localStorage.getItem("refreshToken"),
+    },
+  });
+};
