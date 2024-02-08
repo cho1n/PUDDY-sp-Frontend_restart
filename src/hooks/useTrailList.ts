@@ -17,6 +17,7 @@ export const useTrailList = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
   const [content, setContent] = useState<string>("");
+  const [star, setStar] = useState<number>(0);
   const [trailList, setTrailList] = useState<TrailReviewListType>({
     count: 0,
     trailReviews: [],
@@ -28,6 +29,7 @@ export const useTrailList = () => {
     GetTrailReviewList(trailIdNumber, page)
       .then((res) => {
         setTrailList(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -84,9 +86,11 @@ export const useTrailList = () => {
     currentPage: page,
     content,
     trailIdNumber,
+    star,
     handleWriteTrail,
     handleDeleteTrail,
     handlePageChange,
     handleContent,
+    setStar,
   };
 };
