@@ -26,7 +26,7 @@ export const TrailWriteTemplate = (props: TrailWriteProps) => {
             key={i}
             src={i < props.star ? fullStar : emptyStar}
             alt="star"
-            className="w-8 h-8"
+            className="h-full"
             onClick={() => props.setStar(i + 1)}
           />
         ))}
