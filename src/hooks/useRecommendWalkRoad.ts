@@ -1,8 +1,10 @@
 import { UserAddress, UserLocation, WalkRoadType } from "../types/walkRoad";
 import { GetRecommendWalkRoad } from "../apis/RecommendWalkRoadApi";
 import { useState } from "react";
+import { useReissueToken } from "./useCommon";
 
 export const useRecommendWalkRoad = () => {
+  const { getReissueToken } = useReissueToken();
   const [walkRoadTypeList, setWalkRoadTypeList] = useState<WalkRoadType[]>([]);
   const [userLocation, setUserLocation] = useState<UserLocation>({
     lat: 0,
@@ -27,8 +29,11 @@ export const useRecommendWalkRoad = () => {
       setUserLocation(temp_location);
       setUserAddress(temp_mainAddress);
     } catch (e) {
-      console.log(e);
-      alert("산책로 추천 정보를 못 받아왔습니다.");
+      if (e.response.status === 403) {
+        getReissueToken("/mypage");
+      } else if (e.response.status === 404) {
+        alert("산책로가 존재하지 않습니다.");
+      }
     }
   };
 

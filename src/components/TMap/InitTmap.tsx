@@ -6,14 +6,8 @@ import {
   Properties,
   RouteInfo,
 } from "../../types/walkRoadRoute.ts";
-
-interface WalkRoadType {
-  startLat: number;
-  startLong: number;
-  endLat: number;
-  endLong: number;
-  name: string;
-}
+import { useNavigate } from "react-router-dom";
+import { WalkRoadType } from "../../types/walkRoad.ts";
 
 interface MapComponentProps {
   UserLat: number;
@@ -22,6 +16,7 @@ interface MapComponentProps {
 }
 
 export const MapComponent = (props: MapComponentProps) => {
+  const navigate = useNavigate();
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<Tmapv2.Map | null>(null);
   const [userLat, setUserLat] = useState<number>(0);
@@ -109,7 +104,7 @@ export const MapComponent = (props: MapComponentProps) => {
       const title =
         "총 거리 : " +
         (featureCollection.features[0].properties.totalDistance / 1000).toFixed(
-          1,
+          1
         ) +
         "km, " +
         "총 시간 : " +
@@ -119,7 +114,7 @@ export const MapComponent = (props: MapComponentProps) => {
       const marker_s = new Tmapv2.Marker({
         position: new Tmapv2.LatLng(
           featureCollection.road.startLat,
-          featureCollection.road.startLong,
+          featureCollection.road.startLong
         ),
         icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
         iconSize: new Tmapv2.Size(24, 38),
@@ -131,7 +126,7 @@ export const MapComponent = (props: MapComponentProps) => {
       const marker_e = new Tmapv2.Marker({
         position: new Tmapv2.LatLng(
           featureCollection.road.endLat,
-          featureCollection.road.endLong,
+          featureCollection.road.endLong
         ),
         icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
         iconSize: new Tmapv2.Size(24, 38),
@@ -142,10 +137,10 @@ export const MapComponent = (props: MapComponentProps) => {
       });
 
       marker_s.addListener("click", function (evt) {
-        console.log("마커 구분되냐? : ", featureCollection.road);
+        navigate(`/trail/${featureCollection.road.id}/review`);
       });
       marker_e.addListener("click", function (evt) {
-        console.log("마커 구분되냐? : ", featureCollection.road);
+        navigate(`/trail/${featureCollection.road.id}/review`);
       });
 
       markers.push(marker_s);
@@ -165,7 +160,7 @@ export const MapComponent = (props: MapComponentProps) => {
               new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latLng);
             const convertChange = new Tmapv2.LatLng(
               convertPoint._lat,
-              convertPoint._lng,
+              convertPoint._lng
             );
             drawInfoArr.push(convertChange);
           });
@@ -191,10 +186,10 @@ export const MapComponent = (props: MapComponentProps) => {
           }
           const latlon = new Tmapv2.Point(
             geometry.coordinates[0],
-            geometry.coordinates[1],
+            geometry.coordinates[1]
           );
           const convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-            latlon,
+            latlon
           );
 
           const routeInfoObj: RouteInfo = {
