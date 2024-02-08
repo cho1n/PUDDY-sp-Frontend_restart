@@ -1,4 +1,5 @@
 export interface WalkRoadType {
+  id: number;
   name: string;
   startLat: number;
   startLong: number;
