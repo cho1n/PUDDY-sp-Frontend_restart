@@ -1,3 +1,5 @@
+import { WalkRoadType } from "./walkRoad.ts";
+
 export interface Geometry {
   type: string;
   coordinates: number[] | number[][];
@@ -29,6 +31,7 @@ export interface Feature {
 
 export interface FeatureCollection {
   type: string;
+  road: WalkRoadType;
   features: Feature[];
 }
 
