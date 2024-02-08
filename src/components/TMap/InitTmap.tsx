@@ -1,235 +1,243 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { handleWalkRoadRoute } from "../../hooks/useTmapApi.ts";
+import {
+  FeatureCollection,
+  Geometry,
+  Properties,
+  RouteInfo,
+} from "../../types/walkRoadRoute.ts";
+
+interface WalkRoadType {
+  startLat: number;
+  startLong: number;
+  endLat: number;
+  endLong: number;
+  name: string;
+}
 
 interface MapComponentProps {
   UserLat: number;
   UserLong: number;
-  RoadStartLat: number;
-  RoadEndLat: number;
-  RoadStartLong: number;
-  RoadEndLong: number;
+  WalkRoadTypeList: WalkRoadType[];
 }
 
-const TMAP_API_KEY = import.meta.env.VITE_TMAP_API_KEY;
-
 export const MapComponent = (props: MapComponentProps) => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<Tmapv2.Map | null>(null);
   const [userLat, setUserLat] = useState<number>(0);
   const [userLong, setUserLong] = useState<number>(0);
-  const [roadStartLat, setRoadStartLat] = useState<number>(0);
-  const [roadEndLat, setRoadEndLat] = useState<number>(0);
-  const [roadStartLong, setRoadStartLong] = useState<number>(0);
-  const [roadEndLong, setRoadEndLong] = useState<number>(0);
+  const [walkRoadTypeList, setWalkRoadTypeList] = useState<WalkRoadType[]>([]);
+  const [featureCollection, setFeatureCollection] = useState<
+    FeatureCollection[]
+  >([]);
 
-  const executeScript = () => {
-    // alert("executeScript");
-    const scriptTag = document.createElement("script");
-    const inlineScript = document.createTextNode(`
-      var map;
-      var marker_s, marker_e, marker_p1, marker_p2;
-      var totalMarkerArr = [];
-      var drawInfoArr = [];
-      var resultdrawArr = [];
-    
-      map = new window.Tmapv2.Map("map_div" , {
-        center: new window.Tmapv2.LatLng(${userLat}, ${userLong}), // 지도 초기 좌표
-        width: "363px",
-        height: "501px",
-        zoom: 14
-      });
-      
-      marker_s = new Tmapv2.Marker({
-          position: new Tmapv2.LatLng(${roadStartLat}, ${roadStartLong}),
-          icon: "/upload/tmap/marker/pin_r_m_s.png",
-          iconSize: new Tmapv2.Size(24, 38),
-          map: map
-      });
+  const initializeMap = () => {
+    if (userLat === 0 || userLong === 0 || !mapRef.current || map) return;
 
-      // 도착
-      marker_e = new Tmapv2.Marker({
-          position: new Tmapv2.LatLng(${roadEndLat}, ${roadEndLong}),
-          icon: "/upload/tmap/marker/pin_r_m_e.png",
-          iconSize: new Tmapv2.Size(24, 38),
-          map: map
-      });
+    const initializedMap = new window.Tmapv2.Map(mapRef.current, {
+      center: new window.Tmapv2.LatLng(userLat, userLong),
+      width: "363px",
+      height: "501px",
+      zoom: 14,
+      zoomControl: true,
+      scrollWheel: true,
+    });
 
-      fetch("https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "appKey": "${TMAP_API_KEY}",
-        },
-        body: JSON.stringify({
-          "startX": "${roadStartLong}",
-          "startY": "${roadStartLat}",
-          "endX": "${roadEndLong}",
-          "endY": "${roadEndLat}",
-          "reqCoordType": "WGS84GEO",
-          "resCoordType": "EPSG3857",
-          "startName": "출발지",
-          "endName": "도착지"
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        var resultData = data.features;
-
-        //결과 출력
-        var tDistance = "총 거리 : " + (resultData[0].properties.totalDistance / 1000).toFixed(1) + "km,";
-        var tTime = " 총 시간 : " + (resultData[0].properties.totalTime / 60).toFixed(0) + "분";
-
-        var resultElement = document.getElementById("map_result");
-        resultElement.textContent = tDistance + tTime;
-
-        //기존 그려진 라인 & 마커가 있다면 초기화
-        if (resultdrawArr.length > 0) {
-            for (var i in resultdrawArr) {
-                resultdrawArr[i].setMap(null);
-            }
-            resultdrawArr = [];
-        }
-
-        drawInfoArr = [];
-
-        for (var i in resultData) {
-            var geometry = resultData[i].geometry;
-            var properties = resultData[i].properties;
-
-            if (geometry.type == "LineString") {
-                for (var j in geometry.coordinates) {
-                    // 경로들의 결과값(구간)들을 포인트 객체로 변환
-                    var latlng = new Tmapv2.Point(geometry.coordinates[j][0], geometry.coordinates[j][1]);
-                    // 포인트 객체를 받아 좌표값으로 변환
-                    var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlng);
-                    // 포인트객체의 정보로 좌표값 변환 객체로 저장
-                    var convertChange = new Tmapv2.LatLng(convertPoint._lat, convertPoint._lng);
-                    // 배열에 담기
-                    drawInfoArr.push(convertChange);
-                }
-            } else {
-                var markerImg = "";
-                var pType = "";
-                var size;
-
-                if (properties.pointType == "S") { //출발지 마커
-                    markerImg = "/upload/tmap/marker/pin_r_m_s.png";
-                    pType = "S";
-                    size = new Tmapv2.Size(24, 38);
-                } else if (properties.pointType == "E") { //도착지 마커
-                    markerImg = "/upload/tmap/marker/pin_r_m_e.png";
-                    pType = "E";
-                    size = new Tmapv2.Size(24, 38);
-                } else { //각 포인트 마커
-                    markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                    pType = "P";
-                    size = new Tmapv2.Size(8, 8);
-                }
-
-                // 경로들의 결과값들을 포인트 객체로 변환
-                var latlon = new Tmapv2.Point(geometry.coordinates[0], geometry.coordinates[1]);
-
-                // 포인트 객체를 받아 좌표값으로 다시 변환
-                var convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latlon);
-
-                var routeInfoObj = {
-                    markerImage: markerImg,
-                    lng: convertPoint._lng,
-                    lat: convertPoint._lat,
-                    pointType: pType
-                };
-
-                // Marker 추가
-                marker_p = new Tmapv2.Marker({
-                    position: new Tmapv2.LatLng(routeInfoObj.lat, routeInfoObj.lng),
-                    icon: routeInfoObj.markerImage,
-                    iconSize: size,
-                    map: map
-                });
-            }
-        }
-        drawLine(drawInfoArr);
-      })
-      .catch(error => console.error("!!!!Error: ", error));
-    
-      function addComma(num) {
-          var regexp = /\\B(?=(\\d{3})+(?!\\d))/g;
-          return num.toString().replace(regexp, ',');
-      }
-
-      function drawLine(arrPoint) {
-          var polyline_;
-
-          polyline_ = new Tmapv2.Polyline({
-              path: arrPoint,
-              strokeColor: "#DD0000",
-              strokeWeight: 6,
-              map: map
-          });
-          resultdrawArr.push(polyline_);
-      }
-    `);
-    scriptTag.appendChild(inlineScript);
-    document.body.appendChild(scriptTag);
+    setMap(initializedMap);
   };
 
-  const InstallScript = () => {
-    (function () {
-      // alert("installScript");
-      var _nu = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-      var domian = "topopentile1";
-      if (_nu == 1) {
-        domian = "topopentile1";
-      } else if (_nu == 2) {
-        domian = "topopentile2";
-      } else {
-        domian = "topopentile3";
-      }
-      var a = typeof Tmapv2 == "object" && Tmapv2.singleFile;
-      var c = window.Tmapv2;
-      window.Tmapv2 = {
-        _getScriptLocation: function () {
-          return "https://" + domian + ".tmap.co.kr/scriptSDKV2/";
-        },
-        VERSION_NUMBER: Math.random(),
-      };
-      if (!a) {
-        if (!c) {
-          c = ["tmapjs2.min.js?version=20231206"];
-        }
-        var d = new Array(c.length);
-        var e = Tmapv2._getScriptLocation();
-        for (var f = 0, g = c.length; f < g; f++) {
-          d[f] = e + c[f];
-        }
+  const loadTmapScript = () => {
+    const script = document.createElement("script");
+    script.src =
+      "https://topopentile1.tmap.co.kr/scriptSDKV2/tmapjs2.min.js?version=20231206";
+    script.async = true;
+    script.onload = initializeMap;
+    document.head.appendChild(script);
+  };
 
-        if (d.length > 0) {
-          d.forEach((src) => {
-            const scriptTag = document.createElement("script");
-            scriptTag.src = src;
-            document.body.append(scriptTag);
-            scriptTag.onload = () => {
-              executeScript();
-            };
-          });
-        }
+  const handleRoutes = async () => {
+    try {
+      const tempResult: FeatureCollection[] = [];
+      for (const road of walkRoadTypeList) {
+        const response = await handleWalkRoadRoute(road);
+        response.road = road;
+        tempResult.push(response);
       }
-    })();
+      setFeatureCollection(tempResult);
+    } catch (error) {
+      console.error("TMap API 정보를 처리하지 못 했습니다. : ", error);
+    }
+  };
+
+  const drawLine = (arrPoint: Tmapv2.LatLng[]) => {
+    const polyline_ = new Tmapv2.Polyline({
+      path: arrPoint,
+      strokeColor: "#DD0000",
+      strokeWeight: 6,
+      map: map,
+    });
+  };
+
+  const handleClick = (evt) => {
+    console.log("MOUSE CLICKED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
   };
 
   useEffect(() => {
-    if (userLat !== 0 && userLong !== 0) InstallScript();
+    if (!window.Tmapv2) {
+      loadTmapScript();
+      console.log(userLat);
+      console.log(userLong);
+    } else {
+      initializeMap();
+    }
   }, [userLat, userLong]);
+
+  useEffect(() => {
+    if (!(walkRoadTypeList.length !== 0 && map)) return;
+
+    console.log("SUCCESS!!!!!!!!!!!!!");
+    console.log(featureCollection);
+
+    const totalMarkerArr = [];
+    const markers: Tmapv2.Marker[] = [];
+
+    featureCollection.map((featureCollection) => {
+      const label =
+        "<span style='background-color: #46414E;color:white'>" +
+        featureCollection.road.name +
+        "</span>";
+      const title =
+        "총 거리 : " +
+        (featureCollection.features[0].properties.totalDistance / 1000).toFixed(
+          1,
+        ) +
+        "km, " +
+        "총 시간 : " +
+        (featureCollection.features[0].properties.totalTime / 60).toFixed(0) +
+        "분";
+
+      const marker_s = new Tmapv2.Marker({
+        position: new Tmapv2.LatLng(
+          featureCollection.road.startLat,
+          featureCollection.road.startLong,
+        ),
+        icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+        iconSize: new Tmapv2.Size(24, 38),
+        // title: featureCollection.road.name,
+        title: title,
+        label: label,
+        map: map,
+      });
+      const marker_e = new Tmapv2.Marker({
+        position: new Tmapv2.LatLng(
+          featureCollection.road.endLat,
+          featureCollection.road.endLong,
+        ),
+        icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+        iconSize: new Tmapv2.Size(24, 38),
+        // title: featureCollection.road.name,
+        title: title,
+        label: label,
+        map: map,
+      });
+
+      marker_s.addListener("click", function (evt) {
+        console.log("마커 구분되냐? : ", featureCollection.road);
+      });
+      marker_e.addListener("click", function (evt) {
+        console.log("마커 구분되냐? : ", featureCollection.road);
+      });
+
+      markers.push(marker_s);
+      markers.push(marker_e);
+
+      const drawInfoArr = [];
+      featureCollection.features.map((feature, index) => {
+        const geometry: Geometry = feature.geometry;
+        const properties: Properties = feature.properties;
+        const type = feature.type;
+
+        if (geometry.type === "LineString") {
+          geometry.coordinates.map((coordinates) => {
+            console.log(coordinates[0], coordinates[1]);
+            const latLng = new Tmapv2.Point(coordinates[0], coordinates[1]);
+            const convertPoint =
+              new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latLng);
+            const convertChange = new Tmapv2.LatLng(
+              convertPoint._lat,
+              convertPoint._lng,
+            );
+            drawInfoArr.push(convertChange);
+          });
+        } else {
+          let markerImg = "";
+          let pType = "";
+          let size;
+
+          if (properties.pointType === "S") {
+            markerImg =
+              "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+            pType = "S";
+            size = new Tmapv2.Size(24, 38);
+          } else if (properties.pointType === "E") {
+            markerImg =
+              "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+            pType = "E";
+            size = new Tmapv2.Size(24, 38);
+          } else {
+            markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+            pType = "P";
+            size = new Tmapv2.Size(8, 8);
+          }
+          const latlon = new Tmapv2.Point(
+            geometry.coordinates[0],
+            geometry.coordinates[1],
+          );
+          const convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
+            latlon,
+          );
+
+          const routeInfoObj: RouteInfo = {
+            markerImage: markerImg,
+            lng: convertPoint._lng,
+            lat: convertPoint._lat,
+            pointType: pType,
+          };
+
+          const marker_p = new Tmapv2.Marker({
+            position: new Tmapv2.LatLng(routeInfoObj.lat, routeInfoObj.lng),
+            icon: routeInfoObj.markerImage,
+            iconSize: size,
+            map: map,
+          });
+
+          totalMarkerArr.push(marker_p);
+        }
+      });
+      drawLine(drawInfoArr);
+    });
+  }, [map, featureCollection]);
+
   useEffect(() => {
     setUserLat(props.UserLat);
     setUserLong(props.UserLong);
-    setRoadStartLat(props.RoadStartLat);
-    setRoadEndLat(props.RoadEndLat);
-    setRoadStartLong(props.RoadStartLong);
-    setRoadEndLong(props.RoadEndLong);
+    setWalkRoadTypeList(props.WalkRoadTypeList);
   }, [props]);
+
+  useEffect(() => {
+    handleRoutes();
+  }, [walkRoadTypeList]);
 
   return (
     <>
-      <div id="map_div" className="inline-block" />
-      <div id="map_result" className="inline-block" />
+      {userLat !== 0 && userLong !== 0 ? (
+        <>
+          <div ref={mapRef} className="inline-block" />
+          <h1 id="result" />
+        </>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 };
