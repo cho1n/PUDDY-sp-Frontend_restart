@@ -25,7 +25,7 @@ export const Trail = (props: TrailProps) => {
         />
         <div className="flex flex-col w-64 ml-1 justify-start items-start">
           <div className="flex flex-row">
-            <div className="flex w-56 h-10 text-ellipsis overflow-hidden">
+            <div className="flex w-56 min-h-10 text-ellipsis overflow-hidden">
               <p className="text-smallFont text-start mt-1">{props.content}</p>
             </div>
 
