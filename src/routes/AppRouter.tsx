@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RecommendWalkRoadPage } from "../pages/RecommendWalkRoadPage.tsx";
 import {
   SignInPage,
   SignUpPage,
@@ -25,6 +26,7 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/find-walk-road" element={<RecommendWalkRoadPage />} />
         <Route path="/postdog" element={<PostDogPageWithSignUp />} />
         <Route path="/match" element={<MatchPage />} />
         <Route path="/alert" element={<AlertPage />} />
