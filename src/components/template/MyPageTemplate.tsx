@@ -1,6 +1,6 @@
 import { useMyPage } from "../../hooks/useMyPage";
 import mainIcon from "../../assets/MyPage/Veterinarian.svg";
-import pencilIcon from "../../assets/MyPage/pencil.svg";
+import pencilIcon from "../../assets/MyPage/Pencil.svg";
 import settingIcon from "../../assets/MyPage/Vector.svg";
 import { Button } from "../common/Button/Button";
 
@@ -82,7 +82,7 @@ export const MyPageTemplate = () => {
                     text={"프로필 수정"}
                     onClick={() =>
                       myPageData.buttonDogNavigate(
-                        `/mypage/dogprofile/${dog.id}`
+                        `/mypage/dogprofile/${dog.id}`,
                       )
                     }
                   />
@@ -118,7 +118,7 @@ export const MyPageTemplate = () => {
                     text={"프로필 수정"}
                     onClick={() =>
                       myPageData.buttonDogNavigate(
-                        `/mypage/dogprofile/${dog.id}`
+                        `/mypage/dogprofile/${dog.id}`,
                       )
                     }
                   />
