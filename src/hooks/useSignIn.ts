@@ -6,10 +6,7 @@ import useNavStore from "../store/useNavstore";
 import { NAV_MODE } from "../constants/footerNav";
 
 export const useSignIn = () => {
-  const [navMode, selectMode] = useNavStore((state) => [
-    state.navMode,
-    state.selectMode,
-  ]);
+  const [selectMode] = useNavStore((state) => [state.selectMode]);
   const navigate = useNavigate();
   const [signInValue, setSignInValue] = useState<SignInInputType>({
     login: "",
