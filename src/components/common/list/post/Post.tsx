@@ -1,7 +1,6 @@
 import { PostType } from "../../../../types/community";
 import thumbUp from "../../../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../../../assets/Community/ChatBubble.svg";
-import { useEffect } from "react";
 
 interface PostProps extends PostType {
   onClick: (postId: number) => void;
