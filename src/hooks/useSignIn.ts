@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SignInInputType } from "../types/sign";
 import { SignIn } from "../apis/SignApi";
 import { useNavigate } from "react-router-dom";
+import useNavStore from "../store/useNavstore";
+import { NAV_MODE } from "../constants/footerNav";
 
 export const useSignIn = () => {
+  const [navMode, selectMode] = useNavStore((state) => [
+    state.navMode,
+    state.selectMode,
+  ]);
   const navigate = useNavigate();
   const [signInValue, setSignInValue] = useState<SignInInputType>({
     login: "",
@@ -23,6 +29,7 @@ export const useSignIn = () => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         alert("로그인이 완료되었습니다.");
+        selectMode(NAV_MODE.HOME);
         navigate("/match");
       })
       .catch((err) => {
@@ -36,5 +43,10 @@ export const useSignIn = () => {
   const handleSignUp = () => {
     navigate("/signup");
   };
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      navigate("/match");
+    }
+  }, []);
   return { signInValue, handleSignInChange, handleSignIn, handleSignUp };
 };
