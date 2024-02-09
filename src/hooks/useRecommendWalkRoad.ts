@@ -2,6 +2,7 @@ import { UserAddress, UserLocation, WalkRoadType } from "../types/walkRoad";
 import { GetRecommendWalkRoad } from "../apis/RecommendWalkRoadApi";
 import { useState } from "react";
 import { useReissueToken } from "./useCommon";
+import { AxiosError } from "axios";
 
 export const useRecommendWalkRoad = () => {
   const { getReissueToken } = useReissueToken();
@@ -17,7 +18,6 @@ export const useRecommendWalkRoad = () => {
   const handleWalkRoad = async () => {
     try {
       const response = await GetRecommendWalkRoad();
-      console.log(response.data);
       setWalkRoadTypeList(response.data["trails"]);
       const temp_location: UserLocation = {
         lat: response.data["myLat"],
@@ -28,11 +28,16 @@ export const useRecommendWalkRoad = () => {
       };
       setUserLocation(temp_location);
       setUserAddress(temp_mainAddress);
-    } catch (e) {
-      if (e.response.status === 403) {
-        getReissueToken("/mypage");
-      } else if (e.response.status === 404) {
-        alert("산책로가 존재하지 않습니다.");
+    } catch (error) {
+      const e = error as AxiosError;
+      if (e.response) {
+        if (e.response.status === 403) {
+          getReissueToken("/mypage");
+        } else if (e.response.status === 404) {
+          alert("산책로가 존재하지 않습니다.");
+        }
+      } else {
+        console.error(e);
       }
     }
   };
