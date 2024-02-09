@@ -28,7 +28,7 @@ export const useRecommendWalkRoad = () => {
       };
       setUserLocation(temp_location);
       setUserAddress(temp_mainAddress);
-    } catch (e) {
+    } catch (e: any) {
       if (e.response.status === 403) {
         getReissueToken("/mypage");
       } else if (e.response.status === 404) {
