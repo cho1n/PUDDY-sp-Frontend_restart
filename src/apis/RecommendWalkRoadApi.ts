@@ -16,8 +16,6 @@ export const GetRecommendWalkRoad = () => {
 export const GetWalkRoadRoute = (
   road: WalkRoadType,
 ): Promise<AxiosResponse<FeatureCollection>> => {
-  console.log(road.startLat);
-  console.log(road.startLong);
   return apiTmap.post(
     `tmap/routes/pedestrian?version=1&format=json&appKey=${import.meta.env.VITE_TMAP_API_KEY}`,
     {

@@ -3,6 +3,8 @@
 
 .idea
 
+dist
+
 ### macOS ###
 # General
 .DS_Store

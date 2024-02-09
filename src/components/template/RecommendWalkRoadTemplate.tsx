@@ -10,8 +10,6 @@ interface RecommendWalkRoadTemplateProps {
 export const RecommendWalkRoadTemplate = (
   props: RecommendWalkRoadTemplateProps,
 ) => {
-  console.log(props.walkRoadTypeList);
-
   return (
     <div className="h-full">
       <MapComponent

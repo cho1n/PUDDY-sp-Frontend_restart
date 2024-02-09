@@ -1,7 +1,6 @@
 import { PostType } from "../../../../types/community";
 import thumbUp from "../../../../assets/Community/ThumbUp.svg";
 import chatBubble from "../../../../assets/Community/ChatBubble.svg";
-import { useEffect } from "react";
 
 interface PostProps extends PostType {
   onClick: (postId: number) => void;
@@ -41,9 +40,13 @@ export const Post = (props: PostProps) => {
                 {props.createdAt} {" | "} {props.person.dog.name} {gender}
               </p>
               <div className="flex ml-0">
-                <img className="w-5 h-5" src={thumbUp} />
+                <img className="w-5 h-5" src={thumbUp} alt="thumbUp" />
                 <p className="ml-1">{props.likeCount}</p>
-                <img className="w-5 h-5 ml-4 mt-0.5" src={chatBubble} />
+                <img
+                  className="w-5 h-5 ml-4 mt-0.5"
+                  src={chatBubble}
+                  alt="chatBubble"
+                />
                 <p className="ml-1">{props.commentCount}</p>
               </div>
             </div>

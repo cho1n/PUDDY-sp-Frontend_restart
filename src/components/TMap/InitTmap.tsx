@@ -15,16 +15,23 @@ interface MapComponentProps {
   WalkRoadTypeList: WalkRoadType[];
 }
 
+declare global {
+  interface Window {
+    Tmapv2: any;
+  }
+}
+
 export const MapComponent = (props: MapComponentProps) => {
   const navigate = useNavigate();
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<Tmapv2.Map | null>(null);
+  const [map, setMap] = useState<any | null>(null);
   const [userLat, setUserLat] = useState<number>(0);
   const [userLong, setUserLong] = useState<number>(0);
   const [walkRoadTypeList, setWalkRoadTypeList] = useState<WalkRoadType[]>([]);
   const [featureCollection, setFeatureCollection] = useState<
     FeatureCollection[]
   >([]);
+  const { Tmapv2 } = window;
 
   const initializeMap = () => {
     if (userLat === 0 || userLong === 0 || !mapRef.current || map) return;
@@ -61,11 +68,12 @@ export const MapComponent = (props: MapComponentProps) => {
       setFeatureCollection(tempResult);
     } catch (error) {
       console.error("TMap API 정보를 처리하지 못 했습니다. : ", error);
+      alert("TMap API 정보를 처리하지 못 했습니다.");
     }
   };
 
-  const drawLine = (arrPoint: Tmapv2.LatLng[]) => {
-    const polyline_ = new Tmapv2.Polyline({
+  const drawLine = (arrPoint: any[]) => {
+    new Tmapv2.Polyline({
       path: arrPoint,
       strokeColor: "#DD0000",
       strokeWeight: 6,
@@ -73,28 +81,16 @@ export const MapComponent = (props: MapComponentProps) => {
     });
   };
 
-  const handleClick = (evt) => {
-    console.log("MOUSE CLICKED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  };
-
   useEffect(() => {
-    if (!window.Tmapv2) {
-      loadTmapScript();
-      console.log(userLat);
-      console.log(userLong);
-    } else {
-      initializeMap();
-    }
+    if (!window.Tmapv2) loadTmapScript();
+    else initializeMap();
   }, [userLat, userLong]);
 
   useEffect(() => {
     if (!(walkRoadTypeList.length !== 0 && map)) return;
 
-    console.log("SUCCESS!!!!!!!!!!!!!");
-    console.log(featureCollection);
-
     const totalMarkerArr = [];
-    const markers: Tmapv2.Marker[] = [];
+    const markers: any[] = [];
 
     featureCollection.map((featureCollection) => {
       const label =
@@ -103,22 +99,23 @@ export const MapComponent = (props: MapComponentProps) => {
         "</span>";
       const title =
         "총 거리 : " +
+        // @ts-ignore
         (featureCollection.features[0].properties.totalDistance / 1000).toFixed(
-          1
+          1,
         ) +
         "km, " +
         "총 시간 : " +
+        // @ts-ignore
         (featureCollection.features[0].properties.totalTime / 60).toFixed(0) +
         "분";
 
       const marker_s = new Tmapv2.Marker({
         position: new Tmapv2.LatLng(
           featureCollection.road.startLat,
-          featureCollection.road.startLong
+          featureCollection.road.startLong,
         ),
         icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
         iconSize: new Tmapv2.Size(24, 38),
-        // title: featureCollection.road.name,
         title: title,
         label: label,
         map: map,
@@ -126,41 +123,39 @@ export const MapComponent = (props: MapComponentProps) => {
       const marker_e = new Tmapv2.Marker({
         position: new Tmapv2.LatLng(
           featureCollection.road.endLat,
-          featureCollection.road.endLong
+          featureCollection.road.endLong,
         ),
         icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
         iconSize: new Tmapv2.Size(24, 38),
-        // title: featureCollection.road.name,
         title: title,
         label: label,
         map: map,
       });
 
-      marker_s.addListener("click", function (evt) {
+      marker_s.addListener("click", function () {
         navigate(`/trail/${featureCollection.road.id}/review`);
       });
-      marker_e.addListener("click", function (evt) {
+      marker_e.addListener("click", function () {
         navigate(`/trail/${featureCollection.road.id}/review`);
       });
 
       markers.push(marker_s);
       markers.push(marker_e);
 
-      const drawInfoArr = [];
-      featureCollection.features.map((feature, index) => {
+      const drawInfoArr: any[] = [];
+      featureCollection.features.map((feature) => {
         const geometry: Geometry = feature.geometry;
         const properties: Properties = feature.properties;
-        const type = feature.type;
 
         if (geometry.type === "LineString") {
           geometry.coordinates.map((coordinates) => {
-            console.log(coordinates[0], coordinates[1]);
+            // @ts-ignore
             const latLng = new Tmapv2.Point(coordinates[0], coordinates[1]);
             const convertPoint =
               new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(latLng);
             const convertChange = new Tmapv2.LatLng(
               convertPoint._lat,
-              convertPoint._lng
+              convertPoint._lng,
             );
             drawInfoArr.push(convertChange);
           });
@@ -186,10 +181,10 @@ export const MapComponent = (props: MapComponentProps) => {
           }
           const latlon = new Tmapv2.Point(
             geometry.coordinates[0],
-            geometry.coordinates[1]
+            geometry.coordinates[1],
           );
           const convertPoint = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(
-            latlon
+            latlon,
           );
 
           const routeInfoObj: RouteInfo = {
