@@ -40,7 +40,6 @@ export const useMessage = () => {
             `/sub/chat/${chatId}`,
             (message) => {
               const newMessage = JSON.parse(message.body);
-              console.log(newMessage);
               setChatDetailValue((prev) => ({
                 ...prev,
                 messages: [...prev.messages, newMessage],

@@ -75,16 +75,19 @@ export const usePost = () => {
 
   const handleCreateComment = (postId: number, content: string) => {
     postComment(postId, content);
+    alert("댓글이 등록되었습니다.");
     window.location.reload();
   };
 
   const handlePatchComment = (commentId: number, content: string) => {
     patchComment(post.id, commentId, content);
+    alert("댓글이 수정되었습니다.");
     window.location.reload();
   };
 
   const handleDeleteComment = (commentId: number) => {
     deleteComment(post.id, commentId);
+    alert("댓글이 삭제되었습니다.");
     window.location.reload();
   };
 
@@ -92,6 +95,7 @@ export const usePost = () => {
     patchPost(postId, postInputType)
       .then(() => {
         navigate("/post");
+        alert("게시글이 수정되었습니다.");
         window.location.reload();
       })
       .catch((err) => {
@@ -106,6 +110,7 @@ export const usePost = () => {
   const handleDeletePost = (postId: number) => {
     deletePost(postId)
       .then(() => {
+        alert("게시글이 삭제되었습니다.");
         navigate("/post");
         window.location.reload();
       })

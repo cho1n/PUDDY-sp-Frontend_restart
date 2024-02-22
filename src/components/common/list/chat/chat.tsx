@@ -15,7 +15,7 @@ export const Chat = (props: ChatProps) => {
       <div className="flex flex-row justify-start items-center w-full">
         <img
           src={props.person?.dog.image}
-          className="w-20 h-20 mr-4 rounded-full"
+          className="w-20 h-20 mr-3 rounded-full"
           alt="dog"
         />
         <p className="flex items-center text-middleFont h-10 text-fontBlack">
